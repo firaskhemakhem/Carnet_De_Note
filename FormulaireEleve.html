@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="Eleve.css" />
+        <title>Eleve</title>
+
+        <!--<script language="javascript">
+            function validation_gouvernorat(gouvernorat) {
+                if (gouvernorat.value == "") {
+                    alert("Vous devez saisir votre gouvernorat!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_delegation(delegation) {
+                if (delegation.value == "") {
+                    alert("Vous devez saisir votre delegation!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_nomEcole(nomEcole) {
+                if (nomEcole.value == "") {
+                    alert("Vous devez saisir votre ecole!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_nom(nom) {
+                if (nom.value == "") {
+                    alert("Vous devez saisir votre nom!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_prenom(prenom) {
+                if (prenom.value == "") {
+                    alert("Vous devez saisir votre prenom!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_anneescolaire() {
+                if (anneescolaire.value == "") {
+                    alert("Vous devez saisir l'annee scolaire!");
+                    return false;
+                }
+            function validation_mdp(mdp) {
+                if (mdp.value == "") {
+                    alert("Vous devez saisir votre mot de passe!");
+                    return false;
+                }
+
+            function validation(gouvernorat, delegation, nomEcole, genre, nom, prenom, email, mdp){
+                return((validation_gouvernorat(gouvernorat)) && (validation_delegation(delegation)) && (validation_nomEcole(nomEcole)) && (validation_nom(nom)) && (validation_prenom(prenom)) && validation_anneescolaire(anneescolaire)) && validation_mdp(mdp));
+            }
+        </script>-->
+    </head>
+
+<body>
+    <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="eleve.php" >  <!--onsubmit="javascript:return validation(document.formulaire.gouvernorat,document.formulaire.delegation,document.formulaire.nomEcole,document.formulaire.genre,document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+
+        <div class="inscription">
+            <h3>Inscription</h3>
+            <fieldset>
+                <table>
+                   <tr>
+                        <td>Gouvernorat :</td>
+                        <td><input type="text" name="gouvernorat" id="gouvernorat" /></td>
+                    </tr><br />
+                    <tr>
+                        <td>Délégation :</td>
+                        <td><input type="text" name="delegation" id="delegation" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nom de l'école :</td>
+                        <td><input type="text" name="nomEcole" id="nomEcole" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nom :</td>
+                        <td><input type="text" name="nom" id="nom" /></td>
+                    </tr>
+                    <tr>
+                        <td>Prénom :</td>
+                        <td><input type="text" name="prenom" id="prenom" /></td>
+                    </tr>
+                    <tr>
+                        <td>Année scolaire: </td>
+                        <td><input type="text" name="anneescolaire" id="anneescolaire" /></td>
+                    </tr>
+                    <tr>
+                        <td>Mot de passe: </td>
+                        <td><input type="password" name="mdp" id="mdp" /></td>
+                    </tr>
+                </table><br />
+                <div class="envoi"><input type="submit" name="envoi" value="Envoyer" /></div><br />
+            </fieldset>
+        </div>
+    </form>
+
+    <form name="formulaire" method="POST" action="eleve.php" id="form">
+        <aside class="connexion">
+            <h3>Déjà inscrit? Connectez-vous!</h3>
+            <fieldset>
+                <table>
+                    <tr>
+                        <td>Nom: </td>
+                        <td><input type="text" name="nom" id="nom" /></td>
+                    </tr><br />
+                    <tr>
+                        <td>Prénom: </td>
+                        <td><input type="text" name="prenom" id="prenom" /></td>
+                    </tr><br />
+                    <tr>
+                        <td>Mot de passe: </td>
+                        <td><input type="password" name="mdp" id="mdp" /></td>
+                    </tr>
+                </table><br />
+                <div class="connx"><input type="submit" name="envoi" value="Connexion"/></div><br />
+            </fieldset>
+        </aside>
+    </form>
+</body>
+
+</html>
