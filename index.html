@@ -52,35 +52,35 @@
                     <legend>Inscription</legend>
                     <table>
                        <tr>
-                            <td>Gouvernorat :</td>
+                            <td><span class="label">Gouvernorat :</span></td>
                             <td><input type="text" name="gouvernorat" id="gouvernorat" /></td>
                         </tr><br />
                         <tr>
-                            <td>Délégation :</td>
+                            <td><span class="label">Délégation :</span></td>
                             <td><input type="text" name="delegation" id="delegation" /></td>
                         </tr>
                         <tr>
-                            <td>Nom de l'école :</td>
+                            <td><span class="label">Nom de l'école :</span></td>
                             <td><input type="text" name="nomEcole" id="nomEcole" /></td>
                         </tr>
                         <tr>
-                            <td>Genre :</td>
+                            <td><span class="label">Genre :</span></td>
                             <td><input type="text" name="genre" id="genre" /></td>
                         </tr>
                         <tr>
-                            <td>Nom :</td>
+                            <td><span class="label">Nom :</span></td>
                             <td><input type="text" name="nom" id="nom" /></td>
                         </tr>
                         <tr>
-                            <td>Prénom :</td>
+                            <td><span class="label">Prénom :</span></td>
                             <td><input type="text" name="prenom" id="prenom" /></td>
                         </tr>
                         <tr>
-                            <td>Email :</td>
+                            <td><span class="label">Email :</span></td>
                             <td><input type="text" name="email" id="email" /></td>
                         </tr>
                         <tr>
-                            <td>Mot de passe: </td>
+                            <td><span class="label">Mot de passe:</span></td>
                             <td><input type="password" name="mdp" id="mdp" /></td>
                         </tr>
                     </table><br />
@@ -89,17 +89,19 @@
             </div>
         </form>
 
+
         <form name="formulaire" method="POST" action="admin.php" id="form">
             <aside class="connexion">
-                <h3>Déjà inscrit? Connectez-vous!</h3>
+                <!--<h3>Déjà inscrit? Connectez-vous!</h3>-->
                 <fieldset>
+                    <legend>Déjà inscrit? Connectez-vous!</legend>
                     <table>
                         <tr>
-                            <td>Email: </td>
+                            <td><span class="label">Email:</span></td>
                             <td><input type="text" name="email" id="email" /></td>
                         </tr><br />
                         <tr>
-                            <td>Mot de passe: </td>
+                            <td><span class="label">Mot de passe:</span></td>
                             <td><input type="password" name="mdp" id="mdp" /></td>
                         </tr>
                     </table><br />
