@@ -89,12 +89,22 @@
                 return((validation_gouvernorat(gouvernorat)) && (validation_delegation(delegation)) && (validation_nomEcole(nomEcole)) && (validation_genre(genre) && (validation_nom(nom)) && (validation_prenom(prenom)) && validation_email(email)) && validation_mdp(mdp));
             }
         </script>-->
+        <script language="javascript">
+            document.forms["form"].style.visibility= "hidden";
+            document.forms["form"].style.display = "none";
+        </script>
     </head>
 
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    var div = document.getElementById('myDiv');
+    div.style.visibility = "hidden";
+    div.style.display = "none";
+</script>
     <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="admin.php" >  <!--onsubmit="javascript:return validation(document.formulaire.gouvernorat,document.formulaire.delegation,document.formulaire.nomEcole,document.formulaire.genre,document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
 
-        <div class="inscription">
+        <div class="inscription" >
             <h3>Inscription</h3>
             <fieldset>
                 <table>

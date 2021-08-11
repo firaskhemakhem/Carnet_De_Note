@@ -5,21 +5,73 @@ body{
     opacity: 0.8;
 }
 .button{
-    padding-left:250px;
-    padding-top:200px;
+    
+    width: 260px;
 }
 .butt1{
     padding-right: 30px;
+    padding-left:350px;
+    padding-top:200px;
 }
 .butt2{
-    padding-left: 30px;
+    /*padding-left: 30px;*/
+    padding-left:100px;
+    padding-top:200px;
 }
 .butt3{
-    padding-left: 60px;
-}
-button{
-    width: 250px;
+    /*padding-left: 60px;*/
+    padding-left:130px;
+    padding-top:200px;
+    
 }
 .logo{
     width: 250px;
+}
+.new_init1{
+    padding-right: 30px;
+    padding-left:350px;
+    padding: top -20px;
+}
+.new_init2{
+    padding-left:100px;
+    padding: top -20px;
+}
+.new_init3{
+    padding-left:130px;
+    padding: top -20px;
+}
+#testform{
+   display: none; 
+   visibility: hidden ;
+}
+.connexion{
+    margin-top: 20px;
+    width: 45%;
+    height: 270px;
+    float: right;
+    padding-right: 20px;
+}
+.inscription{
+    margin-top: 20px;
+    width: 45%;
+    height: 270px;
+    float: left;
+    padding-left: 20px;
+}
+input {
+    font: 1em sans-serif;
+    width: 200px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    margin-top: 5px;
+  }
+.envoi{
+    padding-left: 110px;
+  }
+.connx{
+    padding-left: 95px;
+  }
+  h3{
+    text-align: center;
+    color: steelblue;
 }
