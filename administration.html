@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Carnet de notes</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styleAdmin.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!--<script language="javascript">
+
+            function validation_nom(nom) {
+                if (nom.value == "") {
+                    alert("Vous devez saisir votre nom!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_prenom(prenom) {
+                if (prenom.value == "") {
+                    alert("Vous devez saisir votre prenom!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_email(email) {
+                if (email.value == "") {
+                    alert("Vous devez saisir votre email!");
+                    return false;
+                }
+            function validation_mdp(mdp) {
+                if (mdp.value == "") {
+                    alert("Vous devez saisir votre mot de passe!");
+                    return false;
+                }
+
+            aux1=email.value.lastIndexOf("@");
+            Login=email.value.substring(0,aux1);
+            aux2=email.value.lastIndexOf(".");
+            Extension=email.value.substring(aux2+1,ChampMail.length);
+            Domaine=email.value.substring(aux1+1,aux2);
+            
+            if(Login.length<=2)
+            {
+                alert("Ceci n'est pas une adresse mail valide !");
+                return false;
+            }
+        
+            if(Domaine.length<=1)
+            {
+                alert("Ceci n'est pas une adresse mail valide !");
+                return false;
+            }
+
+            if((Extension.length<2)||(Extension.length>3))
+            {
+                alert("Ceci n'est pas une adresse mail valide !");
+                return false;
+            }
+            return true;
+            }
+
+            function validation(nom, prenom, email, mdp){
+                return((validation_nom(nom)) && (validation_prenom(prenom)) && validation_email(email)) && validation_mdp(mdp));
+            }
+        </script>-->
+
+</head>
+
+<body>
+    <!--<nav class="nav nav-pills nav-fill">
+            <a class="nav-link active nav-item" href="#">Accueil</a>
+            <a class="nav-link nav-item" href="#">A propos</a>
+            <a class="nav-link nav-item" href="#">Services</a>
+            <a class="nav-link nav-item" href="#">Contact</a>
+          </nav>-->
+
+
+  <nav class="nav-bg navbar navbar-floating navbar-default" role="navigation" id="floating-nav">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#hidden-nav">
+                            <span class="sr-only">Toggle navigation</span> 
+                            <span class="icon-bar"></span> 
+                            <span class="icon-bar"></span> 
+                            <span class="icon-bar"></span>
+                        </button>-->
+                <a class="navbar-brand scroll-top" href="#">Administrations</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="hidden-nav">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#" class="scroll-link" data-id="slides" id="expand"> <span class="linktext">Données Personnelles</span><span class="linktext" style="display:none">Données Personnelles</span> </a></li>
+                    
+                    <!--JQUERY-->
+                    <script>
+                        $('a#expand').click(function () {
+                            $('div#details').slideToggle();
+                            $('span.linktext').toggle();
+                        });
+                    </script>
+
+                    <li><a href="#" class="scroll-link" data-id="about">Gestion Des Enseignants</a></li>
+                    <li><a href="#" class="scroll-link" data-id="capabilities">Gestion Des Classes</a></li>
+                    <li><a href="#" class="scroll-link" data-id="projects">Gestion Des Matières</a></li>
+                    <li><a href="#" class="scroll-link" data-id="clients">Affectation Des Enseignants</a></li>
+                    <!--<li><a href="#" class="scroll-link" data-id="contact">Contact</a></li>-->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div>
+        <div id="details" style="display:none">
+            <h1>This is the details JQUERY</h1>
+
+            <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="DonPers.php">
+                <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+        
+                <div class="modifier">
+                    <h3>Vous pouvez changer vos informations personnelles</h3>
+                    <fieldset>
+                        <table>
+                            <tr>
+                                <td>Nom :</td>
+                                <td><input type="text" name="nom" id="nom" /></td>
+                            </tr><br />
+                            <tr>
+                                <td>Prénom :</td>
+                                <td><input type="text" name="prenom" id="prenom" /></td>
+                            </tr>
+                            <tr>
+                                <td>Email :</td>
+                                <td><input type="text" name="email" id="email" /></td>
+                            </tr>
+                            <tr>
+                                <td>Mot de passe :</td>
+                                <td><input type="password" name="mdp" id="mdp" /></td>
+                            </tr>
+                        </table><br />
+                        <div class="envoi"><input type="submit" name="envoi" value="Envoyer" /></div><br />
+                    </fieldset>
+                </div>
+            </form>
+        
+
+        </div>
+    </div>
+
+</body>
+
+</html>

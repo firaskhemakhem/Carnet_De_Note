@@ -1,0 +1,25 @@
+body{
+    background-image: url("ecole2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+}
+.button{
+    padding-left:250px;
+    padding-top:200px;
+}
+.butt1{
+    padding-right: 30px;
+}
+.butt2{
+    padding-left: 30px;
+}
+.butt3{
+    padding-left: 60px;
+}
+button{
+    width: 250px;
+}
+.logo{
+    width: 250px;
+}
