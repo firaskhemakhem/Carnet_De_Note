@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="Enseignant.css" />
+        <title>Enseignant</title>
+
+        <!--<script language="javascript">
+            function validation_gouvernorat(gouvernorat) {
+                if (gouvernorat.value == "") {
+                    alert("Vous devez saisir votre gouvernorat!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_delegation(delegation) {
+                if (delegation.value == "") {
+                    alert("Vous devez saisir votre delegation!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_nomEcole(nomEcole) {
+                if (nomEcole.value == "") {
+                    alert("Vous devez saisir votre ecole!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_nom(nom) {
+                if (nom.value == "") {
+                    alert("Vous devez saisir votre nom!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_prenom(prenom) {
+                if (prenom.value == "") {
+                    alert("Vous devez saisir votre prenom!");
+                    return false;
+                }
+                return true;
+            }
+            function validation_email() {
+                if (anneescolaire.value == "") {
+                    alert("Vous devez saisir votre adresse mail !");
+                    return false;
+                }
+            function validation_login() {
+                if (login.value == "") {
+                    alert("Vous devez choisir un login !");
+                    return false;
+                }
+            function validation_mdp(mdp) {
+                if (mdp.value == "") {
+                    alert("Vous devez choisir un mot de passe !");
+                    return false;
+                }
+
+            function validation(gouvernorat, delegation, nomEcole, nom, prenom, email, login, mdp){
+                return((validation_gouvernorat(gouvernorat)) && (validation_delegation(delegation)) && (validation_nomEcole(nomEcole)) && (validation_nom(nom)) && (validation_prenom(prenom)) && validation_email(email)) && validation_mdp(mdp) && validation_login(login));
+            }
+        </script>-->
+    </head>
+
+<body>
+    <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="enseignant.php" >  <!--onsubmit="javascript:return validation(document.formulaire.gouvernorat,document.formulaire.delegation,document.formulaire.nomEcole,document.formulaire.genre,document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+
+        <div class="inscription">
+            <h3>Inscription</h3>
+            <fieldset>
+                <table>
+                   <tr>
+                        <td>Gouvernorat :</td>
+                        <td><input type="text" name="gouvernorat" id="gouvernorat" /></td>
+                    </tr><br />
+                    <tr>
+                        <td>Délégation :</td>
+                        <td><input type="text" name="delegation" id="delegation" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nom de l'école :</td>
+                        <td><input type="text" name="nomEcole" id="nomEcole" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nom :</td>
+                        <td><input type="text" name="nom" id="nom" /></td>
+                    </tr>
+                    <tr>
+                        <td>Prénom :</td>
+                        <td><input type="text" name="prenom" id="prenom" /></td>
+                    </tr>
+                    <tr>
+                        <td>Genre: </td>
+                        <td><select name="genre" id="genre">
+                              <option value="mâle">Mâle</option>
+                              <option value="femelle">Femelle</option>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td><input type="text" name="email" id="email" /></td>
+                    </tr>
+                    <tr>
+                        <td>Login: </td>
+                        <td><input type="text" name="login" id="login" /></td>
+                    </tr>
+                    <tr>
+                        <td>Mot de passe: </td>
+                        <td><input type="password" name="mdp" id="mdp" /></td>
+                    </tr>
+                    
+                </table><br />
+                <div class="envoi"><input type="submit" name="envoi" value="Envoyer" /></div><br />
+            </fieldset>
+        </div>
+    </form>
+
+    <form name="formulaire" method="POST" action="enseignant.php" id="form">
+        <aside class="connexion">
+            <h3>Déjà inscrit? Connectez-vous!</h3>
+            <fieldset>
+                <table>
+                    <tr>
+                        <td>Login:</td>
+                        <td><input type="text" name="login" id="login" /></td>
+                    </tr><br />
+                    
+                    <tr>
+                        <td>Mot de passe: </td>
+                        <td><input type="password" name="mdp" id="mdp" /></td>
+                    </tr>
+                </table><br />
+                <div class="connx"><input type="submit" name="envoi" value="Connexion"/></div><br />
+            </fieldset>
+        </aside>
+    </form>
+</body>
+
+</html>
