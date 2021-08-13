@@ -18,13 +18,19 @@ if((!empty($_POST['envoi']))){
     if((strcmp($_POST['envoi'],"Envoyer")==0)){
 
         if(!empty($_POST['gouvernorat'])&&!empty($_POST['delegation'])&&!empty($_POST['nomEcole'])&&!empty($_POST['genre'])&&!empty($_POST['nom'])&&!empty($_POST['prenom'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
-   
-
-            $requete = $pdo->prepare('Insert into administation(id_ecole,genre,prenom,nom,email,mdp,type) Values(3,:genre,:prenom, :nom,:email,:mdp,6)');
-            $requete->execute(array('genre' => $_POST['genre'],'nom' => $_POST['nom'],'prenom' => $_POST['prenom'],'email' => $_POST['email'],'mdp'=>$_POST['mdp']));
 
 
-            header('Location: administration.html ');
+            // affectation de mot de passe 
+            $reponse=$pdo->query('SELECT mdp FROM code WHERE used="non"');
+            $entree=$reponse->fetch();
+            $mdp=$entree['mdp'];
+
+            $requete = $pdo->prepare('Insert into administation(id_ecole,genre,prenom,nom,email,mdp,type) Values(3,:genre,:prenom, :nom,:email,'."\"".$mdp."\"".',6)');
+            $requete->execute(array('genre' => $_POST['genre'],'nom' => $_POST['nom'],'prenom' => $_POST['prenom'],'email' => $_POST['email']));
+
+            $entree=$pdo->query('UPDATE code SET used = "oui" WHERE mdp='."\"".$mpd."\"");
+
+            header('Location: index.html ');
             ?>
             <script type="text/javascript">
                 alert("Vous êtes maintenant inscrit, connectez-vous!"); //matekhdemch
