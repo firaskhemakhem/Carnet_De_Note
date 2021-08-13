@@ -45,7 +45,9 @@ body{
 #testform{
    display: none; 
    visibility: hidden ;
+   
 }
+
 #testform1{
     display: none; 
     visibility: hidden ;
@@ -59,7 +61,7 @@ body{
         /* CSS formulaire admin */
 .inscription{
     margin-top: 20px;
-    width: 37%;
+    width: 30%;
     height: 270px;
     float: left;
     padding-left: 20px;
@@ -69,7 +71,22 @@ body{
     width: 70%;
     height: 270px;
     float: right;
-    padding-right: 350px;
+    padding-right: 330px;
+    padding-left: 130px;
+    
+}
+.connexion2{
+    margin-top:50px;
+    width: 70%;
+    height: 270px;
+    float: right;
+    padding-right: 330px;
+    padding-left: 130px;
+}
+
+#btnsecondaire{
+    background-color: green;
+    width: 100px;
 }
 input {
     font: 1em sans-serif;
