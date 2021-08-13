@@ -19,16 +19,21 @@ if((!empty($_POST['envoi']))){
 
         if(!empty($_POST['gouvernorat'])&&!empty($_POST['delegation'])&&!empty($_POST['nomEcole'])&&!empty($_POST['nom'])&&!empty($_POST['prenom'])&&!empty($_POST['email'])&&!empty($_POST['genre'])&&!empty($_POST['login'])&&!empty($_POST['mdp'])){
    
+            $reponse = $pdo->prepare('SELECT id_ecole FROM ecole WHERE gouvernorat= :gouvernorat AND delegation= :delegation AND libelle= :nomEcole');
+            $reponse->execute(array('gouvernorat' => $_POST['gouvernorat'],'delegation' => $_POST['delegation'],'nomEcole' => $_POST['libelle']));
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole'];
 
-            $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values(2,:genre, :prenom, :nom,:login,:mdp, :email');
-            $requete->execute(array('nom' => $_POST['nom'],'prenom' => $_POST['prenom'],'email' => $_POST['email'],'mdp'=>$_POST['mdp'], 'genre' => $_POST['genre'], 'login' => $_POST['login']));
+            $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values($idEcole,:genre, :prenom, :nom,:login,:mdp, :email)');
+            $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['login'], 'mdp' => $_POST['mdp'], 'email' => $_POST['email']));
 
 
-            header('Location: ForumulaireEnseignant.html');
+            header('Location: index.html');
             ?>
-            <script type="text/javascript">
+            <!--<script type="text/javascript">
                 alert("Vous êtes maintenant inscrit, connectez-vous!"); //matekhdemch
-            </script>
+            </script>-->
+
             <?php 
             exit();
         }
@@ -52,7 +57,7 @@ if((!empty($_POST['envoi']))){
                 header('Location: FormulaireEnseignant.html ');
                 exit();
             }
-            $requete->closeCursor();
+            $reponse->closeCursor();
         }
     }
   }

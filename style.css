@@ -1,4 +1,5 @@
-/* CSS acceuil */
+          /* CSS acceuil */
+
 body{
     background-image: url("ecole2.jpg");
     background-repeat: no-repeat;
@@ -45,9 +46,17 @@ body{
    display: none; 
    visibility: hidden ;
 }
+#testform1{
+    display: none; 
+    visibility: hidden ;
+}
+#testform2{
+    display: none; 
+    visibility: hidden ;
+}
 
 
-/* CSS formulaire admin */
+        /* CSS formulaire admin */
 .inscription{
     margin-top: 20px;
     width: 37%;
@@ -56,13 +65,21 @@ body{
     padding-left: 20px;
 }
 .connexion{
-    margin-top: 115px;
-    width: 62%;
+    margin-top: 95px;
+    width: 70%;
     height: 270px;
     float: right;
     padding-right: 350px;
 }
 input {
+    font: 1em sans-serif;
+    width: 250px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    margin-top: 7px;
+    padding-left: 10px;
+  }
+  select{
     font: 1em sans-serif;
     width: 250px;
     box-sizing: border-box;
@@ -79,6 +96,12 @@ input {
 #testform{
     padding-left: 300px;
 }
+#testform1{
+    padding-left: 300px;
+}
+#testform2{
+    padding-left: 300px;
+}
 .label{
     margin-top: 60px;
     font-size: 15px;
@@ -90,3 +113,5 @@ legend{
     color:rgb(206, 54, 27);
     font-weight: bold;
 }
+
+        /* CSS formulaire enseignants */

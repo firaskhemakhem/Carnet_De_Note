@@ -24,7 +24,7 @@ if((!empty($_POST['envoi']))){
             $requete->execute(array('genre' => $_POST['genre'],'nom' => $_POST['nom'],'prenom' => $_POST['prenom'],'email' => $_POST['email'],'mdp'=>$_POST['mdp']));
 
 
-            header('Location: ForumulaireAdmin.html ');
+            header('Location: administration.html ');
             ?>
             <script type="text/javascript">
                 alert("Vous êtes maintenant inscrit, connectez-vous!"); //matekhdemch

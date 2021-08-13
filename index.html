@@ -23,7 +23,7 @@
             <tr class="button">
                 <td>
                     <div class = "butt1" id="box-one"> 
-                        <button id="but1" type="button" class="btn btn-primary"  onclick="window.location.href = 'Administration.php'">Administration</button>
+                        <button id="but1" type="button" class="btn btn-primary" >Administration</button>
                     </div>
                     <!--<button type="button" id="but1" class="btn btn-primary init"  onclick="window.location.href = 'Administration.php'">Administration</button>-->
                                         
@@ -42,8 +42,9 @@
         </table>
     </div>
 
+                                                  <!-- PARTIE FORMULAIRES -->
 
-
+                                                   <!--Formulaire Administration-->
     <div id="testform">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="admin.php" >  <!--onsubmit="javascript:return validation(document.formulaire.gouvernorat,document.formulaire.delegation,document.formulaire.nomEcole,document.formulaire.genre,document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
             <div class="inscription" >
@@ -111,21 +112,183 @@
         </form>
     </div>
 
+                                               <!--Formulaire Enseignants-->
+                                               
+<div id="testform1">
+    <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="enseignant.php" >  <!--onsubmit="javascript:return validation(document.formulaire.gouvernorat,document.formulaire.delegation,document.formulaire.nomEcole,document.formulaire.genre,document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+
+        <div class="inscription">
+            <!--<h3>Inscription</h3>-->
+            <fieldset>
+                <legend>Inscription</legend>
+                <table>
+                   <tr>
+                        <td>Gouvernorat :</td>
+                        <td><input type="text" name="gouvernorat" id="gouvernorat" /></td>
+                    </tr><br />
+                    <tr>
+                        <td>Délégation :</td>
+                        <td><input type="text" name="delegation" id="delegation" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nom de l'école :</td>
+                        <td><input type="text" name="nomEcole" id="nomEcole" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nom :</td>
+                        <td><input type="text" name="nom" id="nom" /></td>
+                    </tr>
+                    <tr>
+                        <td>Prénom :</td>
+                        <td><input type="text" name="prenom" id="prenom" /></td>
+                    </tr>
+                    <tr>
+                        <td>Genre: </td>
+                        <td><select name="genre" id="genre">
+                              <option value="mâle">Mâle</option>
+                              <option value="femelle">Femelle</option>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td><input type="text" name="email" id="email" /></td>
+                    </tr>
+                    <tr>
+                        <td>Login: </td>
+                        <td><input type="text" name="login" id="login" /></td>
+                    </tr>
+                    <tr>
+                        <td>Mot de passe: </td>
+                        <td><input type="password" name="mdp" id="mdp" /></td>
+                    </tr>
+                    
+                </table><br />
+                <div class="envoi"><input type="submit" name="envoi" value="Envoyer" /></div><br />
+            </fieldset>
+        </div>
+    </form>
+
+    <form name="formulaire" method="POST" action="enseignant.php" id="form">
+        <aside class="connexion">
+            <!--<h3>Déjà inscrit? Connectez-vous!</h3>-->
+            <fieldset>
+                <legend>Déjà inscrit? Connectez-vous!</legend>
+                <table>
+                    <tr>
+                        <td>Login:</td>
+                        <td><input type="text" name="login" id="login" /></td>
+                    </tr><br />
+                    
+                    <tr>
+                        <td>Mot de passe: </td>
+                        <td><input type="password" name="mdp" id="mdp" /></td>
+                    </tr>
+                </table><br />
+                <div class="connx"><input type="submit" name="envoi" value="Connexion"/></div><br />
+            </fieldset>
+        </aside>
+    </form>
+</div>
+
+                                                   <!--Formulaire Eléves-->
+  
+<div id="testform2">
+    <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="eleve.php" >  <!--onsubmit="javascript:return validation(document.formulaire.gouvernorat,document.formulaire.delegation,document.formulaire.nomEcole,document.formulaire.genre,document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+
+        <div class="inscription">
+            <!--<h3>Inscription</h3>-->
+            <fieldset>
+                <legend>Inscription</legend>
+                <table>
+                   <tr>
+                        <td>Gouvernorat :</td>
+                        <td><input type="text" name="gouvernorat" id="gouvernorat" /></td>
+                    </tr><br />
+                    <tr>
+                        <td>Délégation :</td>
+                        <td><input type="text" name="delegation" id="delegation" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nom de l'école :</td>
+                        <td><input type="text" name="nomEcole" id="nomEcole" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nom :</td>
+                        <td><input type="text" name="nom" id="nom" /></td>
+                    </tr>
+                    <tr>
+                        <td>Prénom :</td>
+                        <td><input type="text" name="prenom" id="prenom" /></td>
+                    </tr>
+                    <tr>
+                        <td>Année scolaire: </td>
+                        <td><input type="text" name="anneescolaire" id="anneescolaire" /></td>
+                    </tr>
+                    <tr>
+                        <td>Mot de passe: </td>
+                        <td><input type="password" name="mdp" id="mdp" /></td>
+                    </tr>
+                </table><br />
+                <div class="envoi"><input type="submit" name="envoi" value="Envoyer" /></div><br />
+            </fieldset>
+        </div>
+    </form>
+
+    <form name="formulaire" method="POST" action="eleve.php" id="form">
+        <aside class="connexion">
+            <!--<h3>Déjà inscrit? Connectez-vous!</h3>-->
+            <fieldset>
+                <legend>Déjà inscrit? Connectez-vous!</legend>
+                <table>
+                    <tr>
+                        <td>Nom: </td>
+                        <td><input type="text" name="nom" id="nom" /></td>
+                    </tr><br />
+                    <tr>
+                        <td>Prénom: </td>
+                        <td><input type="text" name="prenom" id="prenom" /></td>
+                    </tr><br />
+                    <tr>
+                        <td>Mot de passe: </td>
+                        <td><input type="password" name="mdp" id="mdp" /></td>
+                    </tr>
+                </table><br />
+                <div class="connx"><input type="submit" name="envoi" value="Connexion"/></div><br />
+            </fieldset>
+        </aside>
+    </form>
+</div>
 
 
-    <!-- JQuery-->
+
+                                                           <!-- JQuery-->
     <script>
         $(document).ready(function(){
+
+            $('div#testform').hide();
+            $('div#testform1').hide();
+            $('div#testform2').hide();
+
             $('button#but1').click(function(){
                 if($('div#box-one').hasClass('butt1')){
                     $('div#box-one').removeClass('butt1').addClass('new_init1');
                     $('div#box-two').removeClass('butt2').addClass('new_init2');
                     $('div#box-three').removeClass('butt3').addClass('new_init3');
+
+                    $("div#testform").css({
+                        display: "block",
+                        visibility: "visible" 
+                      });
+
                 }
                 else{
                     $('div#box-one').removeClass('new-init1').addClass('butt1');
                     $('div#box-two').removeClass('new-init2').addClass('butt2');
                     $('div#box-three').removeClass('new-init3').addClass('butt3');
+
+                    $('div#testform').hide();
+                    $('div#testform1').hide();
+                    $('div#testform2').hide();
                 }
                 
             });
@@ -134,17 +297,26 @@
                     $('div#box-one').removeClass('butt1').addClass('new_init1');
                     $('div#box-two').removeClass('butt2').addClass('new_init2');
                     $('div#box-three').removeClass('butt3').addClass('new_init3');
-                    $("div#testform").css({
+
+                    $("div#testform1").css({
                         display: "block",
                         visibility: "visible" 
                       });
+                   /* $("div#testform").css({
+                        display: "block",
+                        visibility: "visible" 
+                      }); */
                     /*$('div#testform').hide();*/
                 }
                 else{
                     $('div#box-one').removeClass('new-init1').addClass('butt1');
                     $('div#box-two').removeClass('new-init2').addClass('butt2');
                     $('div#box-three').removeClass('new-init3').addClass('butt3');
+
                     $('div#testform').hide();
+                    $('div#testform1').hide();
+                    $('div#testform2').hide();
+                   /* $('div#testform').hide();*/
                 }
                 
             });
@@ -153,11 +325,20 @@
                     $('div#box-one').removeClass('butt1').addClass('new_init1');
                     $('div#box-two').removeClass('butt2').addClass('new_init2');
                     $('div#box-three').removeClass('butt3').addClass('new_init3');
+
+                    $("div#testform2").css({
+                        display: "block",
+                        visibility: "visible" 
+                      });
                 }
                 else{
                     $('div#box-one').removeClass('new-init1').addClass('butt1');
                     $('div#box-two').removeClass('new-init2').addClass('butt2');
                     $('div#box-three').removeClass('new-init3').addClass('butt3');
+
+                    $('div#testform').hide();
+                    $('div#testform1').hide();
+                    $('div#testform2').hide();
                 }
                 
             });
