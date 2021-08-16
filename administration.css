@@ -11,6 +11,9 @@ body{
     float: left;
     padding-left: 20px;
 }
+#details{
+  padding-left: 500px;
+}
 h3{
     text-align: center;
     color: steelblue;
