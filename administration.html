@@ -48,32 +48,32 @@
                         $('a#expand').click(function () {
                             $('div#details').slideToggle();
                             $('div#detailsper').hide();
-                            $('div#details2').hide();
-                            $('div#details3').hide();
+                            $('div#detailsclass').hide();
+                            $('div#detailsmat').hide();
                             $('span.linktext').toggle();
                         });
 
                         $('a#enseignants').click(function () {
                             $('div#detailsper').slideToggle();
                             $('div#details').hide();
-                            $('div#details2').hide();
-                            $('div#details3').hide();
+                            $('div#detailsclass').hide();
+                            $('div#detailsmat').hide();
                             $('span.linktext').toggle();
                         });
 
                         $('a#classe').click(function () {
-                            $('div#details2').slideToggle();
+                            $('div#detailsclass').slideToggle();
                             $('div#details').hide();
                             $('div#detailsper').hide();
-                            $('div#details3').hide();
+                            $('div#detailsmat').hide();
                             $('span.linktext').toggle();
                         });
 
                         $('a#matiere').click(function () {
-                            $('div#details3').slideToggle();
+                            $('div#detailsmat').slideToggle();
                             $('div#details').hide();
                             $('div#detailsper').hide();
-                            $('div#details2').hide();
+                            $('div#detailsclass').hide();
                             $('span.linktext').toggle();
                         });
                     </script>
@@ -165,8 +165,11 @@
                     <table>
                         <tr>
                             <td><div class="envoi"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            <td><div class="envoi2"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><div class="envoi0"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
                         </tr>
                     </table>
                 </fieldset>
@@ -219,7 +222,7 @@
 
     <!--Formulaire Gestion des Classes-->
 
-    <div id="details2" style="display:none">
+    <div id="detailsclass" style="display:none">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
             action="GestionClasse.php">
             <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
@@ -249,9 +252,12 @@
                     </table><br />
                     <table>
                         <tr>
-                            <td><div class="envoi"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            <td><div class="envoi1"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            <td><div class="envoi2"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><div class="envoi0"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
                         </tr>
                     </table>
                 </fieldset>
@@ -261,7 +267,7 @@
 
     <!--Formulaire Gestion des Matiéres-->
 
-    <div id="details3" style="display:none">
+    <div id="detailsmat" style="display:none">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
             action="GestionMatiere.php">
             <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
@@ -292,9 +298,12 @@
                     </table><br />
                     <table>
                         <tr>
-                            <td><div class="envoi"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            <td><div class="envoi3"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            <td><div class="envoi2"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><div class="envoi0"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
                         </tr>
                     </table>
                 </fieldset>

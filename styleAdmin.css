@@ -52,18 +52,28 @@
 
 /* css formulaire*/
 #details{ /* formulaire données personneles*/
-  /*padding-left: 400px;*/
+  padding-left: 200px;
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
 #detailsper{ /* formulaire gestion des enseignants*/
-  padding-left: 500px;
+  padding-left: 200px;
+  display: flex;
+  justify-content: center;
+}
+#detailsclass{ /* formulaire gestion des classes*/
+  padding-left: 170px;
+  display: flex;
+  justify-content: center;
+}
+#detailsmat{ /* formulaire gestion des matiéres*/
+  padding-left: 170px;
   display: flex;
   justify-content: center;
 }
 .modifier{
   margin-top: 70px;
-  width: 45%;
+  width: 55%;
   height: 270px;
   /*padding-left: 100px;*/
 }
@@ -87,9 +97,20 @@ input {
   border: 1px solid #999;
   margin-top: 5px;
 }
+
 .envoi{
   padding-left: 125px;
 }
+.envoi1{
+  padding-left: 147px;
+}
+.envoi2{
+padding-right:300px ;
+}
+.envoi3{
+  padding-left:105px ;
+  }
+  
 #btnsecondaire{
   background-color: green;
   width: 100px;
