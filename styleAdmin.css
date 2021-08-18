@@ -57,17 +57,18 @@
   justify-content: center;
 }
 #detailsper{ /* formulaire gestion des enseignants*/
-  padding-left: 200px;
+  padding-left: 60px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
 }
 #detailsclass{ /* formulaire gestion des classes*/
-  padding-left: 170px;
+  padding-left: 60px;
   display: flex;
   justify-content: center;
 }
 #detailsmat{ /* formulaire gestion des matiéres*/
-  padding-left: 170px;
+  padding-left: 60px;
   display: flex;
   justify-content: center;
 }
@@ -104,12 +105,14 @@ input {
 .envoi1{
   padding-left: 147px;
 }
-.envoi2{
+/*.envoi2{
 padding-right:300px ;
 }
+*/
 .envoi3{
-  padding-left:105px ;
+  padding-left:30px ;
   }
+
   
 #btnsecondaire{
   background-color: green;
@@ -122,6 +125,7 @@ padding-right:300px ;
   margin-top: 60px;
   font-size: 15px;
   color:whitesmoke;
+
 }
 .test{
   padding-left: 100px;

@@ -1,4 +1,6 @@
 <?php
+session_start(); 
+
 if((!empty($_POST['envoi']))){
 
     $hostName = "localhost";
@@ -17,7 +19,7 @@ if((!empty($_POST['envoi']))){
 
     if((strcmp($_POST['envoi'],"Envoyer")==0)){
 
-        if(!empty($_POST['gouvernorat'])&&!empty($_POST['delegation'])&&!empty($_POST['nomEcole'])&&!empty($_POST['nom'])&&!empty($_POST['prenom'])&&!empty($_POST['email'])&&!empty($_POST['genre'])&&!empty($_POST['login'])&&!empty($_POST['mdp'])){
+        if(!empty($_POST['gouvernorat'])&&!empty($_POST['delegation'])&&!empty($_POST['nomEcole'])&&!empty($_POST['nom'])&&!empty($_POST['prenom'])&&!empty($_POST['email'])&&!empty($_POST['genre'])&&!empty($_POST['loginEnseing'])&&!empty($_POST['mdpEnseing'])){
             
             // Affectetaion de l'id_Ecole
             $reponse = $pdo->prepare('SELECT id_ecole FROM ecole WHERE gouvernorat= :gouvernorat AND delegation= :delegation AND libelle= :nomEcole');
@@ -33,7 +35,7 @@ if((!empty($_POST['envoi']))){
 
             // Craction de l'enseignant 
             $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,'."\"".$mdpenseing."\"".', :email)');
-            $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['login'], 'email' => $_POST['email']));
+            $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['loginEnseing'], 'email' => $_POST['email']));
 
             // Affirmer que ce mot de passe est utilisé 
             $entree=$pdo->query('UPDATE code SET used = "oui" WHERE mdp='."\"".$mdp."\""); 
@@ -53,19 +55,22 @@ if((!empty($_POST['envoi']))){
     }else{
 
         
-        if(!empty($_POST['login'])&&!empty($_POST['mdp'])){
+        if(!empty($_POST['loginEnseing'])&&!empty($_POST['mdpEnseing'])){
 
 
             $reponse = $pdo->prepare('SELECT login,mdp FROM enseignant WHERE login = :login AND mdp = :mdp');
-            $requete = $reponse->execute(array('login' =>$_POST['login'], 'mdp' => $_POST['mdp']));
+            $requete = $reponse->execute(array('login' =>$_POST['loginEnseing'], 'mdp' => $_POST['mdpEnseing']));
             $entree=$reponse->fetch();
 
             if((strcmp($entree['login'],0) == 1)&& (strcmp($entree['mdp'],0) == 1)){ //s'il est existant
+                $_SESSION['loginEnseing'] = $_POST['loginEnseing'];
+                $_SESSION['mdpEnseing'] = $_POST['mdpEnseing'] ;
                 header('Location: enseignant.html ');
                 exit();
             }else{
-                header('Location: FormulaireEnseignant.html ');
-                exit();
+                
+            header('Location: index.php ');
+            exit();
             }
             $reponse->closeCursor();
         }

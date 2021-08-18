@@ -63,11 +63,11 @@ if((!empty($_POST['envoi']))){
 
             if((strcmp($entree['nom'],0) == 1)&& (strcmp($entree['mdp'],0) == 1)&&(strcmp($entree['prenom'],0) == 1)){ //s'il est existant
 
-                header('Location: index.html '); // cette page doit etre modifier par la page eleve.html
+                header('Location: index.php '); // cette page doit etre modifier par la page eleve.html
                 exit();
                 
             }else{
-                header('Location: FormulaireEleve.html ');
+                header('Location: index.php ');
                 exit();
             }
             $reponse->closeCursor();
