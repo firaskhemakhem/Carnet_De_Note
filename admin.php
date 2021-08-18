@@ -40,7 +40,7 @@ if ((!empty($_POST['envoi']))) {
             $mdpadmin = substr($entree['mdp'], 0, strlen($entree['mdp']) - 1);
 
             // creaction de l'Administrateur
-            $requete = $pdo->prepare('INSERT INTO administation(id_ecole,genre,prenom,nom,email,mdp,type) VALUES (' . "\"" . $idEcole . "\"" . ',:genre,:prenom, :nom,:email,' . "\"" . $mdpadmin . "\"" . ',6)');
+            $requete = $pdo->prepare('INSERT INTO administration(id_ecole,genre,prenom,nom,email,mdp,type) VALUES (' . "\"" . $idEcole . "\"" . ',:genre,:prenom, :nom,:email,' . "\"" . $mdpadmin . "\"" . ',6)');
             $requete->execute(array('genre' => $_POST['genre'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $_POST['email']));
 
             // Affirmer que ce mot de passe est utilisé 
@@ -62,7 +62,7 @@ if ((!empty($_POST['envoi']))) {
         if (!empty($_POST['emailAdmin']) && !empty($_POST['mdpAdmin'])) {
 
 
-            $reponse = $pdo->prepare('SELECT Email, Mdp FROM administation WHERE Email = :email AND Mdp = :mdp');
+            $reponse = $pdo->prepare('SELECT Email, Mdp FROM administration WHERE Email = :email AND Mdp = :mdp');
             $requete = $reponse->execute(array('email' => $_POST['emailAdmin'], 'mdp' => $_POST['mdpAdmin']));
             $entree = $reponse->fetch();
 
