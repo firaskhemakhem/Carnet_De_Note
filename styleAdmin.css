@@ -57,7 +57,7 @@
   justify-content: center;
 }
 #detailsper{ /* formulaire gestion des enseignants*/
-  padding-left: 60px;
+  padding-left: 200px;
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -141,14 +141,47 @@ padding-right:300px ;
 .leftEnseign{
   float: left;
 }
+
+
 #modifierEnseign{
-  padding-left: 120px;
-  width: 40%;
-  height: 270px;
-  float: right;
+  width: 90%;
+  padding-right: 200px;
+  margin-top: 10px;
 }
 #affichEnseign{
-  width: 60%;
-  height: 270px;
-  padding-bottom: 600px;
+  width: 145%;
+  padding-left: 45px;
+}
+
+/**********************/
+
+#modifierMatiere{
+  width: 90%;
+  padding-right: 200px;
+  margin-top: 10px;
+}
+
+.leftMatiere{
+  float: left;
+}
+
+#affichMatiere{
+  width: 145%;
+  padding-left: 45px;
+}
+/*************************/
+
+#modifierClassse{
+  width: 90%;
+  padding-right: 200px;
+  margin-top: 10px;
+}
+
+.leftClasse{
+  float: left;
+}
+
+#affichClasse{
+  width: 145%;
+  padding-left: 45px;
 }

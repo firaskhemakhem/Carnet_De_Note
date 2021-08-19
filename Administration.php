@@ -48,6 +48,9 @@
                         $('a#expand').click(function () {
                             $('div#details').slideToggle();
                             $('div#detailsper').hide();
+                            $('div#affichEnseign').hide();
+                            $('div#affichClasse').hide();
+                            $('div#affichMatiere').hide();
                             $('div#detailsclass').hide();
                             $('div#detailsmat').hide();
                             //$('div#detailsnew').hide();
@@ -57,6 +60,8 @@
                         $('a#enseignants').click(function () {
                             $('div#detailsper').slideToggle();
                             $('div#affichEnseign').slideToggle();
+                            $('div#affichClasse').hide();
+                            $('div#affichMatiere').hide();
                             $('div#details').hide();
                             $('div#detailsclass').hide();
                             $('div#detailsmat').hide();
@@ -73,20 +78,27 @@
 
                         $('a#classe').click(function () {
                             $('div#detailsclass').slideToggle();
+                            $('div#affichClasse').slideToggle();
                             $('div#details').hide();
                             $('div#detailsper').hide();
+                            $('div#affichEnseign').hide();
+                            $('div#affichMatiere').hide();
                             $('div#detailsmat').hide();
                             //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
                         $('a#matiere').click(function () {
                             $('div#detailsmat').slideToggle();
+                            $('div#affichMatiere').slideToggle();
                             $('div#details').hide();
                             $('div#detailsper').hide();
+                            $('div#affichEnseign').hide();
+                            $('div#affichClasse').hide();
                             $('div#detailsclass').hide();
                             //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
+                       
 
                                                
                     </script>
@@ -105,7 +117,8 @@
 
     <div id="details" style="display:none">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
-        action="DonPersAdmin.php" > <!-- -->
+            action="DonPersAdmin.php">
+            <!-- -->
             <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
 
             <div class="modifier">
@@ -136,64 +149,16 @@
         </form>
     </div>
 
-                        <!--Formulaire Gestion des Enseignants-->
+    <!--Formulaire Gestion des Enseignants-->
 
-                        <!-- choix de manipulation -->
+    <!-- choix de manipulation -->
 
-    <div id="detailsper" style="display:none">
-        <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
-            action="GestionEnseig.php">
-            <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
-            <div class="modifier" id="modifierEnseign">
-                <fieldset>
-                    <legend>Gestion des enseignants </legend>
-                    <table>
-                        <tr>
-                            <td><span class="label">Nom :</span></td>
-                            <td><input type="text" name="nom" id="nom" /></td>
-                        </tr><br />
-                        <tr>
-                            <td><span class="label">Prénom :</span></td>
-                            <td><input type="text" name="prenom" id="prenom" /></td>
-                        </tr>
-                        <tr>
-                            <td><span class="label">Genre: </span></td>
-                            <td><select name="genre" id="genre">
-                                    <option value="Homme">Homme</option>
-                                    <option value="Femme">Femme</option>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><span class="label">Login :</span></td>
-                            <td><input type="text" name="login" id="login" /></td>
-                        </tr>
-                        <tr>
-                            <td><span class="label">Email :</span></td>
-                            <td><input type="text" name="email" id="email" /></td>
-                        </tr>
-                        <tr>
-                            <td><span class="label">Mot de passe :</span></td>
-                            <td><input type="password" name="mdp" id="mdp" /></td>
-                        </tr>
-                    </table><br />
-                    <table>
-                        <tr>
-                            <td><div class="envoi3"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi2"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaireModif"/></div></td>
-                            <td><div class="envoi0"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                        </tr>
-
-                    </table>
-                </fieldset>
-            </div>
-        </form>
-    </div>
-
-                                <!-- Affichage de la liste des enseignants -->
-    
-    <div id="affichEnseign" style="display:none">
-        <aside class="leftEnseign">
-        <?php 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div id="affichEnseign" style="display:none">
+                    <aside class="leftEnseign">
+                        <?php 
             // connection a la base de donneé
             $hostName = "localhost";
             $dbName = "carnetdenote";
@@ -239,10 +204,78 @@
             echo"</tbody></table>";
             $request->closeCursor();     
         ?>
-        </aside>
+                    </aside>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div id="detailsper" style="display:none">
+                    <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
+                        action="GestionEnseig.php">
+                        <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+                        <div class="modifier" id="modifierEnseign">
+                            <fieldset>
+                                <legend>Gestion des enseignants </legend>
+                                <table>
+                                    <tr>
+                                        <td><span class="label">Nom :</span></td>
+                                        <td><input type="text" name="nom" id="nom" /></td>
+                                    </tr><br />
+                                    <tr>
+                                        <td><span class="label">Prénom :</span></td>
+                                        <td><input type="text" name="prenom" id="prenom" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="label">Genre: </span></td>
+                                        <td><select name="genre" id="genre">
+                                                <option value="Homme">Homme</option>
+                                                <option value="Femme">Femme</option>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="label">Login :</span></td>
+                                        <td><input type="text" name="login" id="login" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="label">Email :</span></td>
+                                        <td><input type="text" name="email" id="email" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="label">Mot de passe :</span></td>
+                                        <td><input type="password" name="mdp" id="mdp" /></td>
+                                    </tr>
+                                </table><br />
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="envoi3"><input type="submit" name="manipuler" value="Ajouter"
+                                                    class="btn btn-primary" id="btnsecondaire" /></div>
+                                        </td>
+                                        <td>
+                                            <div class="envoi2"><input type="submit" name="manipuler" value="Modifier"
+                                                    class="btn btn-primary" id="btnsecondaireModif" /></div>
+                                        </td>
+                                        <td>
+                                            <div class="envoi0"><input type="submit" name="manipuler" value="Supprimer"
+                                                    class="btn btn-primary" id="btnsecondaire" /></div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-                                               <!--Nouvelles données enseignants-->
-     <!-- Ce formulaire doit être traité dans une nouvelle page ! -->
+
+
+
+    <!-- Affichage de la liste des enseignants -->
+
+
+    <!--Nouvelles données enseignants-->
+    <!-- Ce formulaire doit être traité dans une nouvelle page ! -->
     <?php /*
     <div id="detailsnew" style="display:none">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
@@ -293,8 +326,9 @@
     <!--<div id="details135" style="display:none">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
             action="GestionEnseig.php">
-    --><!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
-<!--
+    -->
+    <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+    <!--
             <div class="modifier">
                 <h3>Ajoutez des Enseignants</h3>
                 <fieldset>
@@ -334,93 +368,294 @@
     </div>-->
 
     <!--Formulaire Gestion des Classes-->
+                                                   <!--*****************************************-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div id="affichClasse" style="display:none">
+                    <aside class="leftClasse">
+                        <?php 
+            // connection a la base de donneé
+            $hostName = "localhost";
+            $dbName = "carnetdenote";
+            $userName = "root";
+            $password = "";
+            
+            try{
+                $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+            catch(PDOException $e){
+                echo "Connection failed: " . $e->getMessage();
+            }   
+            $request=$pdo->query('SELECT * FROM classe');
+            // affichage de la table 
+            echo "<table class=\"table table-striped\" id=\"tableClasse\">
+                    <thead>
+                        <tr>
+                            <th scope=\"col\">Id_Classe</th>
+                            <th scope=\"col\">Id_Ecole</th>
+                            <th scope=\"col\">Niveau</th>
+                            <th scope=\"col\">Nom</th>
+                            <th scope=\"col\">Nombre d'élèves</th>
+                            </tr>
+                    </thead>
+                    <tbody> 
+                ";
+            while($entree=$request->fetch()){
+                echo"<tr>
+                        <td>".$entree['id_classe']."</td>
+                        <td>".$entree['id_ecole']."</td>
+                        <td>".$entree['niveau']."</td>
+                        <td>".$entree['nom']."</td>
+                        <td>".$entree['nb']."</td>
+                    </tr>";
+            }
+            echo"</tbody></table>";
+            $request->closeCursor();     
+        ?>
+                    </aside>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
 
-    <div id="detailsclass" style="display:none">
+            <div id="detailsclass" style="display:none">
+                <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
+                    action="GestionClasse.php">
+                    <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+
+                    <div class="modifier">
+                        <fieldset>
+                            <legend>Ajoutez des Classes</legend>
+                            <table>
+                                <tr>
+                                    <td><span class="label">Niveau: </span></td>
+                                    <td><select name="niveau" id="niveau">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                    </td>
+                                </tr>
+                                <td><span class="label">Nom :</span></td>
+                                <td><input type="text" name="nom" id="nom" /></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label">Nombre d'élèves :</span></td>
+                                    <td><input type="text" name="nb" id="nb" /></td>
+                                </tr>
+                            </table><br />
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="envoi3"><input type="submit" name="manipuler" value="Ajouter"
+                                                class="btn btn-primary" id="btnsecondaire" /></div>
+                                    </td>
+                                    <td>
+                                        <div class="envoi2"><input type="submit" name="manipuler" value="Modifier"
+                                                class="btn btn-primary" id="btnsecondaire" /></div>
+                                    </td>
+                                    <td>
+                                        <div class="envoi0"><input type="submit" name="manipuler" value="Supprimer"
+                                                class="btn btn-primary" id="btnsecondaire" /></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Nouvelles données Classe-->
+    <!-- Ce formulaire doit être traité dans une nouvelle page ! -->
+    <?php /*
+    <div id="detailsnew" style="display:none">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
             action="GestionClasse.php">
             <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
-
             <div class="modifier">
                 <fieldset>
-                    <legend>Ajoutez des Classes</legend>
+                    <legend>Entrer les nouvelles données :</legend>
                     <table>
-                        <tr>
-                            <td><span class="label">Niveau: </span></td>
-                            <td><select name="niveau" id="niveau">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                            </td>
-                        </tr>
-                        <td><span class="label">Nom :</span></td>
-                        <td><input type="text" name="nom" id="nom" /></td>
-                        </tr>
-                        <tr>
-                            <td><span class="label">Nombre d'élèves :</span></td>
-                            <td><input type="text" name="nb" id="nb" /></td>
-                        </tr>
-                    </table><br />
-                    <table>
-                        <tr>
-                            <td><div class="envoi3"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi2"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi0"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                        </tr>
-                    </table>
+                                <tr>
+                                    <td><span class="label">Niveau: </span></td>
+                                    <td><select name="niveau" id="niveau">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                    </td>
+                                </tr>
+                                <td><span class="label">Nom :</span></td>
+                                <td><input type="text" name="nom" id="nom" /></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label">Nombre d'élèves :</span></td>
+                                    <td><input type="text" name="nb" id="nb" /></td>
+                                </tr>
+                            </table><br/>
+                    
+                    <div class="envoi3"><input type="submit" name="ModifClasse" value="Enregistrer" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            
                 </fieldset>
             </div>
         </form>
     </div>
+    */
+    ?>
 
-    <!--Formulaire Gestion des Matiéres-->
 
-    <div id="detailsmat" style="display:none">
+    <!--Formulaire Gestion des Matiéres-->       <!--*****************************************-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div id="affichMatiere" style="display:none">
+                    <aside class="leftMatiere">
+                        <?php 
+            // connection a la base de donneé
+            $hostName = "localhost";
+            $dbName = "carnetdenote";
+            $userName = "root";
+            $password = "";
+            
+            try{
+                $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+            catch(PDOException $e){
+                echo "Connection failed: " . $e->getMessage();
+            }   
+            $request=$pdo->query('SELECT * FROM matiere');
+            // affichage de la table 
+            echo "<table class=\"table table-striped\" id=\"tableMatiere\">
+                    <thead>
+                        <tr>
+                            <th scope=\"col\">Id_Matiere</th>
+                            <th scope=\"col\">Id_Ecole</th>
+                            <th scope=\"col\">Niveau</th>
+                            <th scope=\"col\">Libellé</th>
+                            <th scope=\"col\">Coefficient</th>
+                            </tr>
+                    </thead>
+                    <tbody> 
+                ";
+            while($entree=$request->fetch()){
+                echo"<tr>
+                        <td>".$entree['id_matiere']."</td>
+                        <td>".$entree['id_ecole']."</td>
+                        <td>".$entree['niveau']."</td>
+                        <td>".$entree['libelle']."</td>
+                        <td>".$entree['coefficient']."</td>
+                    </tr>";
+            }
+            echo"</tbody></table>";
+            $request->closeCursor();     
+        ?>
+                    </aside>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div id="detailsmat" style="display:none">
+                    <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
+                        action="GestionMatiere.php">
+                        <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+
+                        <div class="modifier">
+                            <fieldset>
+                                <legend>Ajoutez des Matières</legend>
+                                <table>
+                                    <tr>
+                                        <td><span class="label">Niveau: </span></td>
+                                        <td><select name="niveau" id="niveau">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="label">libelle :</span></td>
+                                        <td><input type="text" name="libelle" id="libelle" /></td>
+                                    </tr><br />
+                                    <tr>
+                                        <td><span class="label">Coefficient :</span></td>
+                                        <td><input type="text" name="coefficient" id="coefficient" /></td>
+                                    </tr>
+                                </table><br />
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="envoi3"><input type="submit" name="manipuler" value="Ajouter"
+                                                    class="btn btn-primary" id="btnsecondaire" /></div>
+                                        </td>
+                                        <td>
+                                            <div class="envoi2"><input type="submit" name="manipuler" value="Modifier"
+                                                    class="btn btn-primary" id="btnsecondaire" /></div>
+                                        </td>
+                                        <td>
+                                            <div class="envoi0"><input type="submit" name="manipuler" value="Supprimer"
+                                                    class="btn btn-primary" id="btnsecondaire" /></div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Nouvelles données Matiere-->
+    <!-- Ce formulaire doit être traité dans une nouvelle page ! -->
+    <?php /*
+    <div id="detailsnew" style="display:none">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
             action="GestionMatiere.php">
             <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
-
             <div class="modifier">
                 <fieldset>
-                    <legend>Ajoutez des Matières</legend>
+                    <legend>Entrer les nouvelles données :</legend>
                     <table>
-                        <tr>
-                            <td><span class="label">Niveau: </span></td>
-                            <td><select name="niveau" id="niveau">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><span class="label">libelle :</span></td>
-                            <td><input type="text" name="libelle" id="libelle" /></td>
-                        </tr><br />
-                        <tr>
-                            <td><span class="label">Coefficient :</span></td>
-                            <td><input type="text" name="coefficient" id="coefficient" /></td>
-                        </tr>
+                                    <tr>
+                                        <td><span class="label">Niveau: </span></td>
+                                        <td><select name="niveau" id="niveau">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="label">libelle :</span></td>
+                                        <td><input type="text" name="libelle" id="libelle" /></td>
+                                    </tr><br />
+                                    <tr>
+                                        <td><span class="label">Coefficient :</span></td>
+                                        <td><input type="text" name="coefficient" id="coefficient" /></td>
+                                    </tr>
                     </table><br />
-                    <table>
-                        <tr>
-                            <td ><div class="envoi3"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td ><div class="envoi2"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td ><div class="envoi0"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                        </tr>
-                        
-                    </table>
+                    
+                    <div class="envoi3"><input type="submit" name="ModifMatiere" value="Enregistrer" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            
                 </fieldset>
             </div>
         </form>
     </div>
+    */
+    ?>
+
 </body>
 
 </html>
-
-
-

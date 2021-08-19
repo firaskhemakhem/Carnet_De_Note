@@ -35,7 +35,7 @@ if((!empty($_POST['manipuler']))){
         $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,'."\"".$mdpenseing."\"".', :email)');
         */
 
-        // Craction de l'enseignant 
+        // Creaction de l'enseignant 
         $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,:mdp, :email)');
         $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['login'], 'email' => $_POST['email'] , 'mdp' => $_POST['mdp']));
 
@@ -61,7 +61,7 @@ if((!empty($_POST['manipuler']))){
                 }
             }
         }
-        //Suppression d'un Eenseignant
+        //Suppression d'un Enseignant
         if((strcmp($_POST['manipuler'],"Supprimer")==0)){
 
             $requete=$pdo->prepare('DELETE FROM enseignant WHERE genre= :genre AND prenom= :prenom AND nom= :nom AND login= :login AND mdp= :mdp AND email= :email');
