@@ -19,6 +19,8 @@ if((!empty($_POST['manipuler']))){
     if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&& !empty($_POST['genre']) && !empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
 
         // Ajout de l'Enseignant
+        if((strcmp($_POST['manipuler'],"Ajouter")==0)){
+
         // Affectetaion de l'id_Ecole
         $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
         $entree=$reponse->fetch();
@@ -40,10 +42,25 @@ if((!empty($_POST['manipuler']))){
         /*
         // Affirmer que ce mot de passe est utilisé 
         $entree=$pdo->query('UPDATE code SET used = "oui" WHERE mdp='."\"".$mdp."\"");  */
-
+        }
         // Modification d'un Enseignant
-        
+        if((strcmp($_POST['manipuler'],"Modifier")==0)){
 
+            if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&& !empty($_POST['genre']) && !empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
+
+                $reponse = $pdo->prepare('SELECT id_enseignant FROM enseignant WHERE nom= :nom AND prenom= :prenom AND genre= :genre AND login= :login AND email= :email AND mdp= :mdp');
+                $reponse->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
+                $entree=$reponse->fetch();
+                $idEnseignant=$entree['id_enseignant'];
+                
+                if((strcmp($_POST['ModifEnseign'],"Enregistrer")==0)){
+                    if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&& !empty($_POST['genre']) && !empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
+                        $reponse = $pdo->prepare('UPDATE enseignant SET nom= :nom, prenom= :prenom, genre= :genre, login= :login, email= :email, mdp= :mdp WHERE id_enseignant='."\"".$idEnseignant."\"");
+                        $reponse->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
+                    }
+                }
+            }
+        }
         //Suppression d'un Eenseignant
         if((strcmp($_POST['manipuler'],"Supprimer")==0)){
 

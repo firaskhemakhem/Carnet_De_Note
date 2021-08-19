@@ -76,6 +76,7 @@
   margin-top: 70px;
   width: 55%;
   height: 270px;
+
   /*padding-left: 100px;*/
 }
 legend{
@@ -118,6 +119,11 @@ padding-right:300px ;
   background-color: green;
   width: 100px;
 }
+#btnsecondaireModif{
+  background-color: green;
+  width: 100px;
+}
+
 .connx{
   padding-left: 95px;
 }
@@ -131,4 +137,18 @@ padding-right:300px ;
   padding-left: 100px;
   padding-top: 100px;
   text-align: center;
+}
+.leftEnseign{
+  float: left;
+}
+#modifierEnseign{
+  padding-left: 120px;
+  width: 40%;
+  height: 270px;
+  float: right;
+}
+#affichEnseign{
+  width: 60%;
+  height: 270px;
+  padding-bottom: 600px;
 }

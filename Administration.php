@@ -50,33 +50,47 @@
                             $('div#detailsper').hide();
                             $('div#detailsclass').hide();
                             $('div#detailsmat').hide();
+                            //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
 
                         $('a#enseignants').click(function () {
                             $('div#detailsper').slideToggle();
+                            $('div#affichEnseign').slideToggle();
                             $('div#details').hide();
                             $('div#detailsclass').hide();
                             $('div#detailsmat').hide();
+                            //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
+                        /*$('a#enseignants').click(function () {
+                            $('div#affichEnseign').slideToggle();
+                            $('div#details').hide();
+                            $('div#detailsper').hide();
+                            $('div#detailsclass').hide();
+                            $('span.linktext').toggle();
+                        });*/
 
                         $('a#classe').click(function () {
                             $('div#detailsclass').slideToggle();
                             $('div#details').hide();
                             $('div#detailsper').hide();
                             $('div#detailsmat').hide();
+                            //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
-
                         $('a#matiere').click(function () {
                             $('div#detailsmat').slideToggle();
                             $('div#details').hide();
                             $('div#detailsper').hide();
                             $('div#detailsclass').hide();
+                            //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
+
+                                               
                     </script>
+
 
                     <li><a href="#" class="scroll-link" data-id="clients">Affectation Des Enseignants</a></li>
                     <!--<li><a href="#" class="scroll-link" data-id="contact">Contact</a></li>-->
@@ -130,7 +144,7 @@
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
             action="GestionEnseig.php">
             <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
-            <div class="modifier">
+            <div class="modifier" id="modifierEnseign">
                 <fieldset>
                     <legend>Gestion des enseignants </legend>
                     <table>
@@ -165,7 +179,7 @@
                     <table>
                         <tr>
                             <td><div class="envoi3"><input type="submit" name="manipuler" value="Ajouter" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                            <td><div class="envoi2"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            <td><div class="envoi2"><input type="submit" name="manipuler" value="Modifier" class="btn btn-primary" id="btnsecondaireModif"/></div></td>
                             <td><div class="envoi0"><input type="submit" name="manipuler" value="Supprimer" class="btn btn-primary" id="btnsecondaire"/></div></td>
                         </tr>
 
@@ -174,6 +188,107 @@
             </div>
         </form>
     </div>
+
+                                <!-- Affichage de la liste des enseignants -->
+    
+    <div id="affichEnseign" style="display:none">
+        <aside class="leftEnseign">
+        <?php 
+            // connection a la base de donneé
+            $hostName = "localhost";
+            $dbName = "carnetdenote";
+            $userName = "root";
+            $password = "";
+            
+            try{
+                $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+            catch(PDOException $e){
+                echo "Connection failed: " . $e->getMessage();
+            }   
+            $request=$pdo->query('SELECT * FROM enseignant');
+            // affichage de la table 
+            echo "<table class=\"table table-striped\" id=\"tableEnseign\">
+                    <thead>
+                        <tr>
+                            <th scope=\"col\">Id_Enseignant</th>
+                            <th scope=\"col\">Id_Ecole</th>
+                            <th scope=\"col\">Prenom</th>
+                            <th scope=\"col\">Nom</th>
+                            <th scope=\"col\">Genre</th>
+                            <th scope=\"col\">Email</th>
+                            <th scope=\"col\">Login</th>
+                            <th scope=\"col\">Mot De Passe</th>
+                            </tr>
+                    </thead>
+                    <tbody> 
+                ";
+            while($entree=$request->fetch()){
+                echo"<tr>
+                        <td>".$entree['id_enseignant']."</td>
+                        <td>".$entree['id_ecole']."</td>
+                        <td>".$entree['prenom']."</td>
+                        <td>".$entree['nom']."</td>
+                        <td>".$entree['genre']."</td>
+                        <td>".$entree['email']."</td>
+                        <td>".$entree['login']."</td>
+                        <td>".$entree['mdp']."</td>
+                    </tr>";
+            }
+            echo"</tbody></table>";
+            $request->closeCursor();     
+        ?>
+        </aside>
+    </div>
+                                               <!--Nouvelles données enseignants-->
+     <!-- Ce formulaire doit être traité dans une nouvelle page ! -->
+    <?php /*
+    <div id="detailsnew" style="display:none">
+        <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
+            action="GestionEnseig.php">
+            <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+            <div class="modifier">
+                <fieldset>
+                    <legend>Entrer les nouvelles données :</legend>
+                    <table>
+                        <tr>
+                            <td><span class="label">Nom :</span></td>
+                            <td><input type="text" name="nom" id="nom" /></td>
+                        </tr><br />
+                        <tr>
+                            <td><span class="label">Prénom :</span></td>
+                            <td><input type="text" name="prenom" id="prenom" /></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label">Genre: </span></td>
+                            <td><select name="genre" id="genre">
+                                    <option value="Homme">Homme</option>
+                                    <option value="Femme">Femme</option>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="label">Login :</span></td>
+                            <td><input type="text" name="login" id="login" /></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label">Email :</span></td>
+                            <td><input type="text" name="email" id="email" /></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label">Mot de passe :</span></td>
+                            <td><input type="password" name="mdp" id="mdp" /></td>
+                        </tr>
+                    </table><br />
+                    
+                    <div class="envoi3"><input type="submit" name="ModifEnseign" value="Enregistrer" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                            
+                </fieldset>
+            </div>
+        </form>
+    </div>
+    */
+    ?>
 
     <!--<div id="details135" style="display:none">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
