@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <!--DONNEES PERSONNELLES DES AMDINS-->
@@ -171,14 +174,16 @@
             }
             catch(PDOException $e){
                 echo "Connection failed: " . $e->getMessage();
-            }   
-            $request=$pdo->query('SELECT * FROM enseignant');
+            } 
+            $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole'];  
+            $request=$pdo->query('SELECT * FROM enseignant WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
             echo "<table class=\"table table-striped\" id=\"tableEnseign\">
                     <thead>
                         <tr>
                             <th scope=\"col\">Id_Enseignant</th>
-                            <th scope=\"col\">Id_Ecole</th>
                             <th scope=\"col\">Prenom</th>
                             <th scope=\"col\">Nom</th>
                             <th scope=\"col\">Genre</th>
@@ -192,7 +197,6 @@
             while($entree=$request->fetch()){
                 echo"<tr>
                         <td>".$entree['id_enseignant']."</td>
-                        <td>".$entree['id_ecole']."</td>
                         <td>".$entree['prenom']."</td>
                         <td>".$entree['nom']."</td>
                         <td>".$entree['genre']."</td>
@@ -387,14 +391,16 @@
             }
             catch(PDOException $e){
                 echo "Connection failed: " . $e->getMessage();
-            }   
-            $request=$pdo->query('SELECT * FROM classe');
+            } 
+            $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole'];   
+            $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
             echo "<table class=\"table table-striped\" id=\"tableClasse\">
                     <thead>
                         <tr>
                             <th scope=\"col\">Id_Classe</th>
-                            <th scope=\"col\">Id_Ecole</th>
                             <th scope=\"col\">Niveau</th>
                             <th scope=\"col\">Nom</th>
                             <th scope=\"col\">Nombre d'élèves</th>
@@ -405,7 +411,6 @@
             while($entree=$request->fetch()){
                 echo"<tr>
                         <td>".$entree['id_classe']."</td>
-                        <td>".$entree['id_ecole']."</td>
                         <td>".$entree['niveau']."</td>
                         <td>".$entree['nom']."</td>
                         <td>".$entree['nb']."</td>
@@ -530,14 +535,16 @@
             }
             catch(PDOException $e){
                 echo "Connection failed: " . $e->getMessage();
-            }   
-            $request=$pdo->query('SELECT * FROM matiere');
+            }
+            $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole']; 
+            $request=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
             echo "<table class=\"table table-striped\" id=\"tableMatiere\">
                     <thead>
                         <tr>
                             <th scope=\"col\">Id_Matiere</th>
-                            <th scope=\"col\">Id_Ecole</th>
                             <th scope=\"col\">Niveau</th>
                             <th scope=\"col\">Libellé</th>
                             <th scope=\"col\">Coefficient</th>
@@ -548,7 +555,6 @@
             while($entree=$request->fetch()){
                 echo"<tr>
                         <td>".$entree['id_matiere']."</td>
-                        <td>".$entree['id_ecole']."</td>
                         <td>".$entree['niveau']."</td>
                         <td>".$entree['libelle']."</td>
                         <td>".$entree['coefficient']."</td>

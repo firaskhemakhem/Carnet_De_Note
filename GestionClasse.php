@@ -18,7 +18,7 @@ if((!empty($_POST['manipuler']))){
     }
      /************************************* */
     
-     if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&& !empty($_POST['nb'])){
+    if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&& !empty($_POST['nb'])){
 
         // Ajout de la classe
         if((strcmp($_POST['manipuler'],"Ajouter")==0)){
@@ -58,11 +58,11 @@ if((!empty($_POST['manipuler']))){
 
     // suppression d'une classe
     if((strcmp($_POST['manipuler'],"Supprimer")==0)){
-        $requete=$pdo->prepare('DELETE FROM classe WHERE niveau= :niveau AND nom= :nom AND nb= :nb)');
+        $requete=$pdo->prepare('DELETE FROM classe WHERE niveau= :niveau AND nom= :nom AND nb= :nb');
         $requete->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
-        echo "enseignant supprimé !";
-            }
-        }
+        echo "Classe supprimé !";
+    }
+}
 
         /*if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&&!empty($_POST['nb'])){
                 // ATTENTION : Garder la session et ne laisser modifier les données personelles que sur l'id de l'utilisateur courant !!!!!!!!

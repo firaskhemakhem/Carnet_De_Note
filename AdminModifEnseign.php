@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <!--DONNEES PERSONNELLES DES AMDINS-->
@@ -63,7 +66,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-sm-6">
-                <div id="affichEnseign" style="display:none">
+                <div id="affichEnseign" style="display:block">
                     <aside class="leftEnseign">
                         <?php 
             // connection a la base de donneé
@@ -78,14 +81,16 @@
             }
             catch(PDOException $e){
                 echo "Connection failed: " . $e->getMessage();
-            }   
-            $request=$pdo->query('SELECT * FROM enseignant');
+            } 
+            $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole'];  
+            $request=$pdo->query('SELECT * FROM enseignant WHERE id_ecole='."\"".$idEcole."\"");  
             // affichage de la table 
             echo "<table class=\"table table-striped\" id=\"tableEnseign\">
                     <thead>
                         <tr>
                             <th scope=\"col\">Id_Enseignant</th>
-                            <th scope=\"col\">Id_Ecole</th>
                             <th scope=\"col\">Prenom</th>
                             <th scope=\"col\">Nom</th>
                             <th scope=\"col\">Genre</th>
@@ -99,7 +104,6 @@
             while($entree=$request->fetch()){
                 echo"<tr>
                         <td>".$entree['id_enseignant']."</td>
-                        <td>".$entree['id_ecole']."</td>
                         <td>".$entree['prenom']."</td>
                         <td>".$entree['nom']."</td>
                         <td>".$entree['genre']."</td>
@@ -115,7 +119,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-6">
-                <div id="detailsper" style="display:none">
+                <div id="detailsper" style="display:block">
                             <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
                         action="AdminGestionEnseign.php">
                         <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
@@ -151,9 +155,14 @@
                                         <td><input type="password" name="mdp" id="mdp" /></td>
                                     </tr>
                                 </table><br />
-                                
-                                <div class="envoi3"><input type="submit" name="ModifEnseign" value="Enregistrer" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                                        
+
+                                <table>
+                                    <tr>
+                                        <td><div class="envoi"><input type="submit" name="ModifEnseign" value="Enregistrer" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                                        <td><div classe="envoi1"><input type="submit" name="ModifEnseign" value="Annuler" class="btn btn-primary" id="btnsecondaire"></div></td>
+                                    </tr>
+                                </table>
+                                      
                             </fieldset>
                         </div>
                     </form>

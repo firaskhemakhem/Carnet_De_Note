@@ -21,27 +21,27 @@ if((!empty($_POST['manipuler']))){
         // Ajout de l'Enseignant
         if((strcmp($_POST['manipuler'],"Ajouter")==0)){
 
-        // Affectetaion de l'id_Ecole
-        $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
-        $entree=$reponse->fetch();
-        $idEcole=$entree['id_ecole'];
+            // Affectetaion de l'id_Ecole
+            $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole'];
 
-        /*
-        // affectation de mot de passe 
-        $reponse=$pdo->query('SELECT mdp FROM code WHERE used="non"');
-        $entree=$reponse->fetch();
-        $mdp=$entree['mdp'];
-        $mdpenseing=substr($entree['mdp'],0,strlen($entree['mdp'])-1);
-        $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,'."\"".$mdpenseing."\"".', :email)');
-        */
+            /*
+            // affectation de mot de passe 
+            $reponse=$pdo->query('SELECT mdp FROM code WHERE used="non"');
+            $entree=$reponse->fetch();
+            $mdp=$entree['mdp'];
+            $mdpenseing=substr($entree['mdp'],0,strlen($entree['mdp'])-1);
+            $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,'."\"".$mdpenseing."\"".', :email)');
+            */
 
-        // Creaction de l'enseignant 
-        $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,:mdp, :email)');
-        $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['login'], 'email' => $_POST['email'] , 'mdp' => $_POST['mdp']));
+            // Creaction de l'enseignant 
+            $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,:mdp, :email)');
+            $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['login'], 'email' => $_POST['email'] , 'mdp' => $_POST['mdp']));
 
-        /*
-        // Affirmer que ce mot de passe est utilisé 
-        $entree=$pdo->query('UPDATE code SET used = "oui" WHERE mdp='."\"".$mdp."\"");  */
+            /*
+            // Affirmer que ce mot de passe est utilisé 
+            $entree=$pdo->query('UPDATE code SET used = "oui" WHERE mdp='."\"".$mdp."\"");  */
         }
         // Modification d'un Enseignant
         if((strcmp($_POST['manipuler'],"Modifier")==0)){
@@ -52,13 +52,11 @@ if((!empty($_POST['manipuler']))){
                 $reponse->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
                 $entree=$reponse->fetch();
                 $idEnseignant=$entree['id_enseignant'];
+                $_SESSION['id_enseignat']=$idEnseignant;
+                header('Location: AdminGestionEnseign.php ');
+            exit();
+            $reponse->closeCursor();
                 
-                if((strcmp($_POST['ModifEnseign'],"Enregistrer")==0)){
-                    if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&& !empty($_POST['genre']) && !empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
-                        $reponse = $pdo->prepare('UPDATE enseignant SET nom= :nom, prenom= :prenom, genre= :genre, login= :login, email= :email, mdp= :mdp WHERE id_enseignant='."\"".$idEnseignant."\"");
-                        $reponse->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
-                    }
-                }
             }
         }
         //Suppression d'un Enseignant

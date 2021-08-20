@@ -47,7 +47,7 @@ if ((!empty($_POST['envoi']))) {
             $entree = $pdo->query('UPDATE code SET used = "oui" WHERE mdp=' . "\"" . $mdp . "\"");
 
             // Redirection vers la page d'acceuil
-            header('Location: index.html ');
+            header('Location: index.php ');
             /*?>
             <script type="text/javascript">
                 alert("Vous êtes maintenant inscrit, connectez-vous!"); //matekhdemch

@@ -61,9 +61,9 @@ if((!empty($_POST['manipuler']))){
 
     // Suppression d'une matière 
     if((strcmp($_POST['manipuler'],"Supprimer")==0)){
-        $requete=$pdo->prepare('DELETE FROM matiere WHERE niveau= :niveau AND libelle= :libelle AND coefficient= :coefficient)');
+        $requete=$pdo->prepare('DELETE FROM matiere WHERE niveau= :niveau AND libelle= :libelle AND coefficient= :coefficient');
         $requete->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient']));
-        echo "enseignant supprimé !";
+        echo "Matière supprimé !";
         }
     }
 

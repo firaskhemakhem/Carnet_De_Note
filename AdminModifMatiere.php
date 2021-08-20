@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-6">
-                <div id="detailsper" style="display:none">
+                <div id="detailsper" style="display:block">
                             <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
                         action="AdminGestionMatiere.php">
                         <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
