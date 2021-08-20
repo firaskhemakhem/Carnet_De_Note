@@ -63,7 +63,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-sm-6">
-                <div id="affichEnseign" style="display:none">
+                <div id="affichEnseign" style="display:block">
                     <aside class="leftEnseign">
                         <?php 
             // connection a la base de donneé
@@ -137,9 +137,12 @@
                                                     <td><input type="text" name="coefficient" id="coefficient" /></td>
                                                 </tr>
                                 </table><br />
-                                
-                                <div class="envoi3"><input type="submit" name="ModifMatiere" value="Enregistrer" class="btn btn-primary" id="btnsecondaire"/></div></td>
-                                        
+                                <table>
+                                          <tr>
+                                           <td><div class="envoi"><input type="submit" name="ModifMatiere" value="Enregistrer" class="btn btn-primary" id="btnsecondaire"/></div></td>
+                                           <td><div classe="envoi1"><input type="submit" name="ModifMatiere" value="Annuler" class="btn btn-primary" id="btnsecondaire"></div></td>
+                                          </tr>
+                                </table>                                        
                             </fieldset>
                         </div>
                     </form>

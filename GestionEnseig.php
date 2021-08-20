@@ -38,6 +38,13 @@ if((!empty($_POST['manipuler']))){
             // Creaction de l'enseignant 
             $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,:mdp, :email)');
             $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['login'], 'email' => $_POST['email'] , 'mdp' => $_POST['mdp']));
+            ?>
+            <script type="text/javascript">
+                alert(" Creation du nouveau enseignant est effectué avec succée !");
+            </script>
+            <?php
+            exit();
+            $reponse->closeCursor();
 
             /*
             // Affirmer que ce mot de passe est utilisé 
@@ -53,18 +60,28 @@ if((!empty($_POST['manipuler']))){
                 $entree=$reponse->fetch();
                 $idEnseignant=$entree['id_enseignant'];
                 $_SESSION['id_enseignat']=$idEnseignant;
-                header('Location: AdminGestionEnseign.php ');
-            exit();
-            $reponse->closeCursor();
+                header('Location: AdminModifEnseign.php ');
+                exit();
+                $reponse->closeCursor();
                 
             }
         }
         //Suppression d'un Enseignant
+
         if((strcmp($_POST['manipuler'],"Supprimer")==0)){
 
-            $requete=$pdo->prepare('DELETE FROM enseignant WHERE genre= :genre AND prenom= :prenom AND nom= :nom AND login= :login AND mdp= :mdp AND email= :email');
+            // Affectetaion de l'id_Ecole
+            $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole'];
+
+            $requete=$pdo->prepare('DELETE FROM enseignant WHERE id_ecole='."\"".$idEcole."\"".'AND genre= :genre AND prenom= :prenom AND nom= :nom AND login= :login AND mdp= :mdp AND email= :email');
             $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
-            echo "enseignant supprimé !";
+            ?>
+            <script type="text/javascript">
+                alert(" Suppression de l'enseignant est effectué avec succée !");
+            </script>
+            <?php
         }
     }
     else {

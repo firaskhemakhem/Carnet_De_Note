@@ -65,7 +65,7 @@ if((!empty($_POST['envoi']))){
             if((strcmp($entree['login'],0) == 1)&& (strcmp($entree['mdp'],0) == 1)){ //s'il est existant
                 $_SESSION['loginEnseing'] = $_POST['loginEnseing'];
                 $_SESSION['mdpEnseing'] = $_POST['mdpEnseing'] ;
-                header('Location: enseignant.html ');
+                header('Location: EnseignantPage.php ');
                 exit();
             }else{
                 

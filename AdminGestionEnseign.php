@@ -1,7 +1,7 @@
 <?php
 session_start();
-if((!empty($_POST['manipuler']))){
 
+if(!empty($_POST['ModifEnseign'])){
     $hostName = "localhost";
     $dbName = "carnetdenote";
     $userName = "root";
@@ -21,14 +21,15 @@ if((!empty($_POST['manipuler']))){
 
             $reponse = $pdo->prepare('UPDATE enseignant SET nom= :nom, prenom= :prenom, genre= :genre, login= :login, email= :email, mdp= :mdp WHERE id_enseignant='."\"".$_SESSION['id_enseignat']."\"");
             $reponse->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
-            header('Location: AdminGestionEnseign.php ');
+            header('Location: Administration.php ');
             exit();
             $reponse->closeCursor();
         }
-        if((strcmp($_POST['ModifEnseign'],"Annuler")==0)){
-            header('Location: Administration.php ');
-            exit();
-        }
+        
+    }
+    if((strcmp($_POST['ModifEnseign'],"Annuler")==0)){
+        header('Location: Administration.php ');
+        exit();
     }
     else{
 ?>
@@ -37,6 +38,9 @@ if((!empty($_POST['manipuler']))){
         </script>
 <?php
     }
+}
+else{
+    echo "no connection !";
 }
 
 ?>

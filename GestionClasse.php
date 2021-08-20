@@ -43,26 +43,36 @@ if((!empty($_POST['manipuler']))){
                 $reponse->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb'] ));
                 $entree=$reponse->fetch();
                 $idClasse=$entree['id_classe'];
+                $_SESSION['id_classe']=$idClasse;
+                header('Location: AdminModifClasse.php ');
+                exit();
+                $reponse->closeCursor();
                 
-                if((strcmp($_POST['ModifClasse'],"Enregistrer")==0)){
+                /*if((strcmp($_POST['ModifClasse'],"Enregistrer")==0)){
                     if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&& !empty($_POST['nb'])){
                         $reponse = $pdo->prepare('UPDATE classe SET niveau= :niveau, nom= :nom, nb= :nb WHERE id_classe = '."\"".$idClasse."\"");
                         $reponse->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb'] ));
                     }
-                }
+                }*/
             }
         }
 
-    /***************************************** */
+        /***************************************** */
 
 
-    // suppression d'une classe
-    if((strcmp($_POST['manipuler'],"Supprimer")==0)){
-        $requete=$pdo->prepare('DELETE FROM classe WHERE niveau= :niveau AND nom= :nom AND nb= :nb');
-        $requete->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
-        echo "Classe supprimé !";
+        // suppression d'une classe
+        if((strcmp($_POST['manipuler'],"Supprimer")==0)){
+
+            // Affectetaion de l'id_Ecole
+            $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole'];
+                
+            $requete=$pdo->prepare('DELETE FROM classe WHERE id_ecole='."\"".$idEcole."\"".' AND niveau= :niveau AND nom= :nom AND nb= :nb');
+            $requete->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
+            echo "Classe supprimé !";
+        }
     }
-}
 
         /*if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&&!empty($_POST['nb'])){
                 // ATTENTION : Garder la session et ne laisser modifier les données personelles que sur l'id de l'utilisateur courant !!!!!!!!
