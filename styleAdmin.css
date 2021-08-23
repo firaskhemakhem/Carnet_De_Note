@@ -31,15 +31,19 @@
   #floating-nav ul li a:hover {
     background: none;
   }*/
+
+  
 .navbar-default{
   opacity: 0.8;
 }
+
 #admin{
   color: black;
-  font-size: 23px;
+  font-size: 21px;
 }
+
 .scroll-link{
-  font-size: 15px;
+  font-size: 14px;
   color: rgba(0, 0, 0, 0.582);
 }
 
@@ -184,4 +188,7 @@ padding-right:300px ;
 #affichClasse{
   width: 145%;
   padding-left: 45px;
+}
+.styleAccueil{
+ 
 }

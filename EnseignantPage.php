@@ -25,6 +25,7 @@ session_start();
 
             <div class="collapse navbar-collapse" id="hidden-nav">
                 <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.php" class="scroll-link" data-id="clients" ><span>Accueil</span></a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="slides" id="donnees"> <span class="linktext">Données Personnelles</span><span class="linktext" style="display:none">Données Personnelles</span> </a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="about" id="eleves"><span class="linktext">Gestion Des Eleves</span><span class="linktext" style="display:none">Gestion Des Eleves</span> </a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="capabilities" id="notes"><span class="linktext">Gestion Des Notes</span><span class="linktext" style="display:none">Gestion Des Notes</span></a></li>
@@ -118,9 +119,9 @@ session_start();
             $idEcole=$entree['id_ecole'];  
             $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
-            echo "<table class=\"table table-striped\" id=\"tableEnseign\">
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
-                        <tr>
+                        <tr class=\"danger\">
                             <th scope=\"col\">Id_Eleve</th>
                             <th scope=\"col\">Prenom</th>
                             <th scope=\"col\">Nom</th>
@@ -138,7 +139,7 @@ session_start();
                 $retour=$test->fetch();
                 $nomClasse=$retour['nom'];
                 $niveauClasse=$retour['niveau'];
-                echo"<tr>
+                echo"<tr class=\"success\">
                         <td>".$entree['id_eleve']."</td>
                         <td>".$entree['prenom']."</td>
                         <td>".$entree['nom']."</td>
@@ -154,9 +155,9 @@ session_start();
             echo "<br/><br/><br/>";
             // affichage de la liste des classes avec les niveaux
             $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
-            echo "<table class=\"table table-striped\" id=\"tableEnseign\">
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
-                        <tr>
+                        <tr class=\"danger\">
                             <th scope=\"col\">Id_Classe</th>
                             <th scope=\"col\">Classe</th>
                             <th scope=\"col\">Niveau</th>
@@ -166,7 +167,7 @@ session_start();
                     <tbody> 
                 ";
             while($entree=$request->fetch()){
-                echo"<tr>
+                echo"<tr class=\"success\">
                         <td>".$entree['id_classe']."</td>
                         <td>".$entree['nom']."</td>
                         <td>".$entree['niveau']."</td>

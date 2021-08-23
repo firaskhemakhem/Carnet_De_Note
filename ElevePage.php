@@ -30,6 +30,7 @@ session_start();
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="hidden-nav">
                         <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.php" class="scroll-link" data-id="clients" ><span>Accueil</span></a></li>
                             <li class="active"><a href="#" class="scroll-link" data-id="slides" id="expand"> <span
                                         class="linktext">Données Personnelles</span><span class="linktext"
                                         style="display:none">Données Personnelles</span> </a></li>

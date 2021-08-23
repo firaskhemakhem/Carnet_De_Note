@@ -130,5 +130,10 @@ legend{
     color:rgb(206, 54, 27);
     font-weight: bold;
 }
-
-        /* CSS formulaire enseignants */
+.accueil{
+    margin-top: 300px;
+}
+.styleAccueil{
+    color: black;
+    font-size: 20px;
+}

@@ -24,6 +24,9 @@ if((!empty($_POST['envoi']))){
             $requete = $pdo->prepare('UPDATE eleve SET prenom = :prenom, nom = :nom, mdp = :mdp WHERE id_eleve='."\"".$idEleve."\"");
             $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'mdp'=>$_POST['mdp']));
             if($requete){
+                $_SESSION['nomEleve']=$entree['nom'];
+                $_SESSION['prenomEleve']=$entree['prenom'];
+                $_SESSION['mdpEleve']=$entree['mdp'];
                 ?>
             <script type="text/javascript">
                 alert("Mise à jour des données est effectué avec succée !");

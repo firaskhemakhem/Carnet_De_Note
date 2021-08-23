@@ -22,6 +22,8 @@ if((!empty($_POST['envoi']))){
             $requete = $pdo->prepare('UPDATE enseignant SET prenom = :prenom, nom = :nom, login = :login, mdp = :mdp WHERE login='."\"".$_SESSION['loginEnseing']."\"".' AND mdp='."\"".$_SESSION['mdpEnseing']."\"");
             $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'mdp'=>$_POST['mdp']));
             if($requete){
+                $_SESSION['loginEnseing'] = $_POST['login'];
+                $_SESSION['mdpEnseing'] = $_POST['mdp'] ;
                 ?>
             <script type="text/javascript">
                 alert("Mise à jour des données est effectué avec succée !");

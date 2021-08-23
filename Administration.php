@@ -34,6 +34,7 @@ session_start();
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="hidden-nav">
                 <ul class="nav navbar-nav">
+                <li class="active"><a href="index.php" class="scroll-link" data-id="clients" ><span>Accueil</span></a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="slides" id="expand"> <span
                                 class="linktext">Données Personnelles</span><span class="linktext"
                                 style="display:none">Données Personnelles</span> </a></li>
@@ -46,6 +47,10 @@ session_start();
                     <li class="active"><a href="#" class="scroll-link" data-id="projects" id="matiere"><span
                                 class="linktext">Gestion Des Matières</span><span class="linktext"
                                 style="display:none">Gestion Des Matières</span></a></li>
+                    <li class="active"><a href="#" class="scroll-link" data-id="clients" id="Affectation"><span
+                                class="linktext">Affectation Des Enseignants</span><span class="linktext"
+                                style="display:none">Affectation Des Enseignants</span></a></li>
+                    <!-- <button type="button" class="btn btn-warning" ><a href="index.php" class="styleAccueil">Acceuil</a></button>-->
                     <!--JQUERY-->
                     <script>
                         $('a#expand').click(function () {
@@ -56,6 +61,8 @@ session_start();
                             $('div#affichMatiere').hide();
                             $('div#detailsclass').hide();
                             $('div#detailsmat').hide();
+                            $('div#affectation').hide();
+                            $('div#affectationEnseign').hide();
                             //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
@@ -68,6 +75,8 @@ session_start();
                             $('div#details').hide();
                             $('div#detailsclass').hide();
                             $('div#detailsmat').hide();
+                            $('div#affectation').hide();
+                            $('div#affectationEnseign').hide();
                             //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
@@ -87,6 +96,8 @@ session_start();
                             $('div#affichEnseign').hide();
                             $('div#affichMatiere').hide();
                             $('div#detailsmat').hide();
+                            $('div#affectation').hide();
+                            $('div#affectationEnseign').hide();
                             //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
@@ -98,6 +109,21 @@ session_start();
                             $('div#affichEnseign').hide();
                             $('div#affichClasse').hide();
                             $('div#detailsclass').hide();
+                            $('div#affectation').hide();
+                            $('div#affectationEnseign').hide();
+                            //$('div#detailsnew').hide();
+                            $('span.linktext').toggle();
+                        });
+                        $('a#Affectation').click(function () {
+                            $('div#affectation').slideToggle();
+                            $('div#affectationEnseign').slideToggle();
+                            $('div#details').hide();
+                            $('div#detailsper').hide();
+                            $('div#detailsmat').hide();
+                            $('div#affichMatiere').hide();
+                            $('div#affichEnseign').hide();
+                            $('div#affichClasse').hide();
+                            $('div#detailsclass').hide();
                             //$('div#detailsnew').hide();
                             $('span.linktext').toggle();
                         });
@@ -105,15 +131,13 @@ session_start();
 
                                                
                     </script>
-
-
-                    <li><a href="#" class="scroll-link" data-id="clients">Affectation Des Enseignants</a></li>
                     <!--<li><a href="#" class="scroll-link" data-id="contact">Contact</a></li>-->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
+        
     </nav>
 
     <!--Formulaire données personnelles-->
@@ -180,9 +204,9 @@ session_start();
             $idEcole=$entree['id_ecole'];  
             $request=$pdo->query('SELECT * FROM enseignant WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
-            echo "<table class=\"table table-striped\" id=\"tableEnseign\">
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
-                        <tr>
+                        <tr class=\"success\">
                             <th scope=\"col\">Id_Enseignant</th>
                             <th scope=\"col\">Prenom</th>
                             <th scope=\"col\">Nom</th>
@@ -195,7 +219,7 @@ session_start();
                     <tbody> 
                 ";
             while($entree=$request->fetch()){
-                echo"<tr>
+                echo"<tr class=\"success\">
                         <td>".$entree['id_enseignant']."</td>
                         <td>".$entree['prenom']."</td>
                         <td>".$entree['nom']."</td>
@@ -397,9 +421,9 @@ session_start();
             $idEcole=$entree['id_ecole'];   
             $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
-            echo "<table class=\"table table-striped\" id=\"tableClasse\">
+            echo "<table class=\"table table-success\" id=\"tableClasse\">
                     <thead>
-                        <tr>
+                        <tr class=\"danger\">
                             <th scope=\"col\">Id_Classe</th>
                             <th scope=\"col\">Niveau</th>
                             <th scope=\"col\">Nom</th>
@@ -409,7 +433,7 @@ session_start();
                     <tbody> 
                 ";
             while($entree=$request->fetch()){
-                echo"<tr>
+                echo"<tr class=\"success\">
                         <td>".$entree['id_classe']."</td>
                         <td>".$entree['niveau']."</td>
                         <td>".$entree['nom']."</td>
@@ -541,9 +565,9 @@ session_start();
             $idEcole=$entree['id_ecole']; 
             $request=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
-            echo "<table class=\"table table-striped\" id=\"tableMatiere\">
+            echo "<table class=\"table table-success\" id=\"tableMatiere\">
                     <thead>
-                        <tr>
+                        <tr class=\"danger\">
                             <th scope=\"col\">Id_Matiere</th>
                             <th scope=\"col\">Niveau</th>
                             <th scope=\"col\">Libellé</th>
@@ -553,7 +577,7 @@ session_start();
                     <tbody> 
                 ";
             while($entree=$request->fetch()){
-                echo"<tr>
+                echo"<tr class=\"success\">
                         <td>".$entree['id_matiere']."</td>
                         <td>".$entree['niveau']."</td>
                         <td>".$entree['libelle']."</td>
@@ -661,6 +685,197 @@ session_start();
     </div>
     */
     ?>
+
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div id="affectation" style="display:none">
+                    <aside class="leftEnseign">
+                        <?php 
+            // connection a la base de donneé
+            $hostName = "localhost";
+            $dbName = "carnetdenote";
+            $userName = "root";
+            $password = "";
+            
+            try{
+                $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+            catch(PDOException $e){
+                echo "Connection failed: " . $e->getMessage();
+            } 
+            $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+            $entree=$reponse->fetch();
+            $idEcole=$entree['id_ecole'];  
+            $request=$pdo->query('SELECT * FROM enseignant WHERE id_ecole='."\"".$idEcole."\"");
+            // affichage de la table enseignants
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+                    <thead>
+                        <tr class=\"danger\">
+                            <th scope=\"col\">Id_Enseignant</th>
+                            <th scope=\"col\">Prenom</th>
+                            <th scope=\"col\">Nom</th>
+                            <th scope=\"col\">Genre</th>
+                            <th scope=\"col\">Email</th>
+                            <th scope=\"col\">Login</th>
+                            <th scope=\"col\">Mot De Passe</th>
+                            </tr>
+                    </thead>
+                    <tbody> 
+                ";
+            while($entree=$request->fetch()){
+                echo"<tr class=\"success\">
+                        <td>".$entree['id_enseignant']."</td>
+                        <td>".$entree['prenom']."</td>
+                        <td>".$entree['nom']."</td>
+                        <td>".$entree['genre']."</td>
+                        <td>".$entree['email']."</td>
+                        <td>".$entree['login']."</td>
+                        <td>".$entree['mdp']."</td>
+                    </tr>";
+            }
+            echo"</tbody></table>";
+              
+            echo "<br/><br/><br/>";
+            // affichage de la liste des classes avec les niveaux
+            $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+                    <thead>
+                        <tr  class=\"danger\">
+                            <th scope=\"col\">Id_Classe</th>
+                            <th scope=\"col\">Classe</th>
+                            <th scope=\"col\">Niveau</th>
+                            <th scope=\"col\">Nombre d'élèves</th>
+                            </tr>
+                    </thead>
+                    <tbody> 
+                ";
+            while($entree=$request->fetch()){
+                echo"<tr class=\"success\">
+                        <td>".$entree['id_classe']."</td>
+                        <td>".$entree['nom']."</td>
+                        <td>".$entree['niveau']."</td>
+                        <td>".$entree['nb']."</td>
+                    </tr>";
+            }
+            echo"</tbody></table>";
+
+            echo "<br/><br/><br/>";
+            // affichage de la liste des matiéres avec les niveaux
+            $request=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"");
+            echo "<table class=\"table table-success\" id=\"tableMatiere\">
+            <thead>
+                <tr class=\"danger\">
+                    <th scope=\"col\">Id_Matiere</th>
+                    <th scope=\"col\">Niveau</th>
+                    <th scope=\"col\">Libellé</th>
+                    <th scope=\"col\">Coefficient</th>
+                    </tr>
+            </thead>
+            <tbody> 
+        ";
+    while($entree=$request->fetch()){
+        echo"<tr class=\"success\">
+                <td>".$entree['id_matiere']."</td>
+                <td>".$entree['niveau']."</td>
+                <td>".$entree['libelle']."</td>
+                <td>".$entree['coefficient']."</td>
+            </tr>";
+    }
+    echo"</tbody></table>";
+
+    echo "<br/><br/><br/>";
+    //table affectation
+    echo "<table class=\"table table-success\" id=\"tableEnseign\">
+    <thead>
+        <tr class=\"danger\">
+            <th scope=\"col\">Nom Enseignant</th>
+            <th scope=\"col\">Prenom Enseignant</th>
+            <th scope=\"col\">Classe</th>
+            <th scope=\"col\">Matiére</th>
+            <th scope=\"col\">Niveau</th>
+            <th scope=\"col\">Coefficient</th>
+            <th scope=\"col\">Année Scolaire</th>
+            </tr>
+    </thead>
+    <tbody> 
+    ";
+    $request=$pdo->query('SELECT * FROM affectation');
+    while($entree=$request->fetch()){
+        $idEnseignant=$entree['id_enseignant'];
+        $idClasse=$entree['id_classe'];
+        $idMatiere=$entree['id_matiere'];
+        $reponse=$pdo->query('SELECT prenom,nom FROM enseignant WHERE id_enseignant ='."\"".$idEnseignant."\"");
+        $test=$reponse->fetch();
+        $reponse1=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$idClasse."\"");
+        $test1=$reponse1->fetch();
+        $reponse2=$pdo->query('SELECT libelle,coefficient FROM matiere WHERE id_matiere='."\"".$idMatiere."\"");
+        $test2=$reponse2->fetch();
+    echo"<tr class=\"success\">
+        
+        <td>".$test['nom']."</td>
+        <td>".$test['prenom']."</td>
+        <td>".$test1['nom']."</td>
+        <td>".$test2['libelle']."</td>
+        <td>".$test1['niveau']."</td>
+        <td>".$test2['coefficient']."</td>
+        <td>".$entree['anneescolaire']."</td>
+    </tr>";
+    }
+echo"</tbody></table>";
+
+echo "<br/><br/><br/>";
+
+            $request->closeCursor();     
+        ?>
+                    </aside>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div id="affectationEnseign" style="display:none">
+                    <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded"
+                        action="GestionEnseig.php">
+                        <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+                        <div class="modifier" id="modifierEnseign">
+                            <fieldset>
+                                <legend>Affectation des enseignants </legend>
+                                <table>
+                                    <tr>
+                                        <td><span class="label">Id enseignant :</span></td>
+                                        <td><input type="text" name="idEnseign" id="idEnseign" /></td>
+                                    </tr><br />
+                                    <tr>
+                                        <td><span class="label">Id classe :</span></td>
+                                        <td><input type="text" name="idClasse" id="idClasse" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="label">Id matiére :</span></td>
+                                        <td><input type="text" name="idMatiere" id="idMatiere" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="label">Année scolaire :</span></td>
+                                        <td><input type="text" name="annee" id="annee" /></td>
+                                    </tr>
+                                </table><br />
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="envoi2"><input type="submit" name="manipuler" value="Affecter"
+                                                    class="btn btn-primary" id="btnsecondaireModif" /></div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 

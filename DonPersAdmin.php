@@ -22,11 +22,16 @@ if((!empty($_POST['envoi']))){
             $requete = $pdo->prepare('UPDATE administration SET nom = :nom, prenom = :prenom, email = :email, mdp = :mdp WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"" );
             $requete->execute(array('nom' => $_POST['nom'],'prenom' => $_POST['prenom'],'email' => $_POST['email'],'mdp'=>$_POST['mdp']));
             if($requete){
+                $_SESSION["emailAdmin"] = $_POST["email"];
+                $_SESSION["mdpAdmin"] = $_POST["mdp"];
                 ?>
             <script type="text/javascript">
                 alert("Mise à jour des données est effectué avec succée !");
             </script>
             <?php
+            header('Location: Administration.php ');
+            exit();
+            $reponse->closeCursor();
             }
         }
         else {
