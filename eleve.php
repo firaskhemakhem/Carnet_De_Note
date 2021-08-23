@@ -1,4 +1,5 @@
 <?php
+session_start();
 if((!empty($_POST['envoi']))){
 
     $hostName = "localhost";
@@ -62,11 +63,16 @@ if((!empty($_POST['envoi']))){
             $entree=$reponse->fetch();
 
             if((strcmp($entree['nom'],0) == 1)&& (strcmp($entree['mdp'],0) == 1)&&(strcmp($entree['prenom'],0) == 1)){ //s'il est existant
-                
-                header('Location: index.php '); // cette page doit etre modifier par la page eleve.html
+                // recuperation des variables de session
+                $_SESSION['nomEleve']=$entree['nom'];
+                $_SESSION['prenomEleve']=$entree['prenom'];
+                $_SESSION['mdpEleve']=$entree['mdp'];
+                //redirection 
+                header('Location: ElevePage.php ');
                 exit();
                 
-            }else{
+            }
+            else{
                 header('Location: index.php ');
                 exit();
             }
