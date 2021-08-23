@@ -39,7 +39,7 @@ if((!empty($_POST['envoi']))){
             // Affirmer que ce mot de passe est utilisé 
             $entree=$pdo->query('UPDATE code SET used = "oui" WHERE mdp='."\"".$mdp."\""); 
 
-            header('Location: index.html');
+            header('Location: index.php');
 
             /*?>
             <script type="text/javascript">
@@ -54,15 +54,15 @@ if((!empty($_POST['envoi']))){
     }else{
 
         
-        if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&&!empty($_POST['mdp'])){
+        if(!empty($_POST['nomEleve'])&&!empty($_POST['prenomEleve'])&&!empty($_POST['mdpEleve'])){
 
 
             $reponse = $pdo->prepare('SELECT nom,prenom, mdp FROM eleve WHERE nom = :nom AND mdp = :mdp AND prenom= :prenom');
-            $requete = $reponse->execute(array('nom' =>$_POST['nom'], 'mdp' => $_POST['mdp'], 'prenom' => $_POST['prenom']));
+            $requete = $reponse->execute(array('nom' =>$_POST['nomEleve'], 'mdp' => $_POST['mdpEleve'], 'prenom' => $_POST['prenomEleve']));
             $entree=$reponse->fetch();
 
             if((strcmp($entree['nom'],0) == 1)&& (strcmp($entree['mdp'],0) == 1)&&(strcmp($entree['prenom'],0) == 1)){ //s'il est existant
-
+                
                 header('Location: index.php '); // cette page doit etre modifier par la page eleve.html
                 exit();
                 

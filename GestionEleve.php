@@ -33,8 +33,8 @@ if((!empty($_POST['manipuler']))){
             $idClasse=$entree['id_classe'];
 
             // Creaction de l'élève
-            $requete = $pdo->prepare('INSERT INTO eleve (id_ecole,id_classe,prenom,nom,anneescolaire,mdp) Values('."\"".$idEcole.','.$idClasse."\"".',:prenom, :nom,:annee,:mdp)');
-            $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp'=> $_POST['mdp']));
+            $requete = $pdo->prepare('INSERT INTO eleve (id_ecole,id_classe,prenom,nom,anneescolaire,mdp) Values('."\"".$idEcole."\"".','."\"".$idClasse."\"".',:prenom, :nom,:annee,:mdp)');
+            $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp' => $_POST['mdp']));
             
             echo "Ajout de l'élève est effectué avec succées !";
         }
@@ -53,9 +53,9 @@ if((!empty($_POST['manipuler']))){
             $idClasse=$entree['id_classe'];
 
             // Suppression de l'élève
-            $requete = $pdo->prepare('DELETE FROM eleve WHERE id_ecole='."\"".$idEcole.' AND id_classe='."\"".$idClasse."\"".' AND prenom= :prenom AND nom= :nom AND anneescolaire= :annee AND mdp= :mdp)');
-            $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp'=> $_POST['mdp']));
-
+            $requete = $pdo->prepare('DELETE FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$idClasse."\"".' AND prenom= :prenom AND nom= :nom AND anneescolaire= :annee AND mdp= :mdp');
+            $reponseee=$requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp'=> $_POST['mdp']));
+            echo $reponseee;
             echo "Suppression de l'élève est effectué avec succées !";
         }
         // Modification de lélève
@@ -73,7 +73,7 @@ if((!empty($_POST['manipuler']))){
             $idClasse=$entree['id_classe'];
 
             // recuperation de l'id_eleve
-            $reponse = $pdo->prepare('SELECT id_eleve FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$idClasse."\"".' AND prenom= :prenom AND nom :nom AND anneescolaire= :annee AND mdp= :mdp)');
+            $reponse = $pdo->prepare('SELECT id_eleve FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$idClasse."\"".' AND prenom= :prenom AND nom= :nom AND anneescolaire= :annee AND mdp= :mdp');
             $reponse->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp'=> $_POST['mdp']));
             $entree=$reponse->fetch();
             $idEleve=$entree['id_eleve'];

@@ -134,8 +134,8 @@ session_start();
                 ";
             while($entree=$request->fetch()){
                 //if((strcmp($entree['id_classe'],"NULL"))==0){
-                $request=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$entree['id_classe']."\"");
-                $retour=$request->fetch();
+                $test=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$entree['id_classe']."\"");
+                $retour=$test->fetch();
                 $nomClasse=$retour['nom'];
                 $niveauClasse=$retour['niveau'];
                 echo"<tr>
@@ -151,7 +151,29 @@ session_start();
                 
             }
             echo"</tbody></table>";
+            echo "<br/><br/><br/>";
             // affichage de la liste des classes avec les niveaux
+            $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
+            echo "<table class=\"table table-striped\" id=\"tableEnseign\">
+                    <thead>
+                        <tr>
+                            <th scope=\"col\">Id_Classe</th>
+                            <th scope=\"col\">Classe</th>
+                            <th scope=\"col\">Niveau</th>
+                            <th scope=\"col\">Nombre d'élèves</th>
+                            </tr>
+                    </thead>
+                    <tbody> 
+                ";
+            while($entree=$request->fetch()){
+                echo"<tr>
+                        <td>".$entree['id_classe']."</td>
+                        <td>".$entree['nom']."</td>
+                        <td>".$entree['niveau']."</td>
+                        <td>".$entree['nb']."</td>
+                    </tr>";
+            }
+            echo"</tbody></table>";
             $request->closeCursor();     
         ?>
                     </aside>
