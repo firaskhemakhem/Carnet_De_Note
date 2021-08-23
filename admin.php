@@ -19,41 +19,54 @@ if ((!empty($_POST['envoi']))) {
     if ((strcmp($_POST['envoi'], "Envoyer") == 0)) {
 
         if (!empty($_POST['gouvernorat']) && !empty($_POST['delegation']) && !empty($_POST['nomEcole']) && !empty($_POST['genre']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['mdp'])) {
-
-            // verifier le non existance d'un administrateur pour cette ecole
-            // cette condition doit être verifié 
-
-            // Creation de l'école 
-            $requete = $pdo->prepare('INSERT INTO ecole(gouvernorat,delegation,libelle) VALUES (:gouvernorat,:delegation,:nomEcole)');
-            $requete->execute(array('gouvernorat' => $_POST['gouvernorat'], 'delegation' => $_POST['delegation'], 'nomEcole' => $_POST['nomEcole']));
-
             // Recuperation de l'id_ecole
             $reponse = $pdo->prepare('SELECT id_ecole FROM ecole WHERE gouvernorat= :gouvernorat AND delegation= :delegation AND libelle= :nomEcole');
             $reponse->execute(array('gouvernorat' => $_POST['gouvernorat'], 'delegation' => $_POST['delegation'], 'nomEcole' => $_POST['nomEcole']));
             $entree = $reponse->fetch();
             $idEcole = $entree['id_ecole'];
 
-            // affectation de mot de passe 
-            $reponse = $pdo->query('SELECT mdp FROM code WHERE used="non"');
-            $entree = $reponse->fetch();
-            $mdp = $entree['mdp'];
-            $mdpadmin = substr($entree['mdp'], 0, strlen($entree['mdp']) - 1);
+             // verifier le non existance d'un administrateur pour cette ecole
+            $request=$pdo->query('SELECT id_admin FROM administration WHERE id_ecole='."\"".$idEcole."\"");
+            $entree=$request->fetch();
+            if($entree){
+                ?>
+            <script type="text/javascript">
+                alert("Admin existant déjà pour cette école !!"); //matekhdemch
+            </script>
+            <?php
+            exit();
+            $request->closeCursor();
+            }
+            else{
+                // Creation de l'école 
+                $requete = $pdo->prepare('INSERT INTO ecole(gouvernorat,delegation,libelle) VALUES (:gouvernorat,:delegation,:nomEcole)');
+                $requete->execute(array('gouvernorat' => $_POST['gouvernorat'], 'delegation' => $_POST['delegation'], 'nomEcole' => $_POST['nomEcole']));
 
-            // creaction de l'Administrateur
-            $requete = $pdo->prepare('INSERT INTO administration(id_ecole,genre,prenom,nom,email,mdp,type) VALUES (' . "\"" . $idEcole . "\"" . ',:genre,:prenom, :nom,:email,' . "\"" . $mdpadmin . "\"" . ',6)');
-            $requete->execute(array('genre' => $_POST['genre'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $_POST['email']));
+                // affectation de mot de passe 
+                $reponse = $pdo->query('SELECT mdp FROM code WHERE used="non"');
+                $entree = $reponse->fetch();
+                $mdp = $entree['mdp'];
+                $mdpadmin = substr($entree['mdp'], 0, strlen($entree['mdp']) - 1);
 
-            // Affirmer que ce mot de passe est utilisé 
-            $entree = $pdo->query('UPDATE code SET used = "oui" WHERE mdp=' . "\"" . $mdp . "\"");
+                // creaction de l'Administrateur
+                $requete = $pdo->prepare('INSERT INTO administration(id_ecole,genre,prenom,nom,email,mdp,type) VALUES (' . "\"" . $idEcole . "\"" . ',:genre,:prenom, :nom,:email,' . "\"" . $mdpadmin . "\"" . ',6)');
+                $requete->execute(array('genre' => $_POST['genre'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'email' => $_POST['email']));
 
+                // Affirmer que ce mot de passe est utilisé 
+                $entree = $pdo->query('UPDATE code SET used = "oui" WHERE mdp=' . "\"" . $mdp . "\"");
+
+            }
+            
             // Redirection vers la page d'acceuil
             header('Location: index.php ');
+            exit();
+
             /*?>
             <script type="text/javascript">
                 alert("Vous êtes maintenant inscrit, connectez-vous!"); //matekhdemch
             </script>
             <?php */
-            exit();
+            
         } else {
             echo "vous devez remplir tous les champs!";
         }
