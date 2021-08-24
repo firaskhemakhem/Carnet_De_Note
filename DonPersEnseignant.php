@@ -11,12 +11,10 @@ if((!empty($_POST['envoi']))){
     try{
         $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
     }
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
     }
-
         if(!empty($_POST['prenom'])&&!empty($_POST['nom'])&&!empty($_POST['login'])&&!empty($_POST['mdp'])){
                 // ATTENTION : Garder la session et ne laisser modifier les données personelles que sur l'id de l'utilisateur courant !!!!!!!!
             $requete = $pdo->prepare('UPDATE enseignant SET prenom = :prenom, nom = :nom, login = :login, mdp = :mdp WHERE login='."\"".$_SESSION['loginEnseing']."\"".' AND mdp='."\"".$_SESSION['mdpEnseing']."\"");
@@ -25,14 +23,20 @@ if((!empty($_POST['envoi']))){
                 $_SESSION['loginEnseing'] = $_POST['login'];
                 $_SESSION['mdpEnseing'] = $_POST['mdp'] ;
                 ?>
-            <script type="text/javascript">
-                alert("Mise à jour des données est effectué avec succée !");
-            </script>
-            <?php
+                <script type="text/javascript">
+                    alert("Mise à jour des données est affectuée avec succées!"); 
+                    window.location.href = "EnseignantPage.php"
+                </script>
+                <?php 
             } 
         }
         else {
-            echo "vous devez remplir tous les champs!";
+            ?>
+            <script type="text/javascript">
+                alert("Vous devez remplir tout les champs!"); 
+                window.location.href = "EnseignantPage.php"
+            </script>
+            <?php 
         }
 
     } 

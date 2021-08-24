@@ -61,9 +61,9 @@ session_start();
             $idEcole=$entree['id_ecole'];  
             $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
-            echo "<table class=\"table table-striped\" id=\"tableEnseign\">
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
-                        <tr>
+                        <tr class=\"danger\">
                             <th scope=\"col\">Id_Eleve</th>
                             <th scope=\"col\">Prenom</th>
                             <th scope=\"col\">Nom</th>
@@ -74,12 +74,36 @@ session_start();
                     <tbody> 
                 ";
             while($entree=$request->fetch()){
-                echo"<tr>
+                echo"<tr  class=\"success\">
                         <td>".$entree['id_eleve']."</td>
                         <td>".$entree['prenom']."</td>
                         <td>".$entree['nom']."</td>
                         <td>".$entree['anneescolaire']."</td>
                         <td>".$entree['mdp']."</td>
+                    </tr>";
+            }
+            echo"</tbody></table>";
+
+            echo "<br/><br/><br/>";
+            // affichage de la liste des classes avec les niveaux
+            $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+                    <thead>
+                        <tr class=\"danger\">
+                            <th scope=\"col\">Id_Classe</th>
+                            <th scope=\"col\">Classe</th>
+                            <th scope=\"col\">Niveau</th>
+                            <th scope=\"col\">Nombre d'élèves</th>
+                            </tr>
+                    </thead>
+                    <tbody> 
+                ";
+            while($entree=$request->fetch()){
+                echo"<tr class=\"success\">
+                        <td>".$entree['id_classe']."</td>
+                        <td>".$entree['nom']."</td>
+                        <td>".$entree['niveau']."</td>
+                        <td>".$entree['nb']."</td>
                     </tr>";
             }
             echo"</tbody></table>";

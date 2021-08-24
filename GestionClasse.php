@@ -11,12 +11,10 @@ if((!empty($_POST['manipuler']))){
     try{
         $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
     }
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
     }
-     /************************************* */
     
     if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&& !empty($_POST['nb'])){
 
@@ -28,10 +26,27 @@ if((!empty($_POST['manipuler']))){
         $entree=$reponse->fetch();
         $idEcole=$entree['id_ecole'];
 
-
-        // Creaction de la classe
-        $requete = $pdo->prepare('Insert into classe (id_ecole, niveau, nom, nb) Values('."\"".$idEcole."\"".',:niveau, :nom, :nb )');
-        $requete->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb'] ));
+        $request=$pdo->prepare('SELECT id_classe FROM classe WHERE nom= :nom AND niveau= :niveau AND nb= :nb');
+        $request->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
+        $retour=$request->fetch();
+        if($reponse){
+            ?>
+            <script type="text/javascript">
+                alert("Classe déjà existante!");
+                window.location.href = "Administration.php"
+            </script>
+            <?php 
+        }else{
+            // Creaction de la classe
+            $requete = $pdo->prepare('Insert into classe (id_ecole, niveau, nom, nb) Values('."\"".$idEcole."\"".',:niveau, :nom, :nb )');
+            $requete->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb'] ));
+            ?>
+            <script type="text/javascript">
+                alert("Classe ajoutée!");
+                window.location.href = "Administration.php"
+            </script>
+            <?php 
+        }
 
         }
         // Modification d'une classe
@@ -42,23 +57,22 @@ if((!empty($_POST['manipuler']))){
                 $reponse = $pdo->prepare('SELECT id_classe FROM classe WHERE niveau= :niveau AND nom= :nom AND nb= :nb ');
                 $reponse->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb'] ));
                 $entree=$reponse->fetch();
-                $idClasse=$entree['id_classe'];
-                $_SESSION['id_classe']=$idClasse;
-                header('Location: AdminModifClasse.php ');
-                exit();
-                $reponse->closeCursor();
-                
-                /*if((strcmp($_POST['ModifClasse'],"Enregistrer")==0)){
-                    if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&& !empty($_POST['nb'])){
-                        $reponse = $pdo->prepare('UPDATE classe SET niveau= :niveau, nom= :nom, nb= :nb WHERE id_classe = '."\"".$idClasse."\"");
-                        $reponse->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb'] ));
-                    }
-                }*/
+                if($entree){
+                    $idClasse=$entree['id_classe'];
+                    $_SESSION['id_classe']=$idClasse;
+                    header('Location: AdminModifClasse.php ');
+                    exit();
+                    $reponse->closeCursor();
+                }else{
+                    ?>
+                    <script type="text/javascript">
+                        alert("La classe n'existe pas!");
+                        window.location.href = "Administration.php"
+                    </script>
+                    <?php 
+                }
             }
         }
-
-        /***************************************** */
-
 
         // suppression d'une classe
         if((strcmp($_POST['manipuler'],"Supprimer")==0)){
@@ -68,23 +82,36 @@ if((!empty($_POST['manipuler']))){
             $entree=$reponse->fetch();
             $idEcole=$entree['id_ecole'];
                 
-            $requete=$pdo->prepare('DELETE FROM classe WHERE id_ecole='."\"".$idEcole."\"".' AND niveau= :niveau AND nom= :nom AND nb= :nb');
-            $requete->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
-            echo "Classe supprimé !";
+            $request=$pdo->prepare('SELECT id_classe FROM classe WHERE nom= :nom AND niveau= :niveau AND nb= :nb');
+            $request->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
+            $retour=$request->fetch();
+            if($retour){
+                $requete=$pdo->prepare('DELETE FROM classe WHERE id_ecole='."\"".$idEcole."\"".' AND niveau= :niveau AND nom= :nom AND nb= :nb');
+                $requete->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
+                ?>
+                <script type="text/javascript">
+                    alert("Classe supprimé!");
+                    window.location.href = "Administration.php"
+                </script>
+                <?php 
+            }else{
+                ?>
+                <script type="text/javascript">
+                    alert("La classe n'existe pas!");
+                    window.location.href = "Administration.php"
+                </script>
+                <?php 
+            }
         }
+    }else {
+        ?>
+        <script type="text/javascript">
+            alert("Vous devez remplir tout les champs!");
+            window.location.href = "Administration.php"
+        </script>
+        <?php 
+     } 
+
     }
-
-        /*if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&&!empty($_POST['nb'])){
-                // ATTENTION : Garder la session et ne laisser modifier les données personelles que sur l'id de l'utilisateur courant !!!!!!!!
-
-            $requete = $pdo->prepare('Insert into classe(id_ecole,niveau,nom,nb) Values(3,:niveau,:nom,:nb)');
-            $requete->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
-            echo" insert successfully !";
-        }
-        else {
-            echo "vous devez remplir tous les champs!";
-        }*/
-
-    } 
     
 ?>

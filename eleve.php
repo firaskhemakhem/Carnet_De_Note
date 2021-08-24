@@ -10,14 +10,13 @@ if((!empty($_POST['envoi']))){
     try{
         $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
     }
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
     }
 
+    //inscription d'un éléve
     if((strcmp($_POST['envoi'],"Envoyer")==0)){
-
 
         if(!empty($_POST['gouvernorat'])&&!empty($_POST['delegation'])&&!empty($_POST['nomEcole'])&&!empty($_POST['nom'])&&!empty($_POST['prenom'])&&!empty($_POST['anneescolaire'])&&!empty($_POST['mdp'])){
 
@@ -40,7 +39,12 @@ if((!empty($_POST['envoi']))){
             // Affirmer que ce mot de passe est utilisé 
             $entree=$pdo->query('UPDATE code SET used = "oui" WHERE mdp='."\"".$mdp."\""); 
 
-            header('Location: index.php');
+            ?>
+            <script type="text/javascript">
+                alert("Vous êtes inscrit, vous pouvez vous connecter!");
+                window.location.href = "index.php"
+            </script>
+            <?php 
 
             /*?>
             <script type="text/javascript">
@@ -50,19 +54,24 @@ if((!empty($_POST['envoi']))){
             exit();
         }
         else {
-            echo "vous devez remplir tous les champs!";
+            ?>
+            <script type="text/javascript">
+                alert("Vous devez remplir tout les champs!");
+                window.location.href = "index.php"
+            </script>
+            <?php 
         }
+
+        //connexion d'un élève
     }else{
 
-        
         if(!empty($_POST['nomEleve'])&&!empty($_POST['prenomEleve'])&&!empty($_POST['mdpEleve'])){
-
 
             $reponse = $pdo->prepare('SELECT nom,prenom, mdp FROM eleve WHERE nom = :nom AND mdp = :mdp AND prenom= :prenom');
             $requete = $reponse->execute(array('nom' =>$_POST['nomEleve'], 'mdp' => $_POST['mdpEleve'], 'prenom' => $_POST['prenomEleve']));
             $entree=$reponse->fetch();
 
-            if((strcmp($entree['nom'],0) == 1)&& (strcmp($entree['mdp'],0) == 1)&&(strcmp($entree['prenom'],0) == 1)){ //s'il est existant
+            if($entree){ //s'il est existant
                 // recuperation des variables de session
                 $_SESSION['nomEleve']=$entree['nom'];
                 $_SESSION['prenomEleve']=$entree['prenom'];
@@ -73,10 +82,20 @@ if((!empty($_POST['envoi']))){
                 
             }
             else{
-                header('Location: index.php ');
-                exit();
+                ?>
+                <script type="text/javascript">
+                    alert("Vous n'êtes pas inscrit!");
+                    window.location.href = "index.php"
+                </script>
+                <?php 
             }
-            $reponse->closeCursor();
+        }else{
+            ?>
+            <script type="text/javascript">
+                alert("Vous devez remplir tout les champs!");
+                window.location.href = "index.php"
+            </script>
+            <?php 
         }
     }
   }

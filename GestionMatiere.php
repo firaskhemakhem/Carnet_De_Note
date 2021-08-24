@@ -11,14 +11,11 @@ if((!empty($_POST['manipuler']))){
     try{
         $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
     }
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
     }
 
-
-    /************************************* */
     
     if(!empty($_POST['niveau'])&&!empty($_POST['libelle'])&& !empty($_POST['coefficient'])){
 
@@ -30,10 +27,28 @@ if((!empty($_POST['manipuler']))){
         $entree=$reponse->fetch();
         $idEcole=$entree['id_ecole'];
 
+        $request=$pdo->prepare('SELECT id_matiere FROM matiere WHERE niveau= :niveau AND libelle= :libelle AND coefficient= :coefficient');
+        $request->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient']));
+        $retour=$request->fetch();
+        if($retour){
+            ?>
+            <script type="text/javascript">
+                alert("Matière déjà existante!");
+                window.location.href = "Administration.php"
+            </script>
+            <?php 
+        }else{
+            // Creaction de la matiere
+            $requete = $pdo->prepare('Insert into matiere (id_ecole, niveau, libelle, coefficient) Values('."\"".$idEcole."\"".',:niveau, :libelle, :coefficient )');
+            $requete->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient'] ));
 
-        // Creaction de la matiere
-        $requete = $pdo->prepare('Insert into matiere (id_ecole, niveau, libelle, coefficient) Values('."\"".$idEcole."\"".',:niveau, :libelle, :coefficient )');
-        $requete->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient'] ));
+                ?>
+                <script type="text/javascript">
+                    alert("Matiére ajoutée!");
+                    window.location.href = "Administration.php"
+                </script>
+                <?php
+        }
 
         }
         // Modification d'une Matiere 
@@ -44,49 +59,63 @@ if((!empty($_POST['manipuler']))){
                 $reponse = $pdo->prepare('SELECT id_matiere FROM matiere WHERE niveau= :niveau AND libelle= :libelle AND coefficient= :coefficient ');
                 $reponse->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient'] ));
                 $entree=$reponse->fetch();
-                $idMatiere=$entree['id_matiere'];
-                $_SESSION['id_matiere']=$idMatiere;
-                header('Location: AdminModifMatiere.php ');
-                exit();
-                $reponse->closeCursor();
-                
-                /*if((strcmp($_POST['ModifMatiere'],"Enregistrer")==0)){
-                    if(!empty($_POST['niveau'])&&!empty($_POST['libelle'])&& !empty($_POST['coefficient'])){
-                        $reponse = $pdo->prepare('UPDATE matiere SET niveau= :niveau, libelle= :libelle, coefficient= :coefficient WHERE id_matiere = '."\"".$idMatiere."\"");
-                        $reponse->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient'] ));
-                    }
-                }*/
+                if($entree){
+                    $idMatiere=$entree['id_matiere'];
+                    $_SESSION['id_matiere']=$idMatiere;
+                    header('Location: AdminModifMatiere.php ');
+                    exit();
+                    $reponse->closeCursor();
+                }else{
+                    ?>
+                    <script type="text/javascript">
+                        alert("La matière n'existe pas!");
+                        window.location.href = "Administration.php"
+                    </script>
+                    <?php 
+                }
             }
         }
 
-    /***************************************** */
-
-
-
-    // Suppression d'une matière 
-    if((strcmp($_POST['manipuler'],"Supprimer")==0)){
+       // Suppression d'une matière 
+        if((strcmp($_POST['manipuler'],"Supprimer")==0)){
 
         // Affectetaion de l'id_Ecole
         $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
         $entree=$reponse->fetch();
         $idEcole=$entree['id_ecole'];
 
-        $requete=$pdo->prepare('DELETE FROM matiere WHERE id_ecole='."\"".$idEcole."\"".' AND niveau= :niveau AND libelle= :libelle AND coefficient= :coefficient');
-        $requete->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient']));
-        echo "Matière supprimé !";
-        }
-    }
+        $request=$pdo->prepare('SELECT id_matiere FROM matiere WHERE niveau= :niveau AND libelle= :libelle AND coefficient= :coefficient');
+        $request->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient']));
+        $retour=$request->fetch();
 
-        /*if(!empty($_POST['niveau'])&&!empty($_POST['libelle'])&&!empty($_POST['coefficient'])){
-                // ATTENTION : Garder la session et ne laisser modifier les données personelles que sur l'id de l'utilisateur courant !!!!!!!!
-
-            $requete = $pdo->prepare('Insert into matiere(id_ecole,niveau,libelle,coefficient) Values(3,:niveau,:libelle,:coefficient)');
+        if($retour){
+            $requete=$pdo->prepare('DELETE FROM matiere WHERE id_ecole='."\"".$idEcole."\"".' AND niveau= :niveau AND libelle= :libelle AND coefficient= :coefficient');
             $requete->execute(array('niveau' => $_POST['niveau'],'libelle' => $_POST['libelle'],'coefficient' => $_POST['coefficient']));
-            echo" insert successfully !";
+                ?>
+                <script type="text/javascript">
+                    alert("Matiére supprimé!");
+                    window.location.href = "Administration.php"
+                </script>
+                <?php 
         }
-        else {
-            echo "vous devez remplir tous les champs!";
-        }*/
+        else{
+            ?>
+            <script type="text/javascript">
+                alert("La matiére n'existe pas!");
+                window.location.href = "Administration.php"
+            </script>
+            <?php 
+        }
+         
+        }
+    }else {
+        ?>
+        <script type="text/javascript">
+            alert("Vous devez remplir tout les champs!");
+            window.location.href = "Administration.php"
+        </script>
+        <?php 
+     } 
 
     } 
     

@@ -81,9 +81,9 @@
             }   
             $request=$pdo->query('SELECT * FROM matiere');
             // affichage de la table 
-            echo "<table class=\"table table-striped\" id=\"tableMatiere\">
+            echo "<table class=\"table table-success\" id=\"tableMatiere\">
                     <thead>
-                        <tr>
+                        <tr class=\"danger\">
                             <th scope=\"col\">Id_Matiere</th>
                             <th scope=\"col\">Id_Ecole</th>
                             <th scope=\"col\">Niveau</th>
@@ -94,7 +94,7 @@
                     <tbody> 
                 ";
             while($entree=$request->fetch()){
-                echo"<tr>
+                echo"<tr class=\"success\">
                         <td>".$entree['id_matiere']."</td>
                         <td>".$entree['id_ecole']."</td>
                         <td>".$entree['niveau']."</td>

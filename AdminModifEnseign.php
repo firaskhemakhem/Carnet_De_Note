@@ -87,9 +87,9 @@ session_start();
             $idEcole=$entree['id_ecole'];  
             $request=$pdo->query('SELECT * FROM enseignant WHERE id_ecole='."\"".$idEcole."\"");  
             // affichage de la table 
-            echo "<table class=\"table table-striped\" id=\"tableEnseign\">
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
-                        <tr>
+                        <tr class=\"danger\">
                             <th scope=\"col\">Id_Enseignant</th>
                             <th scope=\"col\">Prenom</th>
                             <th scope=\"col\">Nom</th>
@@ -102,7 +102,7 @@ session_start();
                     <tbody> 
                 ";
             while($entree=$request->fetch()){
-                echo"<tr>
+                echo"<tr class=\"success\">
                         <td>".$entree['id_enseignant']."</td>
                         <td>".$entree['prenom']."</td>
                         <td>".$entree['nom']."</td>

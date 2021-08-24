@@ -11,7 +11,6 @@ if((!empty($_POST['manipuler']))){
     try{
         $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
     }
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
@@ -34,9 +33,10 @@ if((!empty($_POST['manipuler']))){
                     if($entree){
                         ?>
                         <script type="text/javascript">
-                            alert(" Enseignant déjà affecté pour cette classe et cette matiére !");
+                            alert("Enseignant déjà affecté pour cette classe et cette matiére!");
+                            window.location.href = "Administration.php"
                         </script>
-                        <?php
+                        <?php 
                     }else{
                     // Affectation de l'enseignant
                     $requete = $pdo->prepare('Insert into affectation(id_ecole, id_enseignant ,id_classe, id_matiere, anneescolaire) Values('."\"".$idEcole."\"".',:idEnseign, :idClasse, :idMatiere,:annee)');
@@ -44,102 +44,121 @@ if((!empty($_POST['manipuler']))){
     
                     ?>
                     <script type="text/javascript">
-                        alert(" Affectation de l'enseignant effectuée avec succées !");
-                    </script>
-                    <?php
-                      header('Location: Administration.php ');
-                      exit();
-                      $reponse->closeCursor();
+                     alert("Affectation de l'enseignant est effectuée avec succées!");
+                      window.location.href = "Administration.php"
+                   </script>
+                   <?php 
                     }
-            }
+            }else {
+                ?>
+                <script type="text/javascript">
+                    alert("Vous devez remplir tout les champs!");
+                    window.location.href = "Administration.php"
+                </script>
+                <?php 
+             } 
+               
+            //Gestion des enseignant (Ajout, suppression, modification)
         }else{
+            if((!empty($_POST['manipuler']))){
 
-            if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&& !empty($_POST['genre']) && !empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
+                if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&& !empty($_POST['genre']) && !empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
 
-                // Ajout de l'Enseignant
-                if((strcmp($_POST['manipuler'],"Ajouter")==0)){
-        
-                    // Affectetaion de l'id_Ecole
-                    $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
-                    $entree=$reponse->fetch();
-                    $idEcole=$entree['id_ecole'];
-        
-                    /*
-                    // affectation de mot de passe 
-                    $reponse=$pdo->query('SELECT mdp FROM code WHERE used="non"');
-                    $entree=$reponse->fetch();
-                    $mdp=$entree['mdp'];
-                    $mdpenseing=substr($entree['mdp'],0,strlen($entree['mdp'])-1);
-                    $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,'."\"".$mdpenseing."\"".', :email)');
-                    */
-        
-                    // Creaction de l'enseignant 
-                    $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,:mdp, :email)');
-                    $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['login'], 'email' => $_POST['email'] , 'mdp' => $_POST['mdp']));
-                    ?>
-                    <script type="text/javascript">
-                        alert(" Creation du nouveau enseignant effectuée avec succées !");
-                    </script>
-                    <?php
-                      header('Location: Administration.php ');
-                      exit();
-                      $reponse->closeCursor();
-        
-                    /*
-                    // Affirmer que ce mot de passe est utilisé 
-                    $entree=$pdo->query('UPDATE code SET used = "oui" WHERE mdp='."\"".$mdp."\"");  */
-                }
-                // Modification d'un Enseignant
-                if((strcmp($_POST['manipuler'],"Modifier")==0)){
-        
-                    if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&& !empty($_POST['genre']) && !empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
-        
-                        $reponse = $pdo->prepare('SELECT id_enseignant FROM enseignant WHERE nom= :nom AND prenom= :prenom AND genre= :genre AND login= :login AND email= :email AND mdp= :mdp');
-                        $reponse->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
+                    // Ajout de l'Enseignant
+                    if((strcmp($_POST['manipuler'],"Ajouter")==0)){
+            
+                        // Affectetaion de l'id_Ecole
+                        $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
                         $entree=$reponse->fetch();
-                        $idEnseignant=$entree['id_enseignant'];
-                        $_SESSION['id_enseignat']=$idEnseignant;
-                        header('Location: AdminModifEnseign.php ');
-                        exit();
-                        $reponse->closeCursor();
-                        
+                        $idEcole=$entree['id_ecole'];
+
+                        $request=$pdo->prepare('SELECT id_enseignant FROM enseignant WHERE genre= :genre AND prenom= :prenom AND nom= :nom AND login= :login AND mdp= :mdp AND email= :email');
+                        $request->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
+                        $retour=$request->fetch();
+                        if($retour){
+                            ?>
+                            <script type="text/javascript">
+                                alert("Enseignant déjà existant!");
+                                window.location.href = "Administration.php"
+                            </script>
+                            <?php 
+                        }else{
+                            // Creaction de l'enseignant 
+                            $requete = $pdo->prepare('Insert into enseignant(id_ecole, genre,prenom, nom, login, mdp, email) Values('."\"".$idEcole."\"".',:genre, :prenom, :nom,:login,:mdp, :email)');
+                            $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login'=>$_POST['login'], 'email' => $_POST['email'] , 'mdp' => $_POST['mdp']));
+                            ?>
+                            <script type="text/javascript">
+                                alert("Creation d'un enseignant effectuée avec succées!");
+                                window.location.href = "Administration.php"
+                            </script>
+                            <?php 
+                        }
                     }
-                }
-                //Suppression d'un Enseignant
-        
-                if((strcmp($_POST['manipuler'],"Supprimer")==0)){
-        
-                    // Affectetaion de l'id_Ecole
-                    $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
-                    $entree=$reponse->fetch();
-                    $idEcole=$entree['id_ecole'];
-        
-                    $requete=$pdo->prepare('DELETE FROM enseignant WHERE id_ecole='."\"".$idEcole."\"".'AND genre= :genre AND prenom= :prenom AND nom= :nom AND login= :login AND mdp= :mdp AND email= :email');
-                    $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
+                    // Modification d'un Enseignant
+                    if((strcmp($_POST['manipuler'],"Modifier")==0)){
+            
+                        if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&& !empty($_POST['genre']) && !empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
+
+                            $reponse = $pdo->prepare('SELECT id_enseignant FROM enseignant WHERE nom= :nom AND prenom= :prenom AND genre= :genre AND login= :login AND email= :email AND mdp= :mdp');
+                            $reponse->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
+                            $entree=$reponse->fetch();
+                            if($entree){
+                                $idEnseignant=$entree['id_enseignant'];
+                                $_SESSION['id_enseignat']=$idEnseignant;
+                                header('Location: AdminModifEnseign.php ');
+                                exit();
+                                $reponse->closeCursor();
+                            }else{
+                                ?>
+                                <script type="text/javascript">
+                                    alert("L'enseignant n'existe pas!");
+                                    window.location.href = "Administration.php"
+                                </script>
+                                <?php 
+                            }
+                            
+                        }
+                    }
+                    //Suppression d'un Enseignant
+                    if((strcmp($_POST['manipuler'],"Supprimer")==0)){
+            
+                        // Affectetaion de l'id_Ecole
+                        $reponse = $pdo->query('SELECT id_ecole FROM administration WHERE email='."\"".$_SESSION["emailAdmin"]."\"".' AND mdp='."\"".$_SESSION["mdpAdmin"]."\"");
+                        $entree=$reponse->fetch();
+                        $idEcole=$entree['id_ecole'];
+
+                        $request=$pdo->prepare('SELECT id_enseignant FROM enseignant WHERE genre= :genre AND prenom= :prenom AND nom= :nom AND login= :login AND mdp= :mdp AND email= :email');
+                        $request->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
+                        $retour=$request->fetch();
+                        if($retour){
+                            $requete=$pdo->prepare('DELETE FROM enseignant WHERE id_ecole='."\"".$idEcole."\"".'AND genre= :genre AND prenom= :prenom AND nom= :nom AND login= :login AND mdp= :mdp AND email= :email');
+                            $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
+                            ?>
+                            <script type="text/javascript">
+                                alert("Suppression de l'enseignant effectuée avec succées!");
+                                window.location.href = "Administration.php"
+                            </script>
+                            <?php 
+                        }else{
+                            ?>
+                            <script type="text/javascript">
+                                alert("L'enseignant n'existe pas!");
+                                window.location.href = "Administration.php"
+                            </script>
+                            <?php 
+                        }
+                    }
+                }else {
                     ?>
                     <script type="text/javascript">
-                        alert(" Suppression de l'enseignant est effectué avec succée !");
+                        alert("Vous devez remplir tout les champs!");
+                        window.location.href = "Administration.php"
                     </script>
-                    <?php
-                }
-        
-            else {
-                echo "vous devez remplir tous les champs!";
+                    <?php 
+                 } 
             }
         
-                /*if(!empty($_POST['nom'])&&!empty($_POST['prenom'])&&!empty($_POST['login'])&&!empty($_POST['email'])&&!empty($_POST['mdp'])){
-                        // ATTENTION : Garder la session et ne laisser modifier les données personelles que sur l'id de l'utilisateur courant !!!!!!!!
-        
-                    $requete = $pdo->prepare('Insert into enseignant(id_ecole,genre,prenom,nom,login,mdp,email) Values(3,:genre,:prenom, :nom,:login,:mdp,:email)');
-                    $requete->execute(array('genre' => $_POST['genre'],'prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'login' => $_POST['login'],'email' => $_POST['email'],'mdp' => $_POST['mdp']));
-                    echo" insert successfully !";
-                }
-                else {
-                    echo "vous devez remplir tous les champs!";
-                }*/
-        
-            }
-
+     
 
         }
 

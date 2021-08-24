@@ -11,7 +11,6 @@ if((!empty($_POST['envoi']))){
     try{
         $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
     }
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
@@ -25,17 +24,20 @@ if((!empty($_POST['envoi']))){
                 $_SESSION["emailAdmin"] = $_POST["email"];
                 $_SESSION["mdpAdmin"] = $_POST["mdp"];
                 ?>
-            <script type="text/javascript">
-                alert("Mise à jour des données est effectué avec succée !");
-            </script>
-            <?php
-            header('Location: Administration.php ');
-            exit();
-            $reponse->closeCursor();
+                <script type="text/javascript">
+                    alert("Mise à jour effectuée avec succées!");
+                    window.location.href = "Administration.php"
+                </script>
+                <?php 
             }
         }
         else {
-            echo "vous devez remplir tous les champs!";
+            ?>
+            <script type="text/javascript">
+                alert("Vous devez remplir tout les champs!");
+                window.location.href = "Administration.php"
+            </script>
+            <?php 
         }
 
     } 
