@@ -37,6 +37,12 @@
     color:rgb(206, 54, 27);
     font-weight: bold;
   }
+  h3{
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:rgb(206, 54, 27);
+    font-weight: bold;
+  }
   .connexion{
     margin-top: 20px;
     width: 45%;

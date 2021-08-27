@@ -61,13 +61,20 @@ if((!empty($_POST['envoi']))){
 
         if(!empty($_POST['loginEnseing'])&&!empty($_POST['mdpEnseing'])){
 
-            $reponse = $pdo->prepare('SELECT login,mdp FROM enseignant WHERE login = :login AND mdp = :mdp');
+            $reponse = $pdo->prepare('SELECT id_enseignant,id_ecole,login,mdp FROM enseignant WHERE login = :login AND mdp = :mdp');
             $requete = $reponse->execute(array('login' =>$_POST['loginEnseing'], 'mdp' => $_POST['mdpEnseing']));
             $entree=$reponse->fetch();
 
             if($entree){ //s'il est existant
+                
+                $request=$pdo->query('SELECT anneescolaire FROM affectation WHERE id_ecole='."\"".$entree['id_ecole']."\"".' AND id_enseignant='."\"".$entree['id_enseignant']."\"");
+                $test=$request->fetch();
+
                 $_SESSION['loginEnseing'] = $_POST['loginEnseing'];
-                $_SESSION['mdpEnseing'] = $_POST['mdpEnseing'] ;
+                $_SESSION['mdpEnseing'] = $_POST['mdpEnseing'];
+                $_SESSION['id_enseignant'] = $entree['id_enseignant'];
+                $_SESSION['id_ecole'] = $entree['id_ecole'];
+                $_SESSION['anneescolaire'] = $test['anneescolaire'];
                 header('Location: EnseignantPage.php ');
                 exit();
             }else{

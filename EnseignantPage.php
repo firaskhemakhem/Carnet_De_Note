@@ -36,7 +36,8 @@ session_start();
                             $('div#details').slideToggle();
                             $('div#details1').hide();
                             $('div#affichEleve').hide();
-                            $('div#details2').hide();
+                            $('div#detailscarnet').hide();
+                            $('div#affichClasse').hide();
                             $('span.linktext').toggle();
                         });
 
@@ -44,17 +45,20 @@ session_start();
                             $('div#details1').slideToggle();
                             $('div#affichEleve').slideToggle();
                             $('div#details').hide();
-                            $('div#details2').hide();
-                            $('span.linktext').toggle();
-                        });affichEleve
-
-                        $('a#notes').click(function () {
-                            $('div#details2').slideToggle();
-                            $('div#details').hide();
-                            $('div#details1').hide();
-                            $('div#affichEleve').slideToggle();
+                            $('div#detailscarnet').hide();
+                            $('div#affichClasse').hide();
                             $('span.linktext').toggle();
                         });
+
+                        $('a#notes').click(function () {
+                            $('div#detailscarnet').slideToggle();
+                            $('div#affichClasse').slideToggle();
+                            $('div#details').hide();
+                            $('div#details1').hide();
+                            $('div#affichEleve').hide();
+                            $('span.linktext').toggle();
+                        });
+                       
 
                     </script>
                 </ul>
@@ -113,69 +117,50 @@ session_start();
             }
             catch(PDOException $e){
                 echo "Connection failed: " . $e->getMessage();
-            } 
-            $reponse = $pdo->query('SELECT id_ecole FROM enseignant WHERE login='."\"".$_SESSION['loginEnseing']."\"".' AND mdp='."\"".$_SESSION['mdpEnseing']."\"");
-            $entree=$reponse->fetch();
-            $idEcole=$entree['id_ecole'];  
-            $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"");
+            }  
+            
             // affichage de la table 
-            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+            
+                //selectionner les classes a la quelles est affecté l'enseignant 
+            $requet=$pdo->query('SELECT id_classe FROM affectation WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"");
+            while($lecture=$requet->fetch()){
+
+                $idClasse=$lecture['id_classe'];
+                $test=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$idClasse."\"");
+                $retour=$test->fetch();
+                $nomClasse=$retour['nom'];
+                $niveauClasse=$retour['niveau'];
+
+                echo "
+                <h3>".$nomClasse.":niveau ".$niveauClasse."</h3>
+                <table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
                         <tr class=\"danger\">
                             <th scope=\"col\">Id_Eleve</th>
                             <th scope=\"col\">Prenom</th>
                             <th scope=\"col\">Nom</th>
                             <th scope=\"col\">Année Scolaire</th>
-                            <th scope=\"col\">Classe</th>
-                            <th scope=\"col\">Niveau</th>
                             <th scope=\"col\">Mot De Passe</th>
                             </tr>
                     </thead>
                     <tbody> 
                 ";
-            while($entree=$request->fetch()){
-                //if((strcmp($entree['id_classe'],"NULL"))==0){
-                $test=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$entree['id_classe']."\"");
-                $retour=$test->fetch();
-                $nomClasse=$retour['nom'];
-                $niveauClasse=$retour['niveau'];
-                echo"<tr class=\"success\">
-                        <td>".$entree['id_eleve']."</td>
-                        <td>".$entree['prenom']."</td>
-                        <td>".$entree['nom']."</td>
-                        <td>".$entree['anneescolaire']."</td>
-                        <td>".$nomClasse."</td>
-                        <td>".$niveauClasse."</td>
-                        <td>".$entree['mdp']."</td>
-                    </tr>";
-                //}
-                
+                // selectionner 
+                $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_classe='."\"".$idClasse."\"".' AND anneescolaire='."\"".$_SESSION['anneescolaire']."\"");
+                while($entree=$request->fetch()){
+                    
+                    echo"<tr class=\"success\">
+                            <td>".$entree['id_eleve']."</td>
+                            <td>".$entree['prenom']."</td>
+                            <td>".$entree['nom']."</td>
+                            <td>".$entree['anneescolaire']."</td>
+                            <td>".$entree['mdp']."</td>
+                        </tr>";
+                }
+                echo"</tbody></table>";
+                echo "<br/><br/><br/>";
             }
-            echo"</tbody></table>";
-            echo "<br/><br/><br/>";
-            // affichage de la liste des classes avec les niveaux
-            $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
-            echo "<table class=\"table table-success\" id=\"tableEnseign\">
-                    <thead>
-                        <tr class=\"danger\">
-                            <th scope=\"col\">Id_Classe</th>
-                            <th scope=\"col\">Classe</th>
-                            <th scope=\"col\">Niveau</th>
-                            <th scope=\"col\">Nombre d'élèves</th>
-                            </tr>
-                    </thead>
-                    <tbody> 
-                ";
-            while($entree=$request->fetch()){
-                echo"<tr class=\"success\">
-                        <td>".$entree['id_classe']."</td>
-                        <td>".$entree['nom']."</td>
-                        <td>".$entree['niveau']."</td>
-                        <td>".$entree['nb']."</td>
-                    </tr>";
-            }
-            echo"</tbody></table>";
-            $request->closeCursor();     
+            
         ?>
                     </aside>
                 </div>
@@ -245,6 +230,181 @@ session_start();
         </div>
     </div>
                                             <!--Formulaire Gestion des Notes-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div id="affichClasse" style="display:none">
+                    <aside class="leftEleve">
+                        <?php 
+            // connection a la base de donneé
+            $hostName = "localhost";
+            $dbName = "carnetdenote";
+            $userName = "root";
+            $password = "";
+            
+            try{
+                $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+            catch(PDOException $e){
+                echo "Connection failed: " . $e->getMessage();
+            }   
+
+            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+                    <thead>
+                        <tr class=\"danger\">
+                            <th scope=\"col\">Id_Classe</th>
+                            <th scope=\"col\">Classe</th>
+                            <th scope=\"col\">Niveau</th>
+                            <th scope=\"col\">Nombre d'élèves</th>
+                            </tr>
+                    </thead>
+                    <tbody> 
+                ";
+
+            // affichage de la liste des classes avec les niveaux
+            $requet=$pdo->query('SELECT id_classe FROM affectation WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"");
+            while($lecture=$requet->fetch()){
+                $idClasse=$lecture['id_classe'];
+                $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_classe='."\"".$idClasse."\"");
+                $retour=$request->fetch();
+                echo"<tr class=\"success\">
+                        <td>".$retour['id_classe']."</td>
+                        <td>".$retour['nom']."</td>
+                        <td>".$retour['niveau']."</td>
+                        <td>".$retour['nb']."</td>
+                    </tr>";
+            }
+            
+            echo"</tbody></table>";
+            $request->closeCursor();     
+        ?>
+                    </aside>
+                </div>
+            </div>
+        <div class="col-md-6 col-sm-6">
+            <div id="detailscarnet" style="display:none">
+                <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="GestionCarnet.php">
+                    <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
+                    <div class="modifier">
+                        <fieldset>
+                            <legend>Carnet de Notes</legend>
+                            <table>
+                                <tr>
+                                    <td><span class="label">Id Classe :</span></td>
+                                    <td><input type="text" name="id" id="id" /></td>
+                                </tr><br />
+                                <tr>
+                                    <td><span class="label">Classe :</span></td>
+                                    <td><input type="text" name="classe" id="classe" /></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="label">Niveau: </span></td>
+                                    <td><select name="niveau" id="niveau">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                    </td>
+                                </tr>
+                            </table><br />
+                
+                        <div class="envoi3"><input type="submit" name="select" value="Selectionner"
+                                            class="btn btn-primary" id="btnsecondaire" /></div>
+                   
+                        </fieldset>
+                    </div>
+                </form>      
+            </div>
+        </div>
+        </div>
+    </div> 
+
+    <div id="affichCarnet" style="display:none">
+        <aside>
+            <?php 
+                // connection a la base de donneé
+                $hostName = "localhost";
+                $dbName = "carnetdenote";
+                $userName = "root";
+                $password = "";
+                
+                try{
+                    $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                }
+                catch(PDOException $e){
+                    echo "Connection failed: " . $e->getMessage();
+                } 
+                $reponse = $pdo->query('SELECT id_ecole FROM enseignant WHERE login='."\"".$_SESSION['loginEnseing']."\"".' AND mdp='."\"".$_SESSION['mdpEnseing']."\"");
+                $entree=$reponse->fetch();
+                $idEcole=$entree['id_ecole'];  
+                $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"");
+                
+                // affichage de la table 
+                echo "<table class=\"table table-success\" id=\"tableEnseign\">
+                        <thead>
+                            <tr class=\"danger\">
+                                <th scope=\"col\">Id_Eleve</th>
+                                <th scope=\"col\">Prenom</th>
+                                <th scope=\"col\">Nom</th>
+                                <th scope=\"col\">Année Scolaire</th>
+                                <th scope=\"col\">Classe</th>
+                                <th scope=\"col\">Niveau</th>
+                                <th scope=\"col\">Mot De Passe</th>
+                                </tr>
+                        </thead>
+                        <tbody> 
+                    ";
+                while($entree=$request->fetch()){
+                    //if((strcmp($entree['id_classe'],"NULL"))==0){
+                    $test=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$entree['id_classe']."\"");
+                    $retour=$test->fetch();
+                    $nomClasse=$retour['nom'];
+                    $niveauClasse=$retour['niveau'];
+                    echo"<tr class=\"success\">
+                            <td>".$entree['id_eleve']."</td>
+                            <td>".$entree['prenom']."</td>
+                            <td>".$entree['nom']."</td>
+                            <td>".$entree['anneescolaire']."</td>
+                            <td>".$nomClasse."</td>
+                            <td>".$niveauClasse."</td>
+                            <td>".$entree['mdp']."</td>
+                        </tr>";
+                    //}
+                    
+                }
+                echo"</tbody></table>";
+                echo "<br/><br/><br/>";
+                // affichage de la liste des classes avec les niveaux
+                $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
+                echo "<table class=\"table table-success\" id=\"tableEnseign\">
+                        <thead>
+                            <tr class=\"danger\">
+                                <th scope=\"col\">Id_Classe</th>
+                                <th scope=\"col\">Classe</th>
+                                <th scope=\"col\">Niveau</th>
+                                <th scope=\"col\">Nombre d'élèves</th>
+                                </tr>
+                        </thead>
+                        <tbody> 
+                    ";
+                while($entree=$request->fetch()){
+                    echo"<tr class=\"success\">
+                            <td>".$entree['id_classe']."</td>
+                            <td>".$entree['nom']."</td>
+                            <td>".$entree['niveau']."</td>
+                            <td>".$entree['nb']."</td>
+                        </tr>";
+                }
+                echo"</tbody></table>";
+                $request->closeCursor();     
+        ?>
+            </aside>
+        </div>
+    </div>
     
 
 

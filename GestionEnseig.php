@@ -27,8 +27,8 @@ if((!empty($_POST['manipuler']))){
                     $idEcole=$entree['id_ecole'];
         
                     //verification 
-                    $request=$pdo->prepare('SELECT id_enseignant FROM affectation WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe= :classe AND id_matiere= :matiere AND anneescolaire= :annee');
-                    $request->execute(array('classe' => $_POST['idClasse'],'matiere' => $_POST['idMatiere'],'annee'=>$_POST['annee']));
+                    $request=$pdo->prepare('SELECT id_affectation FROM affectation WHERE id_ecole='."\"".$idEcole."\"".' AND id_enseignant= :idEnseign AND id_classe= :classe AND id_matiere= :matiere AND anneescolaire= :annee');
+                    $request->execute(array('idEnseign' => $_POST['idEnseign'],'classe' => $_POST['idClasse'],'matiere' => $_POST['idMatiere'],'annee'=>$_POST['annee']));
                     $entree=$request->fetch();
                     if($entree){
                         ?>
@@ -38,16 +38,35 @@ if((!empty($_POST['manipuler']))){
                         </script>
                         <?php 
                     }else{
-                    // Affectation de l'enseignant
-                    $requete = $pdo->prepare('Insert into affectation(id_ecole, id_enseignant ,id_classe, id_matiere, anneescolaire) Values('."\"".$idEcole."\"".',:idEnseign, :idClasse, :idMatiere,:annee)');
-                    $requete->execute(array('idEnseign' => $_POST['idEnseign'],'idClasse' => $_POST['idClasse'],'idMatiere' => $_POST['idMatiere'],'annee'=>$_POST['annee']));
-    
-                    ?>
-                    <script type="text/javascript">
-                     alert("Affectation de l'enseignant est effectuée avec succées!");
-                      window.location.href = "Administration.php"
-                   </script>
-                   <?php 
+                        // verification de la compatibilité classe et matière selon le niveau
+                        $poo=$pdo->prepare('SELECT niveau FROM classe WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe= :idClasse');
+                        $poo->execute(array('idClasse' => $_POST['idClasse']));
+                        $oop=$poo->fetch();
+                        $niveau=$oop['niveau'];
+                        $cll=$pdo->prepare('SELECT niveau FROM matiere WHERE id_ecole='."\"".$idEcole."\"".' AND id_matiere= :idMatiere');
+                        $cll->execute(array('idMatiere' => $_POST['idMatiere']));
+                        $cmd=$cll->fetch();
+                        if(strcmp($niveau,$cmd['niveau'])==0){
+                            // Affectation de l'enseignant
+                            $requete = $pdo->prepare('INSERT INTO affectation(id_ecole,id_enseignant,id_classe,id_matiere,anneescolaire) VALUES('."\"".$idEcole."\"".',:idEnseign, :idClasse, :idMatiere,:annee)');
+                            $requete->execute(array('idEnseign' => $_POST['idEnseign'],'idClasse' => $_POST['idClasse'],'idMatiere' => $_POST['idMatiere'],'annee'=>$_POST['annee']));
+            
+                            ?>
+                            <script type="text/javascript">
+                            alert("Affectation de l'enseignant est effectuée avec succées!");
+                            window.location.href = "Administration.php"
+                            </script>
+                            <?php 
+                        }
+                        else{
+                            ?>
+                            <script type="text/javascript">
+                            alert("niveau non compatible !");
+                            window.location.href = "Administration.php"
+                            </script>
+                            <?php 
+                        }
+                    
                     }
             }else {
                 ?>

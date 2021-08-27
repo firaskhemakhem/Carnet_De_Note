@@ -19,6 +19,7 @@ if((!empty($_POST['manipuler']))){
     if(!empty($_POST['niveau'])&&!empty($_POST['nom'])&& !empty($_POST['nb'])){
 
         // Ajout de la classe
+
         if((strcmp($_POST['manipuler'],"Ajouter")==0)){
 
         // Affectetaion de l'id_Ecole
@@ -29,7 +30,7 @@ if((!empty($_POST['manipuler']))){
         $request=$pdo->prepare('SELECT id_classe FROM classe WHERE nom= :nom AND niveau= :niveau AND nb= :nb');
         $request->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['nom'],'nb' => $_POST['nb']));
         $retour=$request->fetch();
-        if($reponse){
+        if($retour){
             ?>
             <script type="text/javascript">
                 alert("Classe déjà existante!");
