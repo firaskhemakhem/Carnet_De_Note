@@ -16,17 +16,18 @@ if((!empty($_POST['ModifNote']))){
         echo "Connection failed: " . $e->getMessage();
     }
     if(strcmp($_POST['ModifNote'],'Enregistrer')==0){
-        // recuperation de l'id_matiere
-        $reponse = $pdo->query('SELECT id_ecole FROM enseignant WHERE login='."\"".$_SESSION['loginEnseing']."\"".' AND mdp='."\"".$_SESSION['mdpEnseing']."\"");
-        $entree=$reponse->fetch();
-        $idEcole=$entree['id_ecole']; 
+        // recuperation de l'id_ecole
+        $idEcole=$_SESSION['id_ecole']; 
         // recuperation de l'id_eleve 
         $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\""); 
+        $lecture=$request->fetch();
         $idEleve=$lecture['id_eleve'];
         //recuperation de l'id_matiere 
-        $requestte=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"".' AND niveau='."\"".$_SESSION['niveau']."\"");
-        while($notice=$requestte->fetch()){
-            $NomMatiere=$notice['libelle'];
+        $test=$pdo->query('SELECT id_matiere FROM affectation WHERE id_ecole='."\"".$idEcole."\"".'AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
+        while($notice=$test->fetch()){
+            $requestte=$pdo->query('SELECT * FROM matiere WHERE id_matiere='."\"".$notice['id_matiere']."\"");
+            $teste=$requestte->fetch();
+            $NomMatiere=$teste['libelle'];
             $idMatiere=$notice['id_matiere'];
             $nameinput=$NomMatiere."|".$idEleve;
             $insNote=$pdo->query('UPDATE note SET note='."\"".$_POST[$nameinput]."\"".' WHERE id_ecole='."\"".$idEcole."\"".' AND id_eleve='."\"".$idEleve."\"".' AND id_matiere='."\"".$idMatiere."\"");

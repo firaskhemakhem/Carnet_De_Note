@@ -58,21 +58,20 @@ session_start();
                 }
                 catch(PDOException $e){
                     echo "Connection failed: " . $e->getMessage();
-                } 
-                $reponse = $pdo->query('SELECT id_ecole FROM enseignant WHERE login='."\"".$_SESSION['loginEnseing']."\"".' AND mdp='."\"".$_SESSION['mdpEnseing']."\"");
-                $entree=$reponse->fetch();
-                $idEcole=$entree['id_ecole'];  
+                }  
 
                 echo "<table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
                         <tr class=\"danger\">
                             <th scope=\"col\">Id_Eleve</th>
                             <th scope=\"col\">Nom et Prenom </th>";
-
-                $requestte=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"".' AND niveau='."\"".$_SESSION['niveau']."\"");
-                while($select=$requestte->fetch()){
+                
+                $idEcole=$_SESSION['id_ecole'];
+                $test=$pdo->query('SELECT id_matiere FROM affectation WHERE id_ecole='."\"".$idEcole."\"".'AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
+                while($retour=$test->fetch()){
                     // affichage des matières
-                    
+                    $requestte=$pdo->query('SELECT libelle FROM matiere WHERE id_matiere='."\"".$retour['id_matiere']."\"");
+                    $select=$requestte->fetch();
                     echo "<th scope=\"col\">".$select['libelle']."</th>";
                 }
                 echo "</tr>
@@ -83,13 +82,17 @@ session_start();
                 $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
                 while($lecture=$request->fetch()){
                     $idEleve=$lecture['id_eleve'];
-                    $requestte=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"".' AND niveau='."\"".$_SESSION['niveau']."\"");
+
+                    $test=$pdo->query('SELECT id_matiere FROM affectation WHERE id_ecole='."\"".$idEcole."\"".'AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
+                    
                     echo"<tr class=\"success\">
                             <td>".$idEleve."</td>
                             <td>".$lecture['nom']." ".$lecture['prenom']."</td>";
-                    while($notice=$requestte->fetch()){
+                    while($retour=$test->fetch()){
+                        $requestte=$pdo->query('SELECT libelle FROM matiere WHERE id_matiere='."\"".$retour['id_matiere']."\"");
+                        $notice=$requestte->fetch();
                         $NomMatiere=$notice['libelle'];
-                        $idMatiere=$notice['id_matiere'];
+                        $idMatiere=$retour['id_matiere'];
                         $getNote=$pdo->query('SELECT note FROM note WHERE id_ecole='."\"".$idEcole."\"".'AND id_matiere='."\"".$idMatiere."\"".'AND id_eleve='."\"".$idEleve."\"");
                         $notefetch=$getNote->fetch();
                         $note=$notefetch['note'];

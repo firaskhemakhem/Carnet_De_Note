@@ -264,16 +264,20 @@ session_start();
 
             // affichage de la liste des classes avec les niveaux
             $requet=$pdo->query('SELECT id_classe FROM affectation WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"");
+            $idClasse=0;
             while($lecture=$requet->fetch()){
-                $idClasse=$lecture['id_classe'];
-                $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_classe='."\"".$idClasse."\"");
-                $retour=$request->fetch();
-                echo"<tr class=\"success\">
-                        <td>".$retour['id_classe']."</td>
-                        <td>".$retour['nom']."</td>
-                        <td>".$retour['niveau']."</td>
-                        <td>".$retour['nb']."</td>
-                    </tr>";
+                if(strcmp($idClasse,$lecture['id_classe'])!=0){
+                    $idClasse=$lecture['id_classe'];
+                    $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_classe='."\"".$idClasse."\"");
+                    $retour=$request->fetch();
+                    echo"<tr class=\"success\">
+                            <td>".$retour['id_classe']."</td>
+                            <td>".$retour['nom']."</td>
+                            <td>".$retour['niveau']."</td>
+                            <td>".$retour['nb']."</td>
+                        </tr>";
+                }
+                
             }
             
             echo"</tbody></table>";
@@ -359,7 +363,7 @@ session_start();
                         <tbody> 
                     ";
                 while($entree=$request->fetch()){
-                    //if((strcmp($entree['id_classe'],"NULL"))==0){
+
                     $test=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$entree['id_classe']."\"");
                     $retour=$test->fetch();
                     $nomClasse=$retour['nom'];
@@ -373,7 +377,7 @@ session_start();
                             <td>".$niveauClasse."</td>
                             <td>".$entree['mdp']."</td>
                         </tr>";
-                    //}
+                    
                     
                 }
                 echo"</tbody></table>";
