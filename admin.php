@@ -19,6 +19,11 @@ if ((!empty($_POST['envoi']))) {
     if ((strcmp($_POST['envoi'], "Envoyer") == 0)) {
 
         if (!empty($_POST['gouvernorat']) && !empty($_POST['delegation']) && !empty($_POST['nomEcole']) && !empty($_POST['genre']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['mdp'])) {
+            
+            
+            // Creation de l'école 
+            $requete=$pdo->prepare('INSERT INTO ecole(gouvernorat,delegation,libelle) VALUES (:gouvernorat,:delegation,:nomEcole)');
+            $requete->execute(array('gouvernorat' => $_POST['gouvernorat'],'delegation' => $_POST['delegation'],'nomEcole' => $_POST['nomEcole']));
             // Recuperation de l'id_ecole
             $reponse = $pdo->prepare('SELECT id_ecole FROM ecole WHERE gouvernorat= :gouvernorat AND delegation= :delegation AND libelle= :nomEcole');
             $reponse->execute(array('gouvernorat' => $_POST['gouvernorat'], 'delegation' => $_POST['delegation'], 'nomEcole' => $_POST['nomEcole']));

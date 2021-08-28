@@ -41,26 +41,14 @@ session_start();
                             <script>
                                 $('a#expand').click(function () {
                                     $('div#details').slideToggle();
-                                    /*$('div#detailsper').hide();
-                                    $('div#affichEnseign').hide();
-                                    $('div#affichClasse').hide();
-                                    $('div#affichMatiere').hide();
-                                    $('div#detailsclass').hide();
-                                    $('div#detailsmat').hide();
-                                    //$('div#detailsnew').hide();*/
+                                    $('div#affichNotes').hide();
                                     $('span.linktext').toggle();
                                 });
 
                                 $('a#notes').click(function () {
-                                    /*$('div#detailsper').slideToggle();
-                                    $('div#affichEnseign').slideToggle();
-                                    $('div#affichClasse').hide();
-                                    $('div#affichMatiere').hide();
-                                    */$('div#details').hide();/*
-                                    $('div#detailsclass').hide();
-                                    $('div#detailsmat').hide();
-                                    //$('div#detailsnew').hide();
-                                    $('span.linktext').toggle();*/
+                                    $('div#affichNotes').slideToggle();
+                                    $('div#details').hide();
+                                    $('span.linktext').toggle();
                                 });
                             
 
@@ -106,6 +94,58 @@ session_start();
                     </div>
                 </form>
             </div>
+            
+
+                                                     <!--Affichage Carnet Des Notes-->
+            
+        <div id="affichNotes" style="display:none">
+            <aside >
+                <?php 
+                    // connection a la base de donneé
+                    $hostName = "localhost";
+                    $dbName = "carnetdenote";
+                    $userName = "root";
+                    $password = "";
+                    
+                    try{
+                        $pdo = new PDO("mysql:host=$hostName;dbname=$dbName",$userName,$password);
+                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    }
+                    catch(PDOException $e){
+                        echo "Connection failed: " . $e->getMessage();
+                    }   
+
+                    echo "<table class=\"table table-success\" id=\"carnet\">
+                            <thead>
+                                <tr class=\"danger\">
+                                    <th scope=\"col\">Matière</th>
+                                    <th scope=\"col\">Note</th>
+                                    </tr>
+                            </thead>
+                            <tbody> 
+                        ";
+
+                    // affichage de la liste des matieres avec les notes
+                    $idEleve=$_SESSION['id_eleve'];
+                    $requetx=$pdo->query('SELECT id_matiere,note FROM note WHERE id_eleve='."\"".$idEleve."\"".' AND id_ecole='."\"".$_SESSION['id_ecole']."\"");
+                    while($lecture=$requetx->fetch()){
+                        $idMatiere=$lecture['id_matiere'];
+                        $note=$lecture['note'];
+                        $request=$pdo->query('SELECT libelle FROM matiere WHERE id_matiere='."\"".$idMatiere."\"");
+                        $retour=$request->fetch();
+                        $Matiere=$retour['libelle'];
+                        echo"<tr class=\"success\">
+                                <td>".$Matiere."</td>
+                                <td>".$note."</td>
+                            </tr>";
+                    }
+                    
+                    echo"</tbody></table>";
+                    $request->closeCursor();     
+                ?>
+            </aside>
+        </div>
+ 
         </body>
 
     </html>

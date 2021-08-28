@@ -18,10 +18,7 @@ if((!empty($_POST['ModifNote']))){
     if(strcmp($_POST['ModifNote'],'Enregistrer')==0){
         // recuperation de l'id_ecole
         $idEcole=$_SESSION['id_ecole']; 
-        // recuperation de l'id_eleve 
-        $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\""); 
-        $lecture=$request->fetch();
-        $idEleve=$lecture['id_eleve'];
+        
         //recuperation de l'id_matiere 
         $test=$pdo->query('SELECT id_matiere FROM affectation WHERE id_ecole='."\"".$idEcole."\"".'AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
         while($notice=$test->fetch()){
@@ -29,8 +26,14 @@ if((!empty($_POST['ModifNote']))){
             $teste=$requestte->fetch();
             $NomMatiere=$teste['libelle'];
             $idMatiere=$notice['id_matiere'];
-            $nameinput=$NomMatiere."|".$idEleve;
-            $insNote=$pdo->query('UPDATE note SET note='."\"".$_POST[$nameinput]."\"".' WHERE id_ecole='."\"".$idEcole."\"".' AND id_eleve='."\"".$idEleve."\"".' AND id_matiere='."\"".$idMatiere."\"");
+            // recuperation de les id_eleve 
+            $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\""); 
+            while($lecture=$request->fetch()){
+                $idEleve=$lecture['id_eleve'];
+                $nameinput=$NomMatiere."|".$idEleve;
+                $insNote=$pdo->query('UPDATE note SET note='."\"".$_POST[$nameinput]."\"".' WHERE id_ecole='."\"".$idEcole."\"".' AND id_eleve='."\"".$idEleve."\"".' AND id_matiere='."\"".$idMatiere."\"");
+            }
+
         }
         ?>
             <script type="text/javascript">

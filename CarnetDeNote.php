@@ -80,8 +80,11 @@ session_start();
                 ";
 
                 $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
+                $tableNote=array();
+                $i=0;
                 while($lecture=$request->fetch()){
                     $idEleve=$lecture['id_eleve'];
+                    $tableNote[$idEleve]=array();
 
                     $test=$pdo->query('SELECT id_matiere FROM affectation WHERE id_ecole='."\"".$idEcole."\"".'AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
                     
@@ -103,6 +106,7 @@ session_start();
                             
                             echo "<td><input type=\"text\" name=$nameinput id=$nameinput value=$note /></td>";
                             /*echo "<td>".$note."</td>";*/
+                        array_push($tableNote[$idEleve],$nameinput);
                     }
                     echo "</tr>";
                 }
@@ -113,7 +117,8 @@ session_start();
                     <td><div class=\"envoi\"><input type=\"submit\" name=\"ModifNote\" value=\"Enregistrer\" class=\"btn btn-primary\" id=\"btnsecondaire\"/></div></td>
                     <td><div classe=\"envoi1\"><input type=\"submit\" name=\"ModifNote\" value=\"Annuler\" class=\"btn btn-primary\" id=\"btnsecondaire\"></div></td>
                 </tr>
-            </table>  "    
+            </table>  "  ;
+            /*print_r($tableNote);*/
         ?>
             </div>
     </form>

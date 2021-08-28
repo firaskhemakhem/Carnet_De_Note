@@ -123,42 +123,44 @@ session_start();
             
                 //selectionner les classes a la quelles est affecté l'enseignant 
             $requet=$pdo->query('SELECT id_classe FROM affectation WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"");
+            $idClasse=0;
             while($lecture=$requet->fetch()){
+                if(strcmp($lecture['id_classe'],$idClasse)!=0){
+                    $idClasse=$lecture['id_classe'];
+                    $test=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$idClasse."\"");
+                    $retour=$test->fetch();
+                    $nomClasse=$retour['nom'];
+                    $niveauClasse=$retour['niveau'];
 
-                $idClasse=$lecture['id_classe'];
-                $test=$pdo->query('SELECT niveau,nom FROM classe WHERE id_classe='."\"".$idClasse."\"");
-                $retour=$test->fetch();
-                $nomClasse=$retour['nom'];
-                $niveauClasse=$retour['niveau'];
-
-                echo "
-                <h3>".$nomClasse.":niveau ".$niveauClasse."</h3>
-                <table class=\"table table-success\" id=\"tableEnseign\">
-                    <thead>
-                        <tr class=\"danger\">
-                            <th scope=\"col\">Id_Eleve</th>
-                            <th scope=\"col\">Prenom</th>
-                            <th scope=\"col\">Nom</th>
-                            <th scope=\"col\">Année Scolaire</th>
-                            <th scope=\"col\">Mot De Passe</th>
-                            </tr>
-                    </thead>
-                    <tbody> 
-                ";
-                // selectionner 
-                $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_classe='."\"".$idClasse."\"".' AND anneescolaire='."\"".$_SESSION['anneescolaire']."\"");
-                while($entree=$request->fetch()){
-                    
-                    echo"<tr class=\"success\">
-                            <td>".$entree['id_eleve']."</td>
-                            <td>".$entree['prenom']."</td>
-                            <td>".$entree['nom']."</td>
-                            <td>".$entree['anneescolaire']."</td>
-                            <td>".$entree['mdp']."</td>
-                        </tr>";
+                    echo "
+                    <h3>".$nomClasse.":niveau ".$niveauClasse."</h3>
+                    <table class=\"table table-success\" id=\"tableEnseign\">
+                        <thead>
+                            <tr class=\"danger\">
+                                <th scope=\"col\">Id_Eleve</th>
+                                <th scope=\"col\">Prenom</th>
+                                <th scope=\"col\">Nom</th>
+                                <th scope=\"col\">Année Scolaire</th>
+                                <th scope=\"col\">Mot De Passe</th>
+                                </tr>
+                        </thead>
+                        <tbody> 
+                    ";
+                    // selectionner 
+                    $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$_SESSION['id_ecole']."\"".' AND id_classe='."\"".$idClasse."\"".' AND anneescolaire='."\"".$_SESSION['anneescolaire']."\"");
+                    while($entree=$request->fetch()){
+                        
+                        echo"<tr class=\"success\">
+                                <td>".$entree['id_eleve']."</td>
+                                <td>".$entree['prenom']."</td>
+                                <td>".$entree['nom']."</td>
+                                <td>".$entree['anneescolaire']."</td>
+                                <td>".$entree['mdp']."</td>
+                            </tr>";
+                    }
+                    echo"</tbody></table>";
+                    echo "<br/><br/><br/>";
                 }
-                echo"</tbody></table>";
-                echo "<br/><br/><br/>";
             }
             
         ?>
@@ -326,7 +328,7 @@ session_start();
         </div>
     </div> 
 
-    <div id="affichCarnet" style="display:none">
+    <?php /*<div id="affichCarnet" style="display:none">
         <aside>
             <?php 
                 // connection a la base de donneé
@@ -409,7 +411,7 @@ session_start();
             </aside>
         </div>
     </div>
-    
+    */?>
 
 
 
