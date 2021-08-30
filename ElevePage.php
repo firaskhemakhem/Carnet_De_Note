@@ -115,7 +115,9 @@ session_start();
                         echo "Connection failed: " . $e->getMessage();
                     }   
 
-                    echo "<table class=\"table table-success\" id=\"carnet\">
+                    echo "
+                    <h3>Votre carnet de note :</h3>
+                    <table class=\"table table-success table table-bordered\" id=\"carnet\">
                             <thead>
                                 <tr class=\"danger\">
                                     <th scope=\"col\">Matière</th>

@@ -9,6 +9,9 @@
     color: black;
     font-size: 23px;
   }
+  #floating-nav{
+    padding-left: 450px;
+}
 body{
     background-image: url("ecole2.jpg");
     background-repeat: no-repeat;
@@ -41,6 +44,13 @@ legend{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color:rgb(206, 54, 27);
     font-weight: bold;
+}
+h3{
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:rgb(206, 54, 27);
+  font-weight: bold;
+  text-align: center;
 }
 #btnsecondaire{
     background-color: green;

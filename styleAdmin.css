@@ -56,25 +56,26 @@
 
 /* css formulaire*/
 #details{ /* formulaire données personneles*/
-  padding-left: 200px;
+  padding-left: 400px;
   display: flex;
   justify-content: center;
 }
 #detailsper{ /* formulaire gestion des enseignants*/
-  padding-left: 200px;
-  margin-top: 20px;
+  padding-right: 200px;
+  margin-top: 10px;
   display: flex;
-  justify-content: center;
 }
+
 #detailsclass{ /* formulaire gestion des classes*/
-  padding-left: 60px;
+  padding-right: 250px;
+  margin-top: 5px;
   display: flex;
-  justify-content: center;
 }
+
 #detailsmat{ /* formulaire gestion des matiéres*/
-  padding-left: 60px;
+  padding-right: 400px;
+  margin-top: 5px;
   display: flex;
-  justify-content: center;
 }
 .modifier{
   margin-top: 70px;
@@ -87,6 +88,12 @@ legend{
   font-size: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color:rgb(206, 54, 27);
+  font-weight: bold;
+}
+h3{
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:rgb(69, 182, 78);
   font-weight: bold;
 }
 .connexion{
@@ -110,10 +117,7 @@ input {
 .envoi1{
   padding-left: 147px;
 }
-/*.envoi2{
-padding-right:300px ;
-}
-*/
+
 .envoi3{
   padding-left:30px ;
   }
@@ -153,8 +157,8 @@ padding-right:300px ;
   margin-top: 10px;
 }
 #affichEnseign{
-  width: 145%;
-  padding-left: 45px;
+  width: 45%;
+  padding-left: 40px;
 }
 
 /**********************/
@@ -188,7 +192,4 @@ padding-right:300px ;
 #affichClasse{
   width: 145%;
   padding-left: 45px;
-}
-.styleAccueil{
- 
 }

@@ -44,7 +44,7 @@ session_start();
     <div id="affichCarnet" style="display:block">
         <form name="formulaire" method="POST" id="form" enctype="application/x-www-form-urlencoded" action="GestionNote.php">
             <fieldset>
-                    <legend><?php echo $_SESSION['classe'] ;?></legend>
+                    <h2><?php echo $_SESSION['classe'] ;?></h2>
             <?php 
                 // connection a la base de donneé
                 $hostName = "localhost";
@@ -60,7 +60,7 @@ session_start();
                     echo "Connection failed: " . $e->getMessage();
                 }  
 
-                echo "<table class=\"table table-success\" id=\"tableEnseign\">
+                echo "<table class=\"table table-success table table-bordered\" id=\"tableEnseign\">
                     <thead>
                         <tr class=\"danger\">
                             <th scope=\"col\">Id_Eleve</th>
@@ -78,13 +78,39 @@ session_start();
                 </thead>
                 <tbody> 
                 ";
-
+                // inintialisation de la tables de notes en une liste 
                 $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
+                $listeDeClé=array();
                 $tableNote=array();
-                $i=0;
                 while($lecture=$request->fetch()){
                     $idEleve=$lecture['id_eleve'];
+                    array_push($listeDeClé,$idEleve);
                     $tableNote[$idEleve]=array();
+                    $test=$pdo->query('SELECT id_matiere FROM affectation WHERE id_ecole='."\"".$idEcole."\"".'AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
+                    while($retour=$test->fetch()){
+                        $requestte=$pdo->query('SELECT libelle FROM matiere WHERE id_matiere='."\"".$retour['id_matiere']."\"");
+                        $notice=$requestte->fetch();
+                        $NomMatiere=$notice['libelle'];
+                        $nameinput=$NomMatiere."|".$idEleve;
+                        array_push($tableNote[$idEleve],$nameinput);
+                    }
+
+                }
+                //print_r($tableNote);
+                foreach ($listeDeClé as $key) {
+                    if(strcmp($key,$idEleve)==0 && $key<count($listeDeClé)+1){
+                        $key=$key+1;
+                        $idSuivant=$listeDeClé[$key];
+                        echo $idSuivant;
+                    }
+                }
+
+
+
+                $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
+
+                while($lecture=$request->fetch()){
+                    $idEleve=$lecture['id_eleve'];
 
                     $test=$pdo->query('SELECT id_matiere FROM affectation WHERE id_ecole='."\"".$idEcole."\"".'AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
                     
@@ -103,10 +129,14 @@ session_start();
                             $note="00.00";
                         }
                         $nameinput=$NomMatiere."|".$idEleve;
-                            
+                        /*foreach ($listeDeClé as $key) {
+                            if(strcmp($key,$idEleve)==0 && $key<count($listeDeClé)+1){
+                                $key=$key+1;
+                                $idSuivant=$listeDeClé[$key];
+                            }
+                        }*/
                             echo "<td><input type=\"text\" name=$nameinput id=$nameinput value=$note /></td>";
                             /*echo "<td>".$note."</td>";*/
-                        array_push($tableNote[$idEleve],$nameinput);
                     }
                     echo "</tr>";
                 }
@@ -114,11 +144,11 @@ session_start();
                 $request->closeCursor(); 
                 echo "<table>
                 <tr>
-                    <td><div class=\"envoi\"><input type=\"submit\" name=\"ModifNote\" value=\"Enregistrer\" class=\"btn btn-primary\" id=\"btnsecondaire\"/></div></td>
+                    <td><div class=\"envoi2\"><input type=\"submit\" name=\"ModifNote\" value=\"Enregistrer\" class=\"btn btn-primary\" id=\"btnsecondaire\"/></div></td>
                     <td><div classe=\"envoi1\"><input type=\"submit\" name=\"ModifNote\" value=\"Annuler\" class=\"btn btn-primary\" id=\"btnsecondaire\"></div></td>
                 </tr>
             </table>  "  ;
-            /*print_r($tableNote);*/
+            
         ?>
             </div>
     </form>

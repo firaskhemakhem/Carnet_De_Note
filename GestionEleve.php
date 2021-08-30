@@ -27,55 +27,70 @@ if((!empty($_POST['manipuler']))){
             $entree=$reponse->fetch();
             $idEcole=$entree['id_ecole'];
 
-            // Affectation fe l'id_classe
+            // Affectation de l'id_classe
             $reponse=$pdo->prepare('SELECT id_classe FROM classe WHERE id_ecole='."\"".$idEcole."\"".' AND niveau= :niveau AND nom= :nom');
             $entree=$reponse->execute(array('niveau' => $_POST['niveau'],'nom' => $_POST['classe']));
             $entree=$reponse->fetch();
             if($entree){
 
                 $idClasse=$entree['id_classe'];
-
-                // verifier l'affectation de l'élève a cette classe
+                // verifier bien que cet enseignant est affectué a cette classe
+                $poo= $pdo->query('SELECT id_affectation FROM affectation WHERE id_ecole='."\"".$idEcole."\"".' AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$idClasse."\"");
+                $doo=$poo->fetch();
+                if($doo){
+                    // verifier l'affectation de l'élève a cette classe
              
-                $request=$pdo->prepare('SELECT id_eleve FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe= '."\"".$idClasse."\"".' AND prenom= :prenom AND nom= :nom AND anneescolaire= :annee AND mdp= :mdp');
-                $request->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp' => $_POST['mdp']));
-                $test=$request->fetch();
-                if($test){
-                    ?>
-                    <script type="text/javascript">
-                        alert("élève déjà affecté à cette classe!"); 
-                        window.location.href = "EnseignantPage.php"
-                    </script>
-                    <?php 
-                }else{
-
-                    // Creation de l'élève
-                    $requete = $pdo->prepare('INSERT INTO eleve (id_ecole,id_classe,prenom,nom,anneescolaire,mdp) Values('."\"".$idEcole."\"".','."\"".$idClasse."\"".',:prenom, :nom,:annee,:mdp)');
-                    $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp' => $_POST['mdp']));
-                    
-                    // recuperation de l'id_eleve affecté
-                    $requete = $pdo->prepare('SELECT id_eleve FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$idClasse."\"".'AND prenom= :prenom AND nom= :nom AND anneescolaire= :annee AND mdp= :mdp');
-                    $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp' => $_POST['mdp']));
-                    $getid=$requete->fetch();
-                    $idEleve=$getid['id_eleve'];
-                    
-                    // affectation de note 00.00 pour chaque matiere pour ce niveau et cette classe 
-                    $requestte=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"".' AND niveau='."\"".$_POST['niveau']."\"");
-                    while($notice=$requestte->fetch()){
-                        
-                        // recuperation de l'id_matiere
-                        $idMatiere=$notice['id_matiere'];
-                        
-                        // affecter la note 00.00 
-                        $affectNote=$pdo->query('INSERT INTO note(id_ecole,id_eleve,id_matiere,note) VALUES('."\"".$idEcole."\"".','."\"".$idEleve."\"".','."\"".$idMatiere."\"".',00.00)');
+                    $request=$pdo->prepare('SELECT id_eleve FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe= '."\"".$idClasse."\"".' AND prenom= :prenom AND nom= :nom AND anneescolaire= :annee AND mdp= :mdp');
+                    $request->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp' => $_POST['mdp']));
+                    $test=$request->fetch();
+                    if($test){
+                        ?>
+                        <script type="text/javascript">
+                            alert("élève déjà affecté à cette classe!"); 
+                            window.location.href = "EnseignantPage.php"
+                        </script>
+                        <?php 
                     }
-                    ?>
-                    <script type="text/javascript">
-                        alert("Ajout de l'élève effectuée avec succées!"); 
-                        window.location.href = "EnseignantPage.php"
-                    </script>
-                    <?php 
+                    else{
+
+                        // Creation de l'élève
+                        $requete = $pdo->prepare('INSERT INTO eleve (id_ecole,id_classe,prenom,nom,anneescolaire,mdp) Values('."\"".$idEcole."\"".','."\"".$idClasse."\"".',:prenom, :nom,:annee,:mdp)');
+                        $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp' => $_POST['mdp']));
+                        
+                        // recuperation de l'id_eleve affecté
+                        $requete = $pdo->prepare('SELECT id_eleve FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$idClasse."\"".'AND prenom= :prenom AND nom= :nom AND anneescolaire= :annee AND mdp= :mdp');
+                        $requete->execute(array('prenom' => $_POST['prenom'],'nom' => $_POST['nom'],'annee' => $_POST['anneescolaire'], 'mdp' => $_POST['mdp']));
+                        $getid=$requete->fetch();
+                        $idEleve=$getid['id_eleve'];
+                        
+                        // affectation de note 00.00 pour chaque matiere pour ce niveau et cette classe 
+                        $requestte=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"".' AND niveau='."\"".$_POST['niveau']."\"");
+                        while($notice=$requestte->fetch()){
+                            
+                            // recuperation de l'id_matiere
+                            $idMatiere=$notice['id_matiere'];
+                            
+                            // affecter la note 00.00 
+                            $affectNote=$pdo->query('INSERT INTO note(id_ecole,id_eleve,id_matiere,note) VALUES('."\"".$idEcole."\"".','."\"".$idEleve."\"".','."\"".$idMatiere."\"".',00.00)');
+                        }
+                        ?>
+                        <script type="text/javascript">
+                            alert("Ajout de l'élève effectuée avec succées!"); 
+                            window.location.href = "EnseignantPage.php"
+                        </script>
+                        <?php 
+                    }
                 }
+                else{
+                    ?>
+                        <script type="text/javascript">
+                            alert("Vous n'avez pas le droit de manipuler cette classe !"); 
+                            window.location.href = "EnseignantPage.php"
+                        </script>
+                        <?php 
+                }
+
+                
             }
             else{
                 ?>

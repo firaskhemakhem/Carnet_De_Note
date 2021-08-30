@@ -22,9 +22,9 @@ if ((!empty($_POST['envoi']))) {
             
             
             // Creation de l'école 
-            $requete=$pdo->prepare('INSERT INTO ecole(gouvernorat,delegation,libelle) VALUES (:gouvernorat,:delegation,:nomEcole)');
+            /*$requete=$pdo->prepare('INSERT INTO ecole(gouvernorat,delegation,libelle) VALUES (:gouvernorat,:delegation,:nomEcole)');
             $requete->execute(array('gouvernorat' => $_POST['gouvernorat'],'delegation' => $_POST['delegation'],'nomEcole' => $_POST['nomEcole']));
-            // Recuperation de l'id_ecole
+            */// Recuperation de l'id_ecole
             $reponse = $pdo->prepare('SELECT id_ecole FROM ecole WHERE gouvernorat= :gouvernorat AND delegation= :delegation AND libelle= :nomEcole');
             $reponse->execute(array('gouvernorat' => $_POST['gouvernorat'], 'delegation' => $_POST['delegation'], 'nomEcole' => $_POST['nomEcole']));
             $entree = $reponse->fetch();
@@ -45,7 +45,11 @@ if ((!empty($_POST['envoi']))) {
                 // Creation de l'école 
                 $requete = $pdo->prepare('INSERT INTO ecole(gouvernorat,delegation,libelle) VALUES (:gouvernorat,:delegation,:nomEcole)');
                 $requete->execute(array('gouvernorat' => $_POST['gouvernorat'], 'delegation' => $_POST['delegation'], 'nomEcole' => $_POST['nomEcole']));
-
+                // Recuperation de l'id_ecole
+                $reponse = $pdo->prepare('SELECT id_ecole FROM ecole WHERE gouvernorat= :gouvernorat AND delegation= :delegation AND libelle= :nomEcole');
+                $reponse->execute(array('gouvernorat' => $_POST['gouvernorat'], 'delegation' => $_POST['delegation'], 'nomEcole' => $_POST['nomEcole']));
+                $entre = $reponse->fetch();
+                $idEcole = $entre['id_ecole'];
                 // affectation de mot de passe 
                 $reponse = $pdo->query('SELECT mdp FROM code WHERE used="non"');
                 $entree = $reponse->fetch();

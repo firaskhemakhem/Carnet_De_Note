@@ -204,7 +204,9 @@ session_start();
             $idEcole=$entree['id_ecole'];  
             $request=$pdo->query('SELECT * FROM enseignant WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
-            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+            echo "
+            <h3>Liste des enseignants :</h3>
+            <table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
                         <tr class=\"success\">
                             <th scope=\"col\">Id_Enseignant</th>
@@ -421,7 +423,9 @@ session_start();
             $idEcole=$entree['id_ecole'];   
             $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
-            echo "<table class=\"table table-success\" id=\"tableClasse\">
+            echo "
+            <h3>Liste des classes :</h3>
+            <table class=\"table table-success\" id=\"tableClasse\">
                     <thead>
                         <tr class=\"danger\">
                             <th scope=\"col\">Id_Classe</th>
@@ -565,7 +569,9 @@ session_start();
             $idEcole=$entree['id_ecole']; 
             $request=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table 
-            echo "<table class=\"table table-success\" id=\"tableMatiere\">
+            echo "
+            <h3>Liste des matières :</h3>
+            <table class=\"table table-success\" id=\"tableMatiere\">
                     <thead>
                         <tr class=\"danger\">
                             <th scope=\"col\">Id_Matiere</th>
@@ -710,7 +716,9 @@ session_start();
             $idEcole=$entree['id_ecole'];  
             $request=$pdo->query('SELECT * FROM enseignant WHERE id_ecole='."\"".$idEcole."\"");
             // affichage de la table enseignants
-            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+            echo "
+            <h3>Liste des enseignants :</h3>
+            <table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
                         <tr class=\"danger\">
                             <th scope=\"col\">Id_Enseignant</th>
@@ -737,10 +745,12 @@ session_start();
             }
             echo"</tbody></table>";
               
-            echo "<br/><br/><br/>";
+            echo "<br/><br/>";
             // affichage de la liste des classes avec les niveaux
             $request=$pdo->query('SELECT * FROM classe WHERE id_ecole='."\"".$idEcole."\"");
-            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+            echo "
+            <h3>Liste des classes :</h3>
+            <table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
                         <tr  class=\"danger\">
                             <th scope=\"col\">Id_Classe</th>
@@ -761,10 +771,12 @@ session_start();
             }
             echo"</tbody></table>";
 
-            echo "<br/><br/><br/>";
+            echo "<br/><br/>";
             // affichage de la liste des matiéres avec les niveaux
             $request=$pdo->query('SELECT * FROM matiere WHERE id_ecole='."\"".$idEcole."\"");
-            echo "<table class=\"table table-success\" id=\"tableMatiere\">
+            echo "
+            <h3>Liste des matières :</h3>
+            <table class=\"table table-success\" id=\"tableMatiere\">
             <thead>
                 <tr class=\"danger\">
                     <th scope=\"col\">Id_Matiere</th>
@@ -785,9 +797,11 @@ session_start();
     }
     echo"</tbody></table>";
 
-    echo "<br/><br/><br/>";
+    echo "<br/><br/>";
     //table affectation
-    echo "<table class=\"table table-success\" id=\"tableEnseign\">
+    echo "
+    <h3>Liste des affectations :</h3>
+    <table class=\"table table-success\" id=\"tableEnseign\">
     <thead>
         <tr class=\"danger\">
             <th scope=\"col\">Nom Enseignant</th>

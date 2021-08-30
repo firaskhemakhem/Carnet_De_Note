@@ -133,7 +133,7 @@ session_start();
                     $niveauClasse=$retour['niveau'];
 
                     echo "
-                    <h3>".$nomClasse.":niveau ".$niveauClasse."</h3>
+                    <h3>".$nomClasse." "." :niveau "." ".$niveauClasse."</h3>
                     <table class=\"table table-success\" id=\"tableEnseign\">
                         <thead>
                             <tr class=\"danger\">
@@ -252,7 +252,9 @@ session_start();
                 echo "Connection failed: " . $e->getMessage();
             }   
 
-            echo "<table class=\"table table-success\" id=\"tableEnseign\">
+            echo "
+            <h3>Liste des classes :</h3>
+            <table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
                         <tr class=\"danger\">
                             <th scope=\"col\">Id_Classe</th>
