@@ -80,6 +80,7 @@ session_start();
                 ";
                 // inintialisation de la tables de notes en une liste 
                 $request=$pdo->query('SELECT * FROM eleve WHERE id_ecole='."\"".$idEcole."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
+
                 $listeDeClé=array();
                 $tableNote=array();
                 while($lecture=$request->fetch()){
@@ -95,14 +96,6 @@ session_start();
                         array_push($tableNote[$idEleve],$nameinput);
                     }
 
-                }
-                //print_r($tableNote);
-                foreach ($listeDeClé as $key) {
-                    if(strcmp($key,$idEleve)==0 && $key<count($listeDeClé)+1){
-                        $key=$key+1;
-                        $idSuivant=$listeDeClé[$key];
-                        echo $idSuivant;
-                    }
                 }
 
 
@@ -129,23 +122,42 @@ session_start();
                             $note="00.00";
                         }
                         $nameinput=$NomMatiere."|".$idEleve;
-                        /*foreach ($listeDeClé as $key) {
-                            if(strcmp($key,$idEleve)==0 && $key<count($listeDeClé)+1){
-                                $key=$key+1;
-                                $idSuivant=$listeDeClé[$key];
+
+                        foreach ($listeDeClé as $key => $value) {
+        
+                            if(strcmp($value,$idEleve)==0 ){
+                                if($key<count($listeDeClé)-1){
+                                    $cle=$key+1;
+                                    $idSuivant=$listeDeClé[$cle];
+                                }
                             }
-                        }*/
-                            echo "<td><input type=\"text\" name=$nameinput id=$nameinput value=$note /></td>";
-                            /*echo "<td>".$note."</td>";*/
+                        }
+    
+                        /*echo '<pre>';
+                        echo $nameinput;
+                        echo '</pre>';*/
+                        $nameinputsuivant=$NomMatiere."|".$idSuivant;
+                        /*echo '<pre>';
+                        echo $nameinputsuivant;
+                        echo '</pre>';*/
+
+                            echo "<td><input type=\"text\" name=\"$nameinput\" id=\"$nameinput\" value=\"$note\" onKeyPress=\"suivant_connect(this,".$nameinputsuivant.", event)\" /></td>";
+                            /*echo '<pre>';
+                            echo $nameinput;
+                            echo '</pre>';
+                            echo '<pre>';
+                            echo $nameinputsuivant;
+                            echo '</pre>';*/
                     }
+
                     echo "</tr>";
                 }
                 echo"</tbody></table>";
                 $request->closeCursor(); 
                 echo "<table>
                 <tr>
-                    <td><div class=\"envoi2\"><input type=\"submit\" name=\"ModifNote\" value=\"Enregistrer\" class=\"btn btn-primary\" id=\"btnsecondaire\"/></div></td>
-                    <td><div classe=\"envoi1\"><input type=\"submit\" name=\"ModifNote\" value=\"Annuler\" class=\"btn btn-primary\" id=\"btnsecondaire\"></div></td>
+                    <td><div class=\"envoi2\"><input type=\"button\" name=\"ModifNote\" value=\"Enregistrer\" class=\"btn btn-primary\" id=\"btnsecondaire\" onclick=\"javascript:validationHorsBon();\"/></div></td>
+                    <td><div classe=\"envoi1\"><input type=\"button\" name=\"ModifNote\" value=\"Annuler\" class=\"btn btn-primary\" id=\"btnsecondaire\" onclick=\"javascript:validationHorsBon();\"></div></td>
                 </tr>
             </table>  "  ;
             
@@ -154,38 +166,36 @@ session_start();
     </form>
 </div>
     
-
 <script type="text/javascript">
-
-        function suivant_connect(enCours, suivant, event) {
-            // Compatibilité IE / Firefox
-            if (!event && window.event) {
-                event = window.event;
-            }
-            keycode = event.which;
-            if (window.event) {
-                keycode = window.event.keyCode;
-            }
-            if (keycode == 13) {
-                document.formulaire[suivant].focus();
-            }
+            
+    function suivant_connect(enCours, suivant, event) {
+        // Compatibilité IE / Firefox
+        if (!event && window.event) {
+            event = window.event;
         }
-        function final_touch(event) {
-            var keycode;
-            keycode = event.which;
-            if (window.event) {
-                keycode = window.event.keyCode;
-            }
-            if (keycode == 13) {
-                validationHorsBon();
-            }
+        keycode = event.which;
+        if (window.event) {
+            keycode = window.event.keyCode;
         }
-        function validationHorsBon() {
-            alert('this form is submitted !:');
-            document.forms["horsBon"].submit();
+        if (keycode == 13) {
+            document.formulaire[suivant].focus();
         }
-
-    </script>
+    }
+    function final_touch(event) {
+        var keycode;
+        keycode = event.which;
+        if (window.event) {
+            keycode = window.event.keyCode;
+        }
+        if (keycode == 13) {
+            validationHorsBon();
+        }
+    }
+    function validationHorsBon() {
+        document.forms["formulaire"].submit();
+    }
+           
+</script>
 
 </body>
 </html>
