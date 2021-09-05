@@ -1,0 +1,68 @@
+.navbar-default{
+    opacity: 0.8;
+}
+.scroll-link{
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.582);
+}
+#eleve{
+    color: black;
+    font-size: 23px;
+  }
+  #floating-nav{
+    padding-left: 450px;
+}
+body{
+    background-image: url("ecole2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+
+}
+#details{ /* formulaire données personneles*/
+    padding-left: 200px;
+    display: flex;
+    justify-content: center;
+}
+.modifier{
+    margin-top: 70px;
+    width: 55%;
+    height: 270px;
+  
+    /*padding-left: 100px;*/
+}
+input {
+    font: 1em sans-serif;
+    width: 200px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    margin-top: 5px;
+  }
+  
+legend{
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:rgb(206, 54, 27);
+    font-weight: bold;
+}
+h3{
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:rgb(206, 54, 27);
+  font-weight: bold;
+  text-align: center;
+}
+#btnsecondaire{
+    background-color: green;
+    width: 100px;
+  }
+  #btnsecondaireModif{
+    background-color: green;
+    width: 100px;
+  }
+.label{
+    margin-top: 60px;
+    font-size: 15px;
+    color:whitesmoke;
+  
+  }
