@@ -29,7 +29,7 @@ session_start();
                             <span class="icon-bar"></span> 
                             <span class="icon-bar"></span>
                         </button>-->
-                <a class="navbar-brand scroll-top" href="#"><span id="admin">Administrations</span></a>
+                <a class="navbar-brand scroll-top" href="#"><span id="admin">Administration</span></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="hidden-nav">
@@ -141,7 +141,7 @@ session_start();
                             <td><input type="text" name="nom" id="nom" /></td>
                         </tr><br />
                         <tr>
-                            <td><span class="label">Prenom :</span></td>
+                            <td><span class="label">Prénom :</span></td>
                             <td><input type="text" name="prenom" id="prenom" /></td>
                         </tr>
                         <tr>
@@ -192,9 +192,9 @@ session_start();
             <h3>Liste des enseignants :</h3>
             <table class=\"table table-success\" id=\"tableEnseign\">
                     <thead>
-                        <tr class=\"success\">
+                        <tr class=\"danger\">
                             <th scope=\"col\">Id_Enseignant</th>
-                            <th scope=\"col\">Prenom</th>
+                            <th scope=\"col\">Prénom</th>
                             <th scope=\"col\">Nom</th>
                             <th scope=\"col\">Genre</th>
                             <th scope=\"col\">Email</th>
@@ -347,7 +347,7 @@ session_start();
 
                     <div class="modifier">
                         <fieldset>
-                            <legend>Ajoutez des Classes</legend>
+                            <legend>Gestion des Classes</legend>
                             <table>
                                 <tr>
                                     <td><span class="label">Niveau: </span></td>
@@ -452,7 +452,7 @@ session_start();
 
                         <div class="modifier">
                             <fieldset>
-                                <legend>Ajoutez des Matières</legend>
+                                <legend>Gestion des Matières</legend>
                                 <table>
                                     <tr>
                                         <td><span class="label">Niveau: </span></td>
@@ -466,7 +466,7 @@ session_start();
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><span class="label">libelle :</span></td>
+                                        <td><span class="label">libellé :</span></td>
                                         <td><input type="text" name="libelle" id="libelle" /></td>
                                     </tr><br />
                                     <tr>
@@ -587,7 +587,7 @@ session_start();
             <table class=\"table table-success\" id=\"tableMatiere\">
             <thead>
                 <tr class=\"danger\">
-                    <th scope=\"col\">Id_Matiere</th>
+                    <th scope=\"col\">Id_Matière</th>
                     <th scope=\"col\">Niveau</th>
                     <th scope=\"col\">Libellé</th>
                     <th scope=\"col\">Coefficient</th>
@@ -613,9 +613,9 @@ session_start();
     <thead>
         <tr class=\"danger\">
             <th scope=\"col\">Nom Enseignant</th>
-            <th scope=\"col\">Prenom Enseignant</th>
+            <th scope=\"col\">Prénom Enseignant</th>
             <th scope=\"col\">Classe</th>
-            <th scope=\"col\">Matiére</th>
+            <th scope=\"col\">Matière</th>
             <th scope=\"col\">Niveau</th>
             <th scope=\"col\">Coefficient</th>
             <th scope=\"col\">Année Scolaire</th>

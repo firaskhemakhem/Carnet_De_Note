@@ -7,7 +7,7 @@ session_start();
 
         <head>
 
-            <title> Eleve Page </title>
+            <title> Élève Page </title>
             <meta charset="utf-8">
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -17,17 +17,9 @@ session_start();
         <body>
             <nav class="nav-bg navbar navbar-floating navbar-default" role="navigation" id="floating-nav">
                 <div class="container navbar-default">
-                    <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
-                        <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#hidden-nav">
-                                    <span class="sr-only">Toggle navigation</span> 
-                                    <span class="icon-bar"></span> 
-                                    <span class="icon-bar"></span> 
-                                    <span class="icon-bar"></span>
-                                </button>-->
-                        <a class="navbar-brand scroll-top" href="#"><span id="eleve">Eleves</span></a>
+                        <a class="navbar-brand scroll-top" href="#"><span id="eleve">Élève</span></a>
                     </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="hidden-nav">
                         <ul class="nav navbar-nav">
                         <li class="active"><a href="../index.php" class="scroll-link" data-id="clients" ><span>Accueil</span></a></li>
@@ -78,7 +70,7 @@ session_start();
                                     <td><input type="text" name="nom" id="nom" /></td>
                                 </tr><br />
                                 <tr>
-                                    <td><span class="label">Prenom :</span></td>
+                                    <td><span class="label">Prénom :</span></td>
                                     <td><input type="text" name="prenom" id="prenom" /></td>
                                 </tr>
                                 <tr>

@@ -27,7 +27,7 @@ session_start();
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="../index.php" class="scroll-link" data-id="clients" ><span>Accueil</span></a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="slides" id="donnees"> <span class="linktext">Données Personnelles</span><span class="linktext" style="display:none">Données Personnelles</span> </a></li>
-                    <li class="active"><a href="#" class="scroll-link" data-id="about" id="eleves"><span class="linktext">Gestion Des Eleves</span><span class="linktext" style="display:none">Gestion Des Eleves</span> </a></li>
+                    <li class="active"><a href="#" class="scroll-link" data-id="about" id="eleves"><span class="linktext">Gestion Des Élèves</span><span class="linktext" style="display:none">Gestion Des Eleves</span> </a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="capabilities" id="notes"><span class="linktext">Gestion Des Notes</span><span class="linktext" style="display:none">Gestion Des Notes</span></a></li>
 
                                                <!--JQUERY-->
@@ -137,8 +137,8 @@ session_start();
                     <table class=\"table table-success\" id=\"tableEnseign\">
                         <thead>
                             <tr class=\"danger\">
-                                <th scope=\"col\">Id_Eleve</th>
-                                <th scope=\"col\">Prenom</th>
+                                <th scope=\"col\">Id_Élève</th>
+                                <th scope=\"col\">Prénom</th>
                                 <th scope=\"col\">Nom</th>
                                 <th scope=\"col\">Année Scolaire</th>
                                 <th scope=\"col\">Mot De Passe</th>
@@ -173,7 +173,7 @@ session_start();
                     <!--onsubmit="javascript:return validation(document.formulaire.nom,document.formulaire.prenom,document.formulaire.email);"-->
                     <div class="modifier">
                         <fieldset>
-                            <legend>Gestion des eleves</legend>
+                            <legend>Gestion des élèves</legend>
                             <table>
                                 <tr>
                                     <td><span class="label">Nom :</span></td>

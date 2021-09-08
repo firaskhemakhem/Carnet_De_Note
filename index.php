@@ -30,17 +30,16 @@ session_start();
                     <div class = "butt1" id="box-one"> 
                         <button id="but1" type="button" class="btn btn-primary" >Administration</button>
                     </div>
-                    <!--<button type="button" id="but1" class="btn btn-primary init"  onclick="window.location.href = 'Administration.php'">Administration</button>-->
                                         
                 </td>
                 <td >
                     <div class="butt2" id="box-two"> 
-                        <button id="but2" type="button" class="btn btn-primary">&nbsp;Enseignants&nbsp;</button>
+                        <button id="but2" type="button" class="btn btn-primary">&nbsp;Enseignant&nbsp;</button>
                     </div>
                 </td>
                 <td >
                     <div class="butt3" id="box-three">
-                        <button id="but3" type="button" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Eleves&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        <button id="but3" type="button" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Élève&nbsp;&nbsp;&nbsp;&nbsp;</button>
                     </div>
                 </td>
             </tr>

@@ -25,7 +25,7 @@ session_start();
 
             <div class="collapse navbar-collapse" id="hidden-nav">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php" class="scroll-link" data-id="clients" ><span>Accueil</span></a></li>
+                    <li class="active"><a href="../index.php" class="scroll-link" data-id="clients" ><span>Accueil</span></a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="slides" id="donnees"> <span class="linktext">Données Personnelles</span><span class="linktext" style="display:none">Données Personnelles</span> </a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="about" id="eleves"><span class="linktext">Gestion Des Eleves</span><span class="linktext" style="display:none">Gestion Des Eleves</span> </a></li>
                     <li class="active"><a href="#" class="scroll-link" data-id="capabilities" id="notes"><span class="linktext">Gestion Des Notes</span><span class="linktext" style="display:none">Gestion Des Notes</span></a></li>
@@ -64,8 +64,8 @@ session_start();
                 echo "<table class=\"table table-success table table-bordered\" id=\"tableEnseign\">
                     <thead>
                         <tr class=\"danger\">
-                            <th scope=\"col\">Id_Eleve</th>
-                            <th scope=\"col\">Nom et Prenom </th>";
+                            <th scope=\"col\">Id_Élève</th>
+                            <th scope=\"col\">Nom et Prénom </th>";
                 
                 $idEcole=$_SESSION['id_ecole'];
                 $test=$pdo->query('SELECT id_matiere FROM affectation WHERE id_ecole='."\"".$idEcole."\"".'AND id_enseignant='."\"".$_SESSION['id_enseignant']."\"".' AND id_classe='."\"".$_SESSION['id_classe']."\"");
